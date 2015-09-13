@@ -1,0 +1,26 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav">
+            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
+
+            <h1 class="title">个人充值</h1>
+        </header>
+        <div class="content pad50 grey" id="main_box">
+            <div class="cz_main">
+                <div class="cz_box">
+                    可用余额<br><span
+                        ng-if="userWallet.customer.cash == null || userWallet.customer.cash == 0">￥<i>0.00</i></span>
+                    <span>￥<i>{{userWallet.customer.cash|currency:''}}</i></span>
+                </div>
+                <div class="zhu_btn">
+                    <button class="btn btn-block btn-orange" ng-click="recharge();">充值余额(支付宝)</button>
+                    <input type="text" ng-model="conNum" placeholder="请输入要提现或充值的金额" ng-change="update('conNum' , conNum);"/>
+                    <button class="btn btn-block btn-orange2 btn-outlined hbg" ng-click="returnMoneyToBank();">提现余额到支付宝
+                    </button>
+                </div>
+                <img src="images/user/zhi.png" class="zfb">
+            </div>
+            <div id="pay_result" style="display: none;"></div>
+        </div>
+    </ion-content>
+</ion-view>

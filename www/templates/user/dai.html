@@ -1,0 +1,85 @@
+<ion-view title="现金贷">
+    <ion-content>
+        <header class="bar bar-nav">
+            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
+
+            <h1 class="title">现金贷</h1>
+        </header>
+        <div class="content pad50 grey" id="main_box">
+            <div class="white">
+                <section>
+                    <dl class="userinfor clearfix dai_user">
+                        <dt><img src="images/user/user.jpg"></dt>
+                        <dd>
+                            <p>{{timeMsg}}，<span>{{userInfo.real_name}}</span></p>
+
+                            <p ng-show="userInfo.user_status == 1" class="rez_p">用户已认证</p>
+
+                            <p ng-show="userInfo.user_status != 1" class="rez_p">待 认证</p>
+                        </dd>
+                    </dl>
+                </section>
+                <div class="jie_k pad10">
+                    <ul class="kuan_infor clearfix">
+                        <li>
+                            <h3 class="jie_tit">【当前借款】</h3>
+
+                            <p><i>{{userWallet.customer.used_credit|currency:'￥'}}</i></p>
+                        </li>
+                        <li>
+                            <h3 class="jie_tit">【信用额度】</h3>
+
+                            <p><i>{{userWallet.customer.credit_limit|currency:'￥'}}</i></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="jie_num pad10">
+                    <h3 class="jie_tit">【借款人数】</h3>
+
+                    <div class="num_show">
+                        <span>{{curApplyNum.num[7]}}</span>
+                        <span>{{curApplyNum.num[6]}}</span>
+                        <span>{{curApplyNum.num[5]}}</span>
+                        <span>{{curApplyNum.num[4]}}</span>
+                        <span>{{curApplyNum.num[3]}}</span>
+                        <span>{{curApplyNum.num[2]}}</span>
+                        <span>{{curApplyNum.num[1]}}</span>
+                        <span>{{curApplyNum.num[0]}}</span>
+                    </div>
+                </div>
+                <div class="jie_num pad10">
+                    <h3 class="jie_tit">【现金贷】</h3>
+
+                    <div class="kuan_box pad10">
+                        <div data-role="fieldcontain" class="demo-cont" id="demo_cont_select">
+                            <label for="demo_select">贷款金额：</label>
+                            <select name="Cities" id="demo_select" data-role="none" class="demo_select"
+                                    ng-model="curLoanPrice" ng-change="updateMonthPay([curPayMonth , curLoanPrice]);">
+
+                                <option ng-repeat="v in loanNum" ng-selected="v == 500" value="{{v}}">{{v}}</option>
+                            </select>
+                        </div>
+                        <div data-role="fieldcontain" class="demo-cont" id="demo_cont_select2">
+                            <label for="demo_select2">还款期数：</label>
+                            <select name="Cities" id="demo_select2" data-role="none" class="demo_select"
+                                    ng-model="curPayMonth" ng-change="updateMonthPay([curPayMonth , curLoanPrice]);">
+
+                                <option ng-repeat="v in monthNum" ng-selected="v == 12" value="{{v}}">{{v}}个月</option>
+                            </select>
+                        </div>
+                        <div data-role="fieldcontain" class="demo-cont" id="demo_cont_select2">
+                            <label for="demo_select2">支付宝号：</label>
+                            <input type="text" ng-model="alipayNo" ng-change="update('alipayNo' , alipayNo);"/>
+                        </div>
+                        <div data-role="fieldcontain" class="demo-cont" id="demo_cont_select3">
+                            <label for="demo_select2">支付密码：</label>
+                            <input type="password" ng-model="payPass" ng-change="update('payPass' , payPass);"/>
+                        </div>
+                        <p class="edu">每月还款额度：{{payPrice}}<span></span></p>
+                    </div>
+                    <button class="btn btn-orange btn-block" ng-click="commitLoan(alipayNo , payPass);">立即借贷</button>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

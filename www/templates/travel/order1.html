@@ -1,0 +1,95 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav orange">
+            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
+
+            <h1 class="title">订单填写</h1>
+        </header>
+        <div class="content pad50 grey" id="main_box">
+            <div class="hotel_order">
+                <h3>{{travelDetal.li.productname}}</h3>
+                <p>出发日期: {{dDate}}</p>
+                <h5>出游人数: {{adultNum}}成人</h5>
+                <h5><span>费用：<em class="color">{{(travelDetal.li.today_price * adultNum)|currency:'￥'}}</em></span></h5>
+                <!--<h5><span>订单价格:：<em class="color">分12期</em></span><span>月供：<em class="color">{{(travelDetal.today_price/12)|currency:'￥'}}</em></span></h5>-->
+            </div>
+            <section>
+                <div class="pla_or_main">
+                    <h3 class="pla_or_tit">游客信息</h3>
+                    <div class="ck_con">
+                        <dl class="ck_infor">
+                            <dt ng-click="update('adultNum' , adultNum - 1);"></dt>
+                            <dd>
+                                <form class="input-group">
+                                    <div class="input-row">
+                                        <label>成人数：</label>
+                                        <input type="text" placeholder="成人数" ng-model="adultNum">
+                                    </div>
+                                </form>
+                            </dd>
+                        </dl>
+                    </div>
+                    <p class="addxck" ng-click="update('adultNum' , adultNum + 1);">添加新游客</p>
+                </div>
+                <div class="index_box plane_order2">
+                    <h3>紧急联系人</h3>
+                    <div class="input-row">
+                        <label>姓名</label>
+                        <input type="text" placeholder="必填" ng-model="urgency.name">
+                    </div>
+                    <div class="input-row">
+                        <label>联系电话</label>
+                        <input type="email" placeholder="必填" ng-model="urgency.phone">
+                    </div>
+                </div>
+                <div class="pla_or_main">
+                    <h3 class="pla_or_tit">联系人信息</h3>
+                    <dl>
+                        <dt></dt>
+                        <dd>
+                            <form class="input-group">
+                                <div class="input-row">
+                                    <label>姓名</label>
+                                    <input type="text" placeholder="必填" ng-model="user.name">
+                                </div>
+                                <div class="input-row">
+                                    <label>联系电话</label>
+                                    <input type="email" placeholder="必填" ng-model="user.phone">
+                                </div>
+                                <div class="input-row">
+                                    <label>邮箱</label>
+                                    <input type="email" placeholder="必填" ng-model="user.email">
+                                </div>
+                                <div class="input-row">
+                                    <label>身份证</label>
+                                    <input type="email" placeholder="必填" ng-model="user.idcard">
+                                </div>
+                                <div class="input-row">
+                                    <label>英文名</label>
+                                    <input type="email" placeholder="必填" ng-model="user.enname">
+                                </div>
+                            </form>
+                        </dd>
+                    </dl>
+                </div>
+            </section>
+        </div>
+        <div class="plane_total clearfix">
+            <div class="pull-left">
+                <p><em>总额<span>{{(travelDetal.li.today_price*adultNum)|currency:'￥'}}</span></em><em><span>{{adultNum}}</span>成人</em></p>
+            </div>
+        </div>
+        <div class="mask"></div>
+        <div class="plane_pri">
+            <p class="hk_infor">7月21日，周二出发</p>
+            <div class="pri_infor">
+                <p class="clearfix"><span>成人价：</span><em>{{travelDetal.li.today_price*adultNum|currency:'￥'}}×1</em></p>
+            </div>
+        </div>
+
+        <div class="pull-right">
+            <span class="feiy">费用明细</span>
+            <a href="#/tab/travel-order2" class="btn btn-orange">下一步</a>
+        </div>
+    </ion-content>
+</ion-view>

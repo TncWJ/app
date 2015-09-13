@@ -1,0 +1,83 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav orange">
+            <a class="icon icon-left-nav pull-left" ng-click="changeTpl('plane.html');"></a>
+            <h1 class="title">{{dCity}}——{{aCity}}</h1>
+        </header>
+        <div class="content" id="main_box">
+            <section>
+                <div class="chooze_time">
+                    <div class="calender">
+                        <img src="images/rlicon.jpg">
+                        <h4>低价日历</h4>
+                    </div>
+                    <div class="timetab">
+                        <div class="timeMain">
+                            <div class="prev">
+                                <span class="icon icon-left-nav"></span>
+                            </div>
+                            <div class="timetabCon">
+                                <ul class="clearfix">
+                                    <li ng-repeat="v in lowPriceList">
+                                        <p><span>{{v.minprice|currency:'￥'}}</span>起</p>
+                                        <p>
+                                            {{v.departdate}}<em>{{v.day}}</em>
+                                        </p>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="next">
+                                <span class="icon icon-right-nav"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <span ng-if="flightList.count == 0">当前未找到匹配的航班</span>
+                <ul class="plane_list">
+                    <li ng-repeat="v in flightList.data">
+                        <a href="#" ng-click="searchSeat($index);">
+                            <div class="listone">
+                                <div class="add_plane">
+                                    <div class="addbox1">
+                                        <h3>{{v.taskOffTime}}</h3>
+                                        <p>{{v.arriveAirport}}</p>
+                                    </div>
+                                    <div class="addbox2">
+                                        <img src="images/plane_icon2.jpg">
+                                    </div>
+                                    <div class="addbox1">
+                                        <h3>{{v.arrivetime}}</h3>
+                                        <p>{{v.departAirport}}</p>
+                                    </div>
+                                </div>
+                                <p class="hk_list"><img src="images/plane_icon.jpg">{{v.airLineName}} {{v.flightNo}}<em>|</em>{{v.seatList[0].seatMsg}}</p>
+                            </div>
+                            <div class="listtwo">
+                                <h3>{{v.price|currency:'￥'}}</h3>
+                                <p>分<span>12</span>期</p>
+                                <p>月供<span>{{v.monthPay|currency:'￥'}}</span></p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <nav class="bar bar-tab plane_foo">
+            <a class="tab-item" href="#">
+                <span class="icon"  ng-click="changeTpl(');"></span>
+                <span class="tab-label">筛选</span>
+            </a>
+            <a class="tab-item" href="#">
+                <span class="icon" ng-click="sortFlightList('sTime' , 'TakeOffTime');"></span>
+                <span class="tab-label" >时间</span>
+            </a>
+            <a class="tab-item active" href="#">
+                <span class="icon" ng-click="sortFlightList('sPrice' , 'OurPrice');"></span>
+                <span class="tab-label">票价由高到低</span>
+            </a>
+        </nav>
+    </ion-content>
+</ion-view>

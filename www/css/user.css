@@ -1,0 +1,165 @@
+.card.userquan{border:none;}
+.quan .quanbox{background:#f84c4c;width:47%;height:100px;color:#fff;padding:0px 5px;float:left;margin:5px 5% 5px 0px;position:relative;}
+.quan .maskgq{width:100%;height:100%;position:absolute;top:0px;left:0px;background:rgba(255,255,255,0.5);}
+.quan .maskgq p{font-size:20px;text-align:center;line-height:100px;overflow:hidden;}
+.quan .quanbox:nth-child(2n){margin-right:0px;}
+.quan_top{height:30px;overflow:hidden;}
+.quan_top dt{font-size:20px;float:left;font-weight:bold;line-height:30px;}
+.quan_top dt span{font-size:24px; vertical-align:top;}
+.quan_top dd{float:left;font-size:14px;margin-top:5px;margin-left:10px;}
+.quanbot h5{font-size:12px;margin-bottom:5px;}
+.quanbot p{color:#fff;font-size:12px;}
+.segmented-control.quantit{height:35px;padding:0px;border:none;}
+.segmented-control.quantit .control-item{line-height:35px;padding:0px;border-bottom:1px solid #ddd;}
+.segmented-control.quantit .control-item.active{border-bottom:2px solid #f60;background:none;height:34px;color:#f60;}
+/*登陆*/
+.bar .icon.reg{font-size:17px;color:#f60; text-decoration:underline;line-height:44px;padding:0px;}
+.input-group.login{padding:10px;background:#f4f4f4;}
+.input-group.login div.input-row{border:1px solid #ddd;margin-top:10px;background:#fff;box-shadow:1px 1px 3px #ccc;}
+.input-group.login div.input-row label{border-right:1px solid #ddd;padding:0px 0px 0px 5px;line-height:25px;margin:10px 0px;width:20%;text-align:center;color:#333;}
+.input-group.login div.input-row input{width:75%;height:45px;}
+.loginbtn{margin-top:30px;}
+.input-group .wangpass{text-align:right;}
+.input-group .wangpass a{text-decoration:underline;color:#858585;}
+.input-yzm{width:75%;float:left;}
+.input-group.login div.input-row.input-yzm label{width:30%;}
+.input-group.login div.input-row.input-yzm input{width:65%;}
+.yzm-img{width:23%;float:right;margin-top:12px;height:40px;}
+/*修改密码*/
+.input-group.chpass{margin-top:10px;border-top:1px solid #ddd;background:#f4f4f4;}
+.input-group.chpass input[type="text"],.input-group.chpass input[type="password"]{text-align:right;height:45px;}
+.input-group.chpass div.input-row{border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;background:#fff;}
+.input-group.chpass div.input-row label{color:#333;line-height:25px;margin:10px 0px;padding:0px 0 0 10px;}
+/*安全中心*/
+.userinfor{padding:10px;margin:10px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd;background:#fff;}
+.userinfor dt{width:90px;height:90px;float:left;margin-right:10px;}
+.userinfor dt img{width:100%;height:auto;}
+.userinfor dd{padding-top:15px;}
+.userinfor dd p{color:#333;font-size:15px;font-weight:bold;}
+.usersafe .table-view-cell{color:#333;}
+.usersafe .table-view-cell span{margin-left:10px;color:#858585;}
+.usersafe .table-view-cell em{color:#F00;}
+.usersafe.userinCon .table-view-cell em{color:#999;}
+/*注册*/
+.tx_bz{padding:10px;height:70px;}
+.tx_bz li{height:50px;width:33.3%;float:left;text-align:center;position:relative;padding-top:10px;}
+.tx_bz li div{width:100%;height:5px;background:#c4c4c4;}
+.tx_bz li.on div{background:#f60;}
+.tx_bz li span{line-height:25px;width:25px;height:25px;color:#fff;background:url(../images/user/bz_icon2.png);display:block;background-size:25px;position:absolute;top:0px;left:0px;right:0px;margin:0 auto;}
+.tx_bz li.on span{background:url(../images/user/bz_icon.png);background-size:25px;}
+.tx_bz li p{margin-top:12px;}
+.tx_bz li.on p{color:#f60;}
+input[type="button"].yzmbtn{background:#e2e2e2;border-radius:3px;-webkit-border-radius:3px;-moz-border-radius:3px;color:#333;margin-bottom:10px;}
+.reg_succ{width:80%;padding:30px 0px;margin:0 auto;}
+.reg_succ img{display:block;margin:0 auto;width:30%;height:auto;margin-bottom:10px;}
+.reg_succ .btn{margin-top:50px;}
+.reg_succ p{text-align:center;}
+/*个人资料*/
+.usertou{margin-top:10px;margin-bottom:10px;}
+.usersafe.userinCon .table-view-cell em.icon{color:#d9d9d9;}
+.usersafe.userinCon input{border:none;display:inline-block;width:70%;margin:0px;height:18px;overflow:hidden;float:right;text-align:right;padding:0px;color:#858585;}
+/*订单*/
+.orderbot{text-align:right;padding:5px 10px;}
+.card.orderlist{background:none;border:none;border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;margin:0px;}
+.card.orderlist .table-view{background:none;line-height:20px;}
+.card.orderlist .table-view h3{color:#333;margin:0px;line-height:20px;}
+.card.orderlist .table-view p{margin:0px;}
+.orderCon li{border-top:1px solid #ddd;border-bottom:1px solid #ddd;margin-top:10px;background:#fff;}
+.segmented-control.ordertit{border:none;border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;}
+.segmented-control.ordertit .control-item{background:#f8f8f8;border-bottom:1px solid #ddd;height:35px;line-height:35px;margin:0px;padding:0px;font-size:14px;}
+.segmented-control.ordertit .control-item.active{background:#f8f8f8;font-weight:bold;border-bottom:2px solid #f60;height:34px;color:#f60;}
+/*现金贷*/
+.dai_user p span{color:#f60;}
+.dai_user .rez_p{font-size:12px;}
+.jie_tit{color:#333;font-size:14px;}
+.jie_k{border-bottom:1px solid #ddd;}
+.kuan_infor li{width:50%;float:left;}
+.kuan_infor li p{color:#f60;}
+.kuan_infor li p i{font-size:20px;margin-left:5px;line-height:20px;overflow:hidden;}
+.jie_num .num_show{text-align:center;padding-top:10px;}
+.jie_num .num_show span{width:40px;height:42px;background:url(../images/user/num_icon.jpg); background-size:40px 42px;display:inline-block;text-align:center;line-height:40px;color:#f60;font-size:20px;}
+.kuan_box{margin:10px 20px;}
+.kuan_box .edu{color:#f60;font-size:14px;}
+.kuan_box label{color:#333;font-size:14px;}
+/*资料认证*/
+.userrzhao a.navigate-right{padding-top:15px;padding-bottom:15px;}
+/*充值*/
+.cz_main{padding:20px;}
+.cz_main .zfb{display:block;margin:30px auto 0;}
+.cz_main .cz_box{width:150px;height:150px;background:url(../images/user/circle.png);background-size:150px;margin:0 auto 30px;text-align:center;padding-top:40px;font-size:16px;color:#333;line-height:30px;}
+.cz_main .cz_box span{color:#f60;font-size:12px;}
+.cz_main .cz_box span i{font-size:18px;}
+.cz_main .shuom{margin:20px 0px 20px;}
+.cz_main .shuom h3{color:#f60;font-weight:15px;}
+/*认证*/
+.rz_box{padding:50px 0px;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
+.rz_box dl{width:300px;margin:0 auto;height:80px;}
+.rz_box dt{width:80px;height:80px;float:left;margin-right:20px;}
+.rz_box dd h3{font-size:18px;color:#f60;font-weight:normal;padding-top:20px;}
+/*个人中心*/
+.user_m_top{background:url(../images/user/user_bg.jpg);height:180px;background-size:cover;color:#fff;padding:10px;}
+.user_m_top .bar-tab{border:none;height:30px;}
+.user_m_top h1.title{color:#fff;line-height:24px;}
+.user_m_top .email{width:20px;height:16px;background:url(../images/user/usericon12.png);background-size:20px 16px;display:block;}
+.user_m_top .tou_infor{width:100px;height:auto;margin:0 auto 10px;}
+.user_m_top .tou_infor dt img{width:80px;height:80px;margin:0 auto;display:block;}
+.user_m_top .tou_infor p{color:#fff;margin:0 auto;text-align:center;line-height:20px;}
+.user_m_top .tou_infor p.num{color:#fff;font-size:16px;}
+.zhuc{margin-top:5px;}
+.lorr{margin-top:10px;display:none;}
+.lorrbtn{width:100px;height:25px;background:url(../images/user/login_bg.png);background-size:100px 25px;display:block;text-align:center;line-height:25px;color:#fff;font-size:15px;}
+.user_xq{width:100%;position:relative;}
+.r_span{width:60px;height:20px;background:url(../images/user/rz_icon2.png);background-size:60px 20px;display:block;position:absolute;right:50%;margin-right:-120px;top:0px;}
+a.lorrbtn:link,a.lorrbtn:visited,a.lorrbtn:hover,a.lorrbtn:active{color:#fff;}
+.r_span.ren{background:url(../images/user/rz_icon.png);background-size:60px 20px;}
+.dai_link .segmented-control{margin-bottom:10px;border:none;padding:5px 0;}
+.dai_link .segmented-control a span{width:25px;height:20px;display:inline-block; vertical-align:middle;margin-right:5px;}
+.dai_link .segmented-control a.daiz span{background:url(../images/user/user_icon.jpg);background-size:25px 20px;}
+.dai_link .segmented-control a.daih span{background:url(../images/user/user_icon2.jpg);background-size:25px 20px;}
+.dai_link .segmented-control a.dair span{background:url(../images/user/user_icon3.jpg);background-size:25px 20px;}
+.dai_link .segmented-control a.dair.ren span{background:url(../images/user/user_icon13.jpg);background-size:25px 20px;}
+.userinCon span.icon_left{width:20px;height:20px;display:block;margin:0px 5px 0 0;}
+.userinCon .ding span.icon_left{background:url(../images/user/user_icon4.jpg);background-size:20px}
+.userinCon .shou span.icon_left{background:url(../images/user/user_icon5.jpg);background-size:20px}
+.userinCon .zhi span.icon_left{background:url(../images/user/user_icon6.jpg);background-size:20px}
+.userinCon .quan span.icon_left{background:url(../images/user/user_icon7.jpg);background-size:20px}
+.userinCon .zhang span.icon_left{background:url(../images/user/user_icon8.jpg);background-size:20px}
+.userinCon .zi span.icon_left{background:url(../images/user/user_icon9.jpg);background-size:20px}
+.userinCon .an span.icon_left{background:url(../images/user/user_icon10.jpg);background-size:20px}
+.userinCon .ke span.icon_left{background:url(../images/user/user_icon11.jpg);background-size:20px}
+.user_list.usersafe.userinCon .table-view-cell em{color:#333;}
+.table-view-cell .table_num{position:absolute;right:65px;top:10px;}
+/*我的账单*/
+.huan_zh img.media-object {width:120px;height:90px;}
+.huan_zh .media-body dl{display:-moz-box;display:-webkit-box;display:box;width:100%;}
+.huan_zh .media-body dt{-moz-box-flex:1;-webkit-box-flex:1;box-flex:1;}
+.huan_zh .media-body dt h3{color:#333;margin-bottom:0px;margin-top:10px;}
+.huan_zh .media-body dt p{margin-top:10px;margin-bottom:0px;line-height:20px;}
+.huan_zh .media-body dt p span{margin-right:20px;}
+.huan_zh .media-body dt p span i{color:#F60;}
+.huan_zh .media-body dd{text-align:right;width:50px;}
+.huan_zh .media-body dd h5{margin-top:10px;color:#f60;}
+.huan_zh .media-body dd .btn{height:20px;line-height:20px;padding:0px 5px;margin-top:20px;}
+@media screen and (max-width: 390px) {
+.quanbot h5{font-size:10px;margin-bottom:0px;}
+.quanbot p{color:#fff;font-size:10px;}
+.userinfor dt{width:70px;height:70px;float:left;}
+.userinfor dd{padding-top:10px;}
+.userinfor dd p{font-size:13px;margin-bottom:5px;}
+.usersafe .table-view-cell{padding-right:40px;}
+.usersafe .table-view-cell>a:not(.btn){margin-right:-40px;}
+.table-view-cell .table_num{right:40px;}
+.tx_bz li div{height:3px;}
+.tx_bz li span{line-height:18px;width:18px;height:18px;background-size:18px;top:3px;}
+.tx_bz li.on span{background-size:18px;}
+.jie_num .num_show span{width:30px;height:31px; background-size:30px 31px;line-height:30px;}
+.cz_main .cz_box{width:120px;height:120px;background-size:120px;padding-top:30px;font-size:16px;line-height:30px;}
+.cz_main .zfb{width:100px;height:28px;}
+.rz_box dl{width:210px;margin:0 auto;height:80px;}
+.rz_box dt{width:60px;height:60px;margin-right:10px;}
+.rz_box dd h3{font-size:15px;padding-top:10px;}
+.huan_zh img.media-object{width:90px;height:70px;}
+.huan_zh .media-body dt h3{margin-top:5px;}
+.huan_zh .media-body dt p{font-size:12px;margin-top:5px;line-height:16px;overflow:hidden;}
+.huan_zh .media-body dd .btn{font-size:12px;}
+	}

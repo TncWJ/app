@@ -1,0 +1,58 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav">
+            <a class="icon icon-left-nav pull-left" ng-click="changeTpl('limitActivate1.html');"></a>
+
+            <h1 class="title">学籍信息</h1>
+        </header>s
+        <div class="content pad50 grey" id="main_box">
+            <form class="input-group chpass">
+                <div class="input-row border_radius">
+                    <label>学校所在地</label>
+                    <input type="text" placeholder="如：深圳市" ng-model="userRz.schoolRool.place">
+                </div>
+                <div class="input-row border_radius">
+                    <label>所在大学</label>
+                    <input type="text" placeholder="请输入您所在的大学名称" ng-model="userRz.schoolRool.name">
+                </div>
+                <div class="input-row border_radius">
+                    <label>学院全称</label>
+                    <input type="text" placeholder="请输入您所在的学院名称" ng-model="userRz.schoolRool.academy">
+                </div>
+                <div class="input-row border_radius">
+                    <label>专业全称</label>
+                    <input type="text" placeholder="请输入您所在的专业名称" ng-model="userRz.schoolRool.major">
+                </div>
+                <div class="input-row border_radius">
+                    <label>班级</label>
+                    <input type="text" placeholder="请输入您所在的班级名称" ng-model="userRz.schoolRool.classNo">
+                </div>
+                <div class="input-row border_radius">
+                    <label>完整宿舍地址</label>
+                    <input type="text" value="12912989" placeholder="请输入您的宿舍完整地址" ng-model="userRz.schoolRool.dormDir">
+                </div>
+                <div class="input-row border_radius">
+                    <label>学历</label>
+                    <input type="text" placeholder="请输入您的学历" ng-model="userRz.schoolRool.studentBack">
+                </div>
+                <div class="input-row border_radius">
+                    <label>入学年份</label>
+                    <input type="text" placeholder="请输入您所在的入学年份" ng-model="userRz.schoolRool.year">
+                </div>
+                <div class="input-row border_radius">
+                    <label>学号</label>
+                    <input type="text" ng-model="userRz.schoolRool.studentNo" placeholder="请输入您的学号">
+                </div>
+                <div class="input-row border_radius">
+                    <label>学信网账号</label>
+                    <input type="text" ng-model="userRz.schoolRool.xuexin.username" placeholder="请输入您的学信帐号">
+                </div>
+                <div class="input-row border_radius">
+                    <label>学信网密码</label>
+                    <input type="password" ng-model="userRz.schoolRool.xuexin.userpass" placeholder="请输入您的学信密码">
+                </div>
+            </form>
+            <div class="zhu_btn pad10"><a href="#" class="btn btn-block btn-orange" ng-click="userRzCenter(2);">确认</a></div>
+        </div>
+    </ion-content>
+</ion-view>

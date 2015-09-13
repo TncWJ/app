@@ -1,0 +1,38 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav orange">
+            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
+            <a class="pull-right top_edit top_txt">编辑</a>
+
+            <h1 class="title">全部收藏</h1>
+        </header>
+        <div class="content" id="main_box">
+            <section>
+                <div class="travel_list">
+                    <div class="control-content active">
+                        <ul class="table-view">
+                            <li class="table-view-cell media nopa user_sc" ng-repeat="v in userCollect.content.travel">
+                                <div class="dele_ch"><span></span></div>
+                                <a class="navigate-right noma" href="#">
+                                    <img class="media-object pull-left" src="images/travel_img.jpg">
+
+                                    <div class="media-body">
+                                        <h4>{{v.productname}}</h4>
+                                        <h6><em>{{v.today_price|currency:'￥'}}</em>起</h6>
+
+                                        <p>
+                                            <span>月供<em>{{(v.today_price/12)|currency:'￥'}}</em></span><span>分<em>12</em>期</span>
+                                        </p>
+                                    </div>
+                                </a>
+
+                                <div class="sc_mask"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <div class="sc_dele_btn btn  btn-block">清空</div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,86 @@
+<ion-view title="酒店查找">
+    <ion-content>
+        <div class="content grey" id="main_box">
+            <div class="hotel_search">
+                <ul class="table-view">
+                    <li class="table-view-cell media">
+                        <a class="navigate-right" href="#/tab/hotel-choose">
+                            <span class="media-object pull-left icon cheng"></span>
+                            <em class="pull-right">{{place.city}}</em>
+                            <div class="media-body">
+                                入住城市
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="table-view">
+                    <li class="table-view-cell media">
+                        <a class="navigate-right">
+                            <div class="hotel_date">
+                                <dl>
+                                    <dt></dt>
+                                    <dd>
+                                        入住日期
+                                        <input id="demo" ng-model="today" type="text" time="0" ng-change="update('today' , today);"/>
+                                    </dd>
+                                </dl>
+                                <p class="line"></p>
+                                <dl>
+                                    <dt></dt>
+                                    <dd>
+                                        离店日期
+                                        <input id="demo2" ng-model="tomorrow" type="text" time="0" ng-change="update('today' , today);"/>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="table-view">
+                    <li class="table-view-cell media">
+                        <a class="navigate-right" href="#" ng-click="getAreasAndZones();">
+                            <span class="media-object pull-left icon guan"></span>
+                            <em class="pull-right" ng-if="curAreasName == '' && curZonesName == '' && curbandsName == '' ">不限</em>
+                            <em class="pull-right">{{curAreasName}}{{curZonesName}}{{curbandsName}}</em>
+                            <div class="media-body">
+                                位置/商圈/品牌
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="table-view">
+                    <li class="table-view-cell media xinj">
+                        <a class="navigate-right">
+                            <span class="media-object pull-left icon xin"></span>
+                            <em class="pull-right">不限</em>
+                            <div class="media-body">
+                                星级/价格
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="searchBtn pad10">
+                    <a href="#" class="btn btn-block btn-orange" ng-click="search();">搜索</a>
+                </div>
+            </div>
+        </div>
+        <div class="mask"></div>
+        <div class="botphone popover2">
+            <div class="bot_select select_fu">
+                <h3>星级（复选）</h3>
+                <div class="bot_select_con  clearfix">
+                    <span class="buxi on" ng-click="updateSearch('star' , [-1]);">不限</span><span ng-click="updateSearch('star' , 1 , true);">二星级以下</span><span ng-click="updateSearch('star' , 3 , true);">三星/舒适</span><span ng-click="updateSearch('star' , 4 , true);">四星/高档</span><span ng-click="updateSearch('star' , 5 , true);">五星/豪华</span>
+                </div>
+            </div>
+            <div class="bot_select select_dan">
+                <h3>价格（单选）</h3>
+                <div class="bot_select_con  clearfix">
+                    <span class="buxi on" ng-click="updateSearch('price' , [{go:-1 , end:-1}]);">不限</span><span ng-click="updateSearch('price' , {go:0 , end:150} , true);">￥150以下</span><span ng-click="updateSearch('price' , {go:150 , end:300} , true);">￥150-300</span><span ng-click="updateSearch('price' , {go:301 , end:450} , true);">￥301-450</span><span ng-click="updateSearch('price' , {go:451 , end:550} , true);">￥451-550</span><span ng-click="updateSearch('price' , {go:551 , end:700} , true);">￥551-700</span><span ng-click="updateSearch('price' , {go:701 , end:1000} , true);">￥701-1000</span><span ng-click="updateSearch('price' , {go:1000 , end:-1} , true);">￥1000以上</span>
+                </div>
+            </div>
+            <div class="pad10">
+                <a class="publicbtn btn btn-block btn-orange hotel_sure" id="#hotel_sure">确定</a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

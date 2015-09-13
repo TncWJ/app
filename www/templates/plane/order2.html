@@ -1,0 +1,68 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav orange">
+            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
+
+            <h1 class="title">订单详情</h1>
+        </header>
+        <div class="content pad50 grey" id="main_box">
+            <div class="plane_cw plane_order">
+                <section>
+                    <div class="plane_infor">
+                        <p class="hk_infor">{{today}}，{{curDay}}出发</p>
+                        <div class="add_plane pad10">
+                            <div class="addbox1">
+                                <h3>{{dCity}}</h3>
+                                <h5>{{orderInfo.flight.takeofftime}}</h5>
+
+                                <p>{{orderInfo.flight.aairportname}}</p>
+                            </div>
+                            <div class="addbox2">
+                                <img src="images/plane_icon3.jpg"/>
+                            </div>
+                            <div class="addbox1">
+                                <h3>{{aCity}}</h3>
+                                <h5>{{orderInfo.flight.arrivetime}}</h5>
+
+                                <p>{{orderInfo.flight.dairportname}}</p>
+                            </div>
+                        </div>
+                        <p class="hk_list"><img src="images/plane_icon.jpg">{{moreSeat.airLineName}} {{orderInfo.flight.flightno}}<em>|</em>{{orderInfo.flight.seatmsg}}</p>
+                    </div>
+                </section>
+            </div>
+            <section>
+                <div class="index_box plane_order2">
+                    <h3>订单信息</h3>
+                    <ul class="table-view">
+                        <li class="table-view-cell"><span>订单状态</span><em class="color">未付款</em></li>
+                        <li class="table-view-cell"><span>订单编号</span><em>2130981098</em></li>
+                        <li class="table-view-cell">
+                            <p><span>应付金额</span><em class="color">￥340</em></p>
+                            <p><span>分<em class="color">10</em>期</span><span>月供<em class="color">￥30</em></span></p>
+                        </li>
+                        <li class="table-view-cell"><span>下单时间</span><em>2015-07-18</em></li>
+                        <li class="table-view-cell"><span>出发时间</span><em>2015-07-18 14:33</em></li>
+                    </ul>
+                </div>
+                <div class="index_box plane_order2">
+                    <h3>乘机人信息</h3>
+                    <ul class="table-view">
+                        <li class="table-view-cell"><span>乘客姓名</span><em class="color">张三</em></li>
+                        <li class="table-view-cell"><span>身份证号</span><em>213891277198893981</em></li>
+                    </ul>
+                </div>
+                <div class="index_box plane_order2">
+                    <h3>联系人信息</h3>
+                    <ul class="table-view">
+                        <li class="table-view-cell"><span>联系人姓名</span><em class="color">张三</em></li>
+                        <li class="table-view-cell"><span>手机号码</span><em>1231313123</em></li>
+                    </ul>
+                </div>
+            </section>
+            <div class="pla_pay_btn">
+                <a href="#" class="btn btn-block btn-orange" ng-click="createPlaneOrder();">立即支付</a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

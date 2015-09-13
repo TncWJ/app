@@ -1,0 +1,64 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav">
+            <a class="icon icon-left-nav pull-left"></a>
+
+            <h1 class="title">学籍信息</h1>
+        </header>
+        <div class="content pad50 grey" id="main_box">
+            <ul class="tx_bz">
+                <li>
+                    <div></div>
+                    <span>1</span>
+
+                    <p>填写学籍信息</p>
+                </li>
+                <li class="on">
+                    <div></div>
+                    <span>2</span>
+
+                    <p>填写证件信息</p>
+                </li>
+                <li>
+                    <div></div>
+                    <span>3</span>
+
+                    <p>认证成功</p>
+                </li>
+            </ul>
+            <!--更改地址-->
+            <form action="http://test.letyoufun.com/AppServer/User/doactive_step3" method="post">
+                <ul class="table-view usersafe userinCon userrzhao">
+                    <li class="table-view-cell">
+                        <p>
+                            <input type="file" name="id_card_pic1" id="idcard_1"/>
+                            身份证正面照</p>
+                    </li>
+                    <li class="table-view-cell">
+                        <p>
+                            <input type="file" name="id_card_pic2" id="idcard_2"/>
+                            身份证背面照</p>
+                    </li>
+                    <li class="table-view-cell">
+                        <p>
+
+                            <input type="file" name="id_card_hand" id="idcard_3"/>
+                            手持身份证照
+                        </p>
+                    </li>
+                    <li class="table-view-cell">
+                        <p>
+                            <input type="file" name="student_card_pic" id="idcard_4"/>
+                            学生证
+                        </p>
+                    </li>
+                </ul>
+
+                <div class="zhu_btn pad10">
+                    <input type="submit" value="上传" class="btn btn-block btn-orange"/>
+                </div>
+            </form>
+
+        </div>
+    </ion-content>
+</ion-view>

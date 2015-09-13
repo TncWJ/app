@@ -1,0 +1,32 @@
+<ion-view title="登陆">
+    <ion-content>
+        <header class="bar bar-nav">
+            <a class="icon icon-left-nav pull-left"></a>
+            <!--<h1 class="title">登录</h1>-->
+        </header>
+        <div class="content pad50 grey" id="main_box">
+            <form class="input-group login">
+                <div class="input-row border_radius">
+                    <label>账 号</label>
+                    <input type="text" placeholder="请输入您的手机号" ng-model="username">
+                </div>
+                <div class="input-row border_radius">
+                    <label>密 码</label>
+                    <input type="password" placeholder="请输入您的密码" ng-model="password">
+                </div>
+                <div class="input-row border_radius input-yzm">
+                    <label>验证码</label>
+                    <input type="text" placeholder="请输入验证码" ng-model="checkCode">
+                    <img ng-click="getCheckCode();" ng-src="{{checkCodeSrc}}" alt="" class="yzm-img" style="float: left;"/>
+                </div>
+                <img ng-click="getCheckCode();" ng-src="{{checkCodeSrc}}" alt=""/>
+                <button class="btn btn-block btn-orange loginbtn" ng-click="doLogin(username , password , checkCode);">
+                    登陆
+                </button>
+                <p class="wangpass"><a href="#">忘记密码</a></p>
+
+                <p class="wangpass"><a href="#/tab/user-reg1">还没有帐号？注册一个吧！</a></p>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>

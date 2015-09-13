@@ -1,0 +1,65 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav orange">
+            <a class="icon icon-left-nav pull-left" ng-click="changeTpl('hotelList.html');"></a>
+
+            <h1 class="title">订单填写</h1>
+        </header>
+
+        <div class="content pad50 grey" id="main_box">
+            <div class="hotel_order">
+                <h3>{{hotelOrderInfo.hotel.hotelname}}</h3>
+                <p>{{hotelOrderInfo.room.roomtypename}}</p>
+                <h5><span>入住：<em>{{hotelOrderInfo.checkindate}}</em></span><span>离店：<em>{{hotelOrderInfo.checkoutdate}}</em><em>共：{{hotelOrderInfo.TotalDays}}晚</em></span></h5>
+                <p>{{hotelOrderInfo.room.ratelist[0].breakfast ? '含早餐' : '无早餐'}}</p>
+                <h5><span>费用：<em class="color">{{hotelOrderInfo.TotalPrice|currency:'￥'}}</em></span></h5>
+                <h5><span>分期：<em class="color">分{{hotelOrderInfo.DefaultStage}}期</em></span><span>月供：<em class="color">{{hotelOrderInfo.RefundEachMonth|currency:'￥'}}</em></span></h5>
+            </div>
+            <section>
+                <div class="pla_or_main">
+
+                    <form class="input-group">
+                        <div class="input-row">
+                            <label>房间数</label>
+                            <input type="text" placeholder="必填" ng-model="order.roomNum" ng-change="update('order.roomNum' , order.room);">
+                        </div>
+                        <div class="input-row">
+                            <label>入住人</label>
+                            <input type="text" placeholder="必填一位入住人的姓名" ng-model="order.name"  ng-change="update('order.name' , order.name);">
+                        </div>
+                    </form>
+                </div>
+                <div class="pla_or_main">
+
+                    <form class="input-group">
+                        <div class="input-row">
+                            <label>最晚到店时间</label>
+                            <input type="text" placeholder="必填" id="demo" ng-model="order.lastTime" ng-change="update('order.lastTime' , order.lastTime);">
+                        </div>
+                        <div class="input-row">
+                            <label>预订人手机</label>
+                            <input type="text" value="1323232" ng-model="order.phone"   ng-change="update('order.phone' , order.phone);">
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <div class="plane_total clearfix">
+            <div class="pull-left">
+                <p><em>总额<span>{{hotelOrderInfo.TotalPrice|currency:'￥'}}</span></p>
+                <p><em>分<span>{{hotelOrderInfo.DefaultStage}}期</span></em><em>月供<span>{{hotelOrderInfo.RefundEachMonth|currency:'￥'}}</span></em></p>
+            </div>
+            <div class="pull-right">
+                <span class="feiy">费用明细</span>
+                <a href="#" class="btn btn-orange" ng-click="checkOrderTable();">下一步</a>
+            </div>
+        </div>
+        <div class="mask"></div>
+        <div class="plane_pri">
+            <p class="hk_infor">{{today}}出发</p>
+            <div class="pri_infor">
+                <p class="clearfix"><span>成人价：</span><em>{{hotelOrderInfo.TotalPrice|currency:'￥'}}×{{order.roomNum}}</em></p>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

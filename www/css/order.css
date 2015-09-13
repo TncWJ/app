@@ -1,0 +1,8 @@
+.tra_pro{padding:10px;border-bottom:1px solid #ddd;}
+.tra_pro h3{font-size:16px;color:#333;}
+.tra_pro p{font-size:14px;}
+.input-group.infor div.input-row label{padding:0px 0px 0px 5px;line-height:25px;margin:10px 0px;color:#333;width:auto;}
+.input-group.infor div.input-row input{width:auto;height:45px;}
+@media screen and (max-width: 390px) {
+
+	}

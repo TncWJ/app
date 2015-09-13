@@ -1,0 +1,71 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav orange">
+            <a class="icon icon-left-nav pull-left" ng-click="changeTpl('search.html');"></a>
+            <h1 class="title">酒店列表</h1>
+        </header>
+        <div class="content" id="main_box">
+            <div class="travel_list">
+                <div class="control-content active">
+                    <span ng-if="hotelList.list == ''">没有搜索到任何信息</span>
+                    <ul class="table-view">
+                        <li class="table-view-cell media nopa user_sc" ng-repeat="v in hotelList.list">
+                            <div class="dele_ch"><span></span></div>
+                            <a class="navigate-right noma" href="#" ng-click="getDetal(v.hotelid);">
+                                <img class="media-object pull-left" ng-src="{{v.mainimage.url}}">
+                                <div class="media-body">
+                                    <dl class="hotel_list">
+                                        <dt>
+                                        <h4>{{v.hotelname}}</h4>
+                                        <p>{{v.segmentcategoryname}}</p>
+                                        <p><span>月供<em>{{v.monthPay|currency:'￥'}}</em></span><span>分<em>12</em>期</span></p>
+                                        </dt>
+                                        <dd>
+                                            <h6><em>{{v.lowestourprice|currency:'￥'}}</em>起</h6>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <nav class="bar bar-tab plane_foo">
+            <a class="tab-item" href="#/tab/hotel-select">
+                <span class="icon"></span>
+                <span class="tab-label" >筛选</span>
+            </a>
+            <a class="tab-item haschone">
+                <span class="icon"></span>
+                <span class="tab-label">价格/星级</span>
+            </a>
+            <a class="tab-item pai haschtwo">
+                <span class="icon"></span>
+                <span class="tab-label">默认排序</span>
+            </a>
+        </nav>
+        <div class="mask"></div>
+        <div class="botphone popover2 selectone">
+            <h3 class="choo_title"><em>取消</em>选择排序方式</h3>
+            <ul class="link_list">
+                <li>100以下</li>
+                <li>100-200</li>
+                <li>200-300</li>
+                <li>300-500</li>
+                <li>500-700</li>
+                <li>700-1000</li>
+                <li>1000以上</li>
+            </ul>
+        </div>
+        <div class="botphone popover2 selecttwo">
+            <h3 class="choo_title"><em>取消</em>选择排序方式</h3>
+            <ul class="link_list">
+                <li>价格从高到低</li>
+                <li>价格从低到高</li>
+                <li>销量从高到低</li>
+                <li>距离从近到远</li>
+            </ul>
+        </div>
+    </ion-content>
+</ion-view>

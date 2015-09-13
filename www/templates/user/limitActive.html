@@ -1,0 +1,67 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav">
+            <a class="icon icon-left-nav pull-left" ng-click="changeTpl('user.html');s"></a>
+
+            <h1 class="title">学籍信息</h1>
+        </header>
+        <div class="content pad50 grey" id="main_box">
+            <ul class="tx_bz">
+                <li class="on">
+                    <div></div>
+                    <span>1</span>
+
+                    <p>填写学籍信息</p>
+                </li>
+                <li>
+                    <div></div>
+                    <span>2</span>
+
+                    <p>填写证件信息</p>
+                </li>
+                <li>
+                    <div></div>
+                    <span>3</span>
+
+                    <p>认证成功</p>
+                </li>
+            </ul>
+            <form class="input-group chpass">
+                <div class="input-row border_radius">
+                    <label>手机号</label>
+                    <input type="text" placeholder="默认" disabled="true" 　readOnly="true" ng-model="userRz.phone">
+                </div>
+                <div class="input-row border_radius">
+                    <label>真实姓名</label>
+                    <input type="text" placeholder="请输入您的真实姓名" ng-model="userRz.name">
+                </div>
+                <div class="input-row border_radius">
+                    <label>身份证号</label>
+                    <input type="text" placeholder="请输入您的身份证号码" ng-model="userRz.idcard">
+                </div>
+                <div class="input-row border_radius">
+                    <label>邮箱地址</label>
+                    <input type="text" placeholder="请输入您的邮箱地址" ng-model="userRz.email">
+                </div>
+                <div class="input-row border_radius">
+                    <label>支付宝账号</label>
+                    <input type="text" placeholder="请输入您的支付宝账号" ng-model="userRz.alipayNo">
+                </div>
+                <div class="input-row border_radius">
+                    <label>微信号</label>
+                    <input type="text" placeholder="选填" ng-model="userRz.weixin">
+                </div>
+                <div class="input-row border_radius">
+                    <label>联系人信息</label>
+                    <input type="text" placeholder="请输入您的联系人名称（选填）" ng-model="userRz.linkMan.name">
+                </div>
+                <div class="input-row border_radius">
+                    <label>联系人手机</label>
+                    <input type="text" placeholder="请输入您的联系人手机号码（选填）" ng-model="userRz.linkMan.phone">
+                </div>
+
+            </form>
+            <div class="zhu_btn pad10"><a href="#" class="btn btn-block btn-orange" ng-click="userRzCenter(1)">下一步</a></div>
+        </div>
+    </ion-content>
+</ion-view>

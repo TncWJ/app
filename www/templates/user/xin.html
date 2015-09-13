@@ -1,0 +1,34 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav">
+            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
+
+            <h1 class="title">个人充值</h1>
+        </header>
+        <div class="content pad50 grey" id="main_box">
+            <div class="cz_main">
+                <div class="cz_box" ng-click="showTotal = false" ng-show="showTotal">
+                    信用总额<br><span>￥<i>{{6000|currency:''}}</i></span>
+                </div>
+                <div class="cz_box" ng-click="showTotal = true" ng-hide="showTotal">
+                    剩余总额<br><span>￥<i>{{userWallet.customer.credit_limit|currency:''}}</i></span>
+                </div>
+                <div class="zhu_btn">
+                    <a class="btn btn-block btn-orange" href="userxinsucc.html"
+                       ng-if="userWallet.customer.creadit_activate != 1"
+                       ng-click="changeTpl('limitActivate1.html')">立即激活</a>
+                    <a class="btn btn-block btn-grey" href="javascript:void(0);"
+                       ng-if="userWallet.customer.creadit_activate == 1">已经激活</a>
+                </div>
+                <div class="shuom">
+                    <h3>授信额度说明：</h3>
+
+                    <p>1.通过乐有方认证的用户才可享有信用额度。<br/>
+                        2.授信额需要激活才可以使用。<br/>
+                        3.根据您的信用评级，3000到6000元，无论您想去哪里，我们都支持！</p>
+                </div>
+                <img src="images/user/zhi.png" class="zfb">
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

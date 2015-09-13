@@ -1,0 +1,56 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav">
+            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
+
+            <h1 class="title">优惠券</h1>
+        </header>
+        <div class="content pad50" id="main_box">
+            <div class="segmented-control quantit">
+                <a class="control-item active" href="#item1mobile">
+                    可用
+                </a>
+                <a class="control-item" href="#item2mobile">
+                    已过期
+                </a>
+            </div>
+            <div class="card userquan">
+                <div id="item1mobile" class="control-content active">
+                    <div class="quan clearfix">
+                        <div style="padding:10px;" ng-if="userWallet.count[1] == 0"><font color="gray">暂无优惠券</font></div>
+                        <div class="quanbox" ng-repeat="v in userWallet.coupon_tickets">
+                            <dl class="quan_top">
+                                <dt>
+                                    <span>￥</span>{{v.par_value}}
+                                </dt>
+                                <dd>优惠券</dd>
+                            </dl>
+                            <div class="quanbot">
+                                <h5>消费满{{v.limit_value}}元可使用本券（仅限{{v.product_names}}）</h5>
+
+                                <p>使用期限：{{v.expire_time}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--已过期-->
+                <div id="item2mobile" class="control-content">
+                    <div style="padding:10px;" ng-if="userWallet.count[3] == 0"><font color="gray">暂无优惠券</font></div>
+                    <div class="quanbox" ng-repeat="v in userWallet.coupon_tickets" ng-if="v.status_id == 3">
+                        <dl class="quan_top">
+                            <dt>
+                                <span>￥</span>{{v.par_value}}
+                            </dt>
+                            <dd>优惠券</dd>
+                        </dl>
+                        <div class="quanbot">
+                            <h5>消费满{{v.limit_value}}元可使用本券（仅限{{v.product_names}}）</h5>
+
+                            <p>使用期限：{{v.expire_time}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

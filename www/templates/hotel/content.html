@@ -1,0 +1,42 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav">
+            <a class="icon icon-left-nav pull-left" ng-click="changeTpl('hotelList.html');"></a>
+            <h1 class="title">酒店详情</h1>
+        </header>
+        <div class="content pad50 grey" id="main_box">
+            <dl class="hotel_show">
+                <dt>
+                <h3>{{hotelDetal.data.hotelname}}</h3>
+                <p>{{hotelDetal.data.segmentcategoryname}}</p>
+                <p>地址: {{hotelDetal.data.addressline}}</p>
+                <p ng-if="hotelDetal.data.service_icon != '' "><a href="#/tab/hotel-facility" class="pull-right">详情&gt;</a>
+                    <span ng-class="hotelDetal.data.service_icon.hotel_icon_ct1 != '' ? 're' : ''"></span>
+                    <span ng-class="hotelDetal.data.service_icon.hotel_icon_wifi1 != '' ? 'wu' : ''"></span>
+                </p>
+                </dt>
+                <dd>
+                    <a href="#/tab/hotel-img">
+                        <img my-src="{{hotelDetal.data.images[0].url}}">
+                        <span>更多图片</span>
+                    </a>
+                </dd>
+            </dl>
+            <div class="hotel_or_list">
+                <ul class="table-view">
+                    <li class="table-view-cell media clearfix pad10" ng-repeat="v in hotelDetal.data.rooms">
+                        <div class="media-object pull-left">
+                            <h3>{{v.roomtypename}}</h3>
+                            <p>分<span>12</span>期，月供<span>{{v.amountbeforetax/12|currency:'￥'}}</span></p>
+                            <p>{{v.invblockname}}/{{v.roomamenitycode.DescriptiveText}}/{{v.breakfast == 'false' ? '无早' : v.breakfast == 2 ? '含双早' : '含'+numberofbreakfast+'人早餐'}}</p>
+                        </div>
+                        <div class="media-body pull-right">
+                            <p>{{v.amountbeforetax|currency:'￥'}}</p>
+                            <a href="#" class="btn btn-orange" ng-click="hotelBook(v.roomtypecode)">预定</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

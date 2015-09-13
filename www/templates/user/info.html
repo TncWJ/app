@@ -1,0 +1,75 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav">
+            <a class="icon icon-left-nav pull-left" ng-click="changeTpl('userCenter.html');"></a>
+
+            <h1 class="title">安全中心</h1>
+        </header>
+        <div class="content pad50 grey" id="main_box">
+            <section>
+                <ul class="table-view usersafe userinCon usertou">
+                    <!--<li class="table-view-cell">-->
+                    <!--<a class="navigate-right" href="userchange.html">-->
+                    <!--<em class="pull-right icon icon-person"></em>-->
+                    <!--头像-->
+                    <!--</a>-->
+                    <!--</li>-->
+                </ul>
+            </section>
+            <ul class="table-view usersafe userinCon">
+                <!--<li class="table-view-cell">-->
+                <!--<a class="navigate-right" href="userchange.html">-->
+                <!--<em class="pull-right">选填</em>-->
+                <!--用户名-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li class="table-view-cell">-->
+                <!--<a class="navigate-right" href="userchange.html">-->
+                <!--<em class="pull-right">选填</em>-->
+                <!--邮箱-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li class="table-view-cell">-->
+                <!--<a class="navigate-right" href="userchange.html">-->
+                <!--<em class="pull-right">选填</em>-->
+                <!--姓名-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li class="table-view-cell">-->
+                <!--<a class="navigate-right">-->
+                <!--<div data-role="fieldcontain" class="demo-cont" id="demo_cont_select">-->
+                <!--<label for="demo_select">性别</label>-->
+                <!--<select name="Cities" id="demo_select" data-role="none" class="demo_select">-->
+                <!--<option value="0">选填</option>-->
+                <!--<option value="1">男</option>-->
+                <!--<option value="2">女</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li class="table-view-cell">-->
+                <!--<a class="navigate-right">-->
+                <!--<div data-role="fieldcontain" class="demo-cont" id="demo_cont_date">-->
+                <!--<label for="demo_date">生日</label>-->
+                <!--<input type="text" id="demo_date" value="选填" />-->
+                <!--</div>-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li class="table-view-cell">-->
+                <!--<a class="navigate-right" href="userchange.html">-->
+                <!--<em class="pull-right">选填</em>-->
+                <!--所在城市-->
+                <!--</a>-->
+                <!--</li>-->
+                <li class="table-view-cell">
+                    <a class="navigate-right" href="#/tab/user-safe-password">
+                        修改密码
+                    </a>
+                </li>
+            </ul>
+            <div class="zhu_btn pad10">
+                <button class="btn btn-block" ng-click="logOut();">注销登陆</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

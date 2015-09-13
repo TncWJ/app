@@ -1,0 +1,36 @@
+<ion-view title="搜索">
+    <ion-content>
+        <header class="bar bar-nav orange head">
+            <a class="pull-left tab city" href="" ng-click="changeTpl('travelChoose.html');">{{curCity}}</a>
+            <a class="icon pull-right call" href="#myPopover"><img src="images/phoneicon.png"></a>
+            <h1><input type="search" placeholder="旅游目的地搜索" ng-model="curCity"></h1>
+        </header>
+        <div class="content grey" id="main_box">
+            <section>
+                <div class="card travel_list">
+                    <div id="item1mobile" class="control-content active">
+                        <ul class="table-view">
+                            <li class="table-view-cell media nopa" ng-repeat="v in searchList.lists">
+                                <a class="navigate-right nopa" href="#"  ng-click="getSearchDetal(v.packageid);">
+                                    <img class="media-object pull-left" src="{{v.image_url}}">
+                                    <div class="media-body">
+                                        <h4>{{v.productname}}</h4>
+                                        <h6><em>{{v.today_price}}</em>起</h6>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        <div id="myPopover" class="popover botphone">
+            <img src="images/logo.jpg" class="logo">
+            <h4>24小时客服电话</h4>
+            <p>400-888-3658（免长途费）</p>
+            <button class="btn btn-orange btn-block">电话咨询</button>
+            <button class="btn btn-grey btn-block">取消</button>
+        </div>
+    </ion-content>
+</ion-view>

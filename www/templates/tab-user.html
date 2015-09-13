@@ -1,0 +1,108 @@
+<ion-view title="用户中心">
+    <ion-content>
+        <div class="content grey" id="main_box">
+            <div class="user_m_top">
+                <header class="bar-tab">
+                    <span class="icon icon-gear pull-left"></span>
+                    <span class="icon pull-right email"></span>
+
+                    <h1 class="title">我的乐有方</h1>
+                </header>
+                <div class="user_xq">
+                <span ng-show="userInfo.user_status == 1"><img class="ren r_span" ng-src="./images/user/rz_icon.png"
+                                                               alt=""/></span>
+                <span ng-show="userInfo.user_status != 1"><img class="ren r_span" ng-src="./images/user/rz_icon2.png"
+                                                               alt=""/></span>
+
+                    <dl class="tou_infor">
+                        <dt><a href="userinfor.html"><img src="images/user/tou.png"></a></dt>
+                        <dd>
+                            <!--登陆显示-->
+                            <a href="userinfor.html">
+                                <div class="zhuc">
+                                    <p class="num">{{userInfo.user_login}}</p>
+
+                                    <p ng-show="userInfo.user_status == 1">认证会员</p>
+
+                                    <p ng-show="userInfo.user_status != 1">待 认证</p>
+                                </div>
+                            </a>
+                            <!--未登录-->
+                            <div class="lorr">
+                                <a class="lorrbtn" href="#">登录或注册</a>
+                            </div>
+                        </dd>
+                    </dl>
+                    </a>
+                </div>
+            </div>
+            <nav class="bar-standard dai_link">
+                <div class="segmented-control">
+                    <a class="control-item daiz" href="usermyorder.html"><span></span>待支付</a>
+                    <a class="control-item daih" href="userzhang.html"><span></span>待还款</a>
+                    <a class="control-item dair ren" href="#" ng-show="userInfo.user_status == 1"><span></span>已认证</a>
+                    <a class="control-item dair" href="#"
+                       ng-show="userInfo.user_status != 1" ng-click="changeTpl('limitActivate1.html');"><span></span>待认证</a>
+                </div>
+            </nav>
+            <ul class="table-view usersafe userinCon user_list">
+                <li class="table-view-cell ding">
+                    <a class="navigate-right" href="#/tab/user-order">
+                        <span class="pull-left icon_left"></span>
+                        <em class="pull-right">{{userOrder.order_list_count}}</em>
+                        全部订单
+                    </a>
+                </li>
+                <li class="table-view-cell shou">
+                    <a class="navigate-right" href="#/tab/user-xin">
+                        <span class="pull-left icon_left"></span>
+                        <em class="pull-right">{{6000|currency:'￥'}}</em>
+                        授信额
+                    </a>
+                </li>
+                <li class="table-view-cell zhi">
+                    <a class="navigate-right" href="#/tab/user-zhi">
+                        <span class="pull-left icon_left"></span>
+                        <em class="pull-right" ng-if="userWallet.customer.cash == null">￥0.00</em>
+                        <em class="pull-right">{{userWallet.customer.cash|currency:'￥'}}</em>
+                        个人充值
+                    </a>
+                </li>
+                <li class="table-view-cell quan">
+                    <a class="navigate-right" href="#/tab/user-quan">
+                        <span class="pull-left icon_left"></span>
+                        <em class="pull-right">{{userWallet.count[1]}}张</em>
+                        优惠券
+                    </a>
+                </li>
+                <li class="table-view-cell zhang">
+                    <a class="navigate-right" href="#/tab/user-zhang">
+                        <span class="pull-left icon_left"></span>
+                        <em class="pull-right">{{userBill.current_bill_list_count}}</em>
+                        个人账单
+                    </a>
+                </li>
+                <li class="table-view-cell zi">
+                    <a class="navigate-right" href="#/tab/user-info">
+                        <span class="pull-left icon_left"></span>
+                        个人资料
+                    </a>
+                </li>
+                <li class="table-view-cell an">
+                    <a class="navigate-right" href="#/tab/user-safe">
+                        <span class="pull-left icon_left"></span>
+                        安全中心
+                    </a>
+                </li>
+                <li class="table-view-cell ke">
+                    <a class="navigate-right">
+                        <span class="pull-left icon_left"></span>
+                        客服
+                        <em class="pull-right table_num">400-820-8820</em>
+
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </ion-content>
+</ion-view>

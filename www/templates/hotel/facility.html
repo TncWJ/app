@@ -1,0 +1,39 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav orange">
+            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
+            <h1 class="title">设施服务</h1>
+        </header>
+        <div class="content pad50 pad10" id="main_box">
+            <section>
+                <h3 class="maintit">基本信息</h3>
+                <div class="order_txt">
+                    <p>开业时间：{{hotelDetal.data.whenbuilt}}</p>
+                    <p>最近装修：{{hotelDetal.data.whenbuilt}}</p>
+                </div>
+            </section>
+            <section>
+                <h3 class="maintit">酒店服务</h3>
+                <div class="order_txt">
+                    <p class="order_ss">
+                    <span ng-repeat="v in hotelDetal.data.hotelservice" ng-if="hotelDetal.data.hotelservice != ''">
+                        {{v.DescriptiveText}}
+                    </span>
+                    </p>
+                </div>
+            </section>
+            <section>
+                <h3 class="maintit">房间服务</h3>
+                <div class="order_txt">
+                    <p class="order_ss" data-ng-bind-html="hotelDetal.RoomService"></p>
+                </div>
+            </section>
+            <section>
+                <h3 class="maintit">酒店介绍</h3>
+                <div class="order_txt">
+                    <p class="order_ss" data-ng-bind-html="hotelDetal.description"></p>
+                </div>
+            </section>
+        </div>
+    </ion-content>
+</ion-view>

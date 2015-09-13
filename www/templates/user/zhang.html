@@ -1,0 +1,97 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav">
+            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
+
+            <h1 class="title">我的账单</h1>
+        </header>
+        <div class="content pad50 grey" id="main_box">
+            <div class="segmented-control ordertit">
+                <a class="control-item active" href="#" ng-click="update('curBill' , 'cur');">
+                    本期账单
+                </a>
+                <a class="control-item" href="#" ng-click="update('curBill' , 'next');">
+                    下期账单
+                </a>
+                <a class="control-item" href="#" ng-click="update('curBill' , 'paid');">
+                    已还账单
+                </a>
+            </div>
+            <div class="card orderlist">
+                <div id="item1mobile" class="control-content active" ng-show="curBill == 'cur'">
+                    <div ng-show="userBill.current_bill_list_count == 0">暂无账单信息！</div>
+                    <ul class="table-view orderCon" ng-repeat="val in userBill.current_bill_list">
+                        <li ng-repeat="v in val">
+                            <div class="ordertop table-view-cell media">
+                                <a class="navigate-right">
+                                    <h3>{{v.order_title}}</h3>
+
+                                    <div class="orderintro">
+                                        <p>月供金额：{{v.month_amount|currency:'￥'}}</p>
+
+                                        <p>本期待还：{{v.paid_amount|currency:'￥'}}</p>
+
+                                        <p>还款到期日：{{v.pay_date}} 剩余{{v.left_days}}天</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="orderbot">
+                                <a href="#" class="btn btn-orange2 btn-outlined" ng-click="refund(v.detail_id);">立即还款</a>
+                                <!--<i class="btn btn-orange2 btn-outlined">取消订单</i>-->
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div id="item2mobile" class="control-content" ng-show="curBill == 'next'">
+                    <div ng-show="userBill.next_bill_list_count == 0">暂无账单信息！</div>
+                    <ul class="table-view orderCon" ng-repeat="val in userBill.next_bill_list">
+                        <li ng-repeat="v in val">
+                            <div class="ordertop table-view-cell media">
+                                <a class="navigate-right">
+                                    <h3>{{v.order_title}}</h3>
+
+                                    <div class="orderintro">
+                                        <p>月供金额：{{v.month_amount|currency:'￥'}}</p>
+
+                                        <p>本期待还：{{v.paid_amount|currency:'￥'}}</p>
+
+                                        <p>还款到期日：{{v.pay_date}} 剩余{{v.left_days}}天</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="orderbot">
+                                <a href="#" class="btn btn-orange2 btn-outlined" ng-click="refund(v.detail_id);">立即还款</a>
+                                <!--<i class="btn btn-orange2 btn-outlined">取消订单</i>-->
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div id="item3mobile" class="control-content" ng-show="curBill == 'paid'">
+                    <div ng-show="userBill.paid_bill_list_count == 0">暂无账单信息！</div>
+                    <ul class="table-view orderCon" ng-repeat="val in userBill.paid_bill_list">
+                        <li ng-repeat="v in val">
+                            <div class="ordertop table-view-cell media">
+                                <a class="navigate-right">
+                                    <h3>{{v.order_title}}</h3>
+
+                                    <div class="orderintro">
+                                        <p>月供金额：{{v.month_amount|currency:'￥'}}</p>
+
+                                        <p>本期待还：{{v.paid_amount|currency:'￥'}}</p>
+
+                                        <p>还款到期日：{{v.pay_date}} 剩余{{v.left_days}}天</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="orderbot">
+                                <a href="#" class="btn btn-orange2 btn-outlined" ng-click="refund(v.detail_id);">立即还款</a>
+                                <!--<i class="btn btn-orange2 btn-outlined">取消订单</i>-->
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="pay_result" style="display: none;"></div>
+        </div>
+    </ion-content>
+</ion-view>

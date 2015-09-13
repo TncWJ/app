@@ -1,0 +1,50 @@
+<ion-view>
+    <ion-content>
+        <header class="bar bar-nav">
+            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
+
+            <h1 class="title">安全中心</h1>
+        </header>
+        <div class="content pad50 grey" id="main_box">
+            <section>
+                <dl class="userinfor clearfix">
+                    <dt><img src="images/user/user.jpg"></dt>
+                    <dd>
+                        <p>{{userInfo.real_name}}</p>
+
+                        <p>{{userInfo.user_login}}</p>
+                    </dd>
+                </dl>
+            </section>
+            <ul class="table-view usersafe">
+                <li class="table-view-cell">
+                    <a class="navigate-right">
+                        <em class="pull-right" ng-if="userInfo.user_status == 1">已验证</em>
+                        <em class="pull-right" ng-if="userInfo.user_status != 1">未验证</em>
+                        绑定邮箱<span>{{userInfo.user_login}}</span>
+                    </a>
+                </li>
+                <li class="table-view-cell">
+                    <a class="navigate-right pull-right" href="#/tab/user-safe-moblie">
+                        <em class="pull-right">修改</em>
+                    </a>
+
+                    绑定手机<span>{{userInfo.phone_number}}</span>
+
+                </li>
+                <li class="table-view-cell">
+                    <a class="navigate-right" href="#/tab/user-safe-password-login">
+                        <em class="pull-right">已设置</em>
+                        登录密码<span>******</span>
+                    </a>
+                </li>
+                <li class="table-view-cell">
+                    <a class="navigate-right" href="#/tab/user-safe-password-pay">
+                        <em class="pull-right">已设置</em>
+                        交易密码<span>*******</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </ion-content>
+</ion-view>
