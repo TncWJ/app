@@ -3,55 +3,56 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
 /**
  * 首页
  */
-    .controller('DashCtrl', function ($scope, $ionicNavBarDelegate , Index ,Common  ,$ionicScrollDelegate , $ionicLoading ,$rootScope, $ionicPopup, $ionicSlideBoxDelegate, $timeout, $location, Travel, Hotel) {
-        if ( $rootScope.keyword == undefined){
+    .controller('DashCtrl', function ($scope, $ionicNavBarDelegate, Index, Common, $ionicScrollDelegate, $ionicLoading, $rootScope, $ionicPopup, $ionicSlideBoxDelegate, $timeout, $location, Travel, Hotel) {
+        if ($rootScope.keyword == undefined) {
             $rootScope.keyword = ''; //关键词
         }
-        if ( $rootScope.time == undefined) $rootScope.time = '获取验证码';
+        if ($rootScope.time == undefined) $rootScope.time = '获取验证码';
 
         $scope.show = false; //是否显示打电话
 
-        if ( $rootScope.pay == undefined){
+        if ($rootScope.pay == undefined) {
             $rootScope.pay = {
-                type:'', //订单类型
-                id:'' //订单号
+                type: '', //订单类型
+                id: '' //订单号
             }
         }
-        if ( $rootScope.conf == undefined){
+        if ($rootScope.conf == undefined) {
             $rootScope.conf = {
-                phone:conf.common.phone
+                phone: conf.common.phone
             }
         }
-        $scope.showPhone = function(bool){
+        $scope.showPhone = function (bool) {
             $scope.show = bool;
         }
-        if ($rootScope.place == undefined){
+        if ($rootScope.place == undefined) {
             Index.getData($ionicSlideBoxDelegate);
         }
-        $timeout(function(){
-                $rootScope.plane = {
-                    aCity: '北京',
-                    dCity: $rootScope.place.city,
-                    dDate: new Date().format('yyyy-MM-dd'),
-                    curSel: 'dCity', //当前选择，aCtiy or dCity
-                    seatCode: 'Y',
-                    sortKey: '',
-                    sort: '',
-                    aCode: 'BJS',
-                    dCode: 'SHA',
-                    timeD: '',  //筛选时间段
-                    airCode: '',
+        $timeout(function () {
+            $rootScope.plane = {
+                aCity: '北京',
+                dCity: $rootScope.place.city,
+                dDate: new Date().format('yyyy-MM-dd'),
+                curSel: 'dCity', //当前选择，aCtiy or dCity
+                seatCode: 'Y',
+                sortKey: '',
+                sort: '',
+                aCode: 'BJS',
+                dCode: 'SHA',
+                timeD: '',  //筛选时间段
+                airCode: '',
 
-                    moreSeat: {} //座位信息
-                };
-        },2500)
-        if ( $rootScope.curMenu == undefined)   $rootScope.curMenu = ''; //当前栏目 = '';
+                moreSeat: {} //座位信息
+            };
+        }, 2500)
+        if ($rootScope.curMenu == undefined)   $rootScope.curMenu = ''; //当前栏目 = '';
 
-        $scope.setTravelCurMenu = function(name){
+        $scope.setTravelCurMenu = function (name) {
             $rootScope.curMenu = name;
             $location.url('/tab/travel');
         }
         $scope.setCurCity = function (city) {
+            Common.updateUsedCity(city);
             Index.setCurCity(city, Hotel);
             $rootScope.plane.dCity = city;
             $location.url('/tab/dash');
@@ -84,52 +85,56 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
 
         $scope.selCity = function (city) {
             $location.url('/tab/travel');
-            Travel.selCity($scope , city);
+            Travel.selCity($scope, city);
         }
 
         //    获取Banner
         Index.getBanner($ionicSlideBoxDelegate);
 
         // Banner跳转 type:travel|id:512
-        $scope.bannerGoTo = function(src){
+        $scope.bannerGoTo = function (src) {
             var arr = src.split('|');
             var type = arr[0].split(':')[1];
             var id = arr[1].split(':')[1];
-            switch (type){
+            switch (type) {
                 case 'travel':
                     Travel.getDetal(id);
                     $location.url('tab/travel-content');
                     break;
                 case 'hotel':
-                    Hotel.getDetal(id , $ionicSlideBoxDelegate , $ionicLoading);
+                    Hotel.getDetal(id, $ionicSlideBoxDelegate, $ionicLoading);
                     $location.url('tab/hotel-content');
                     break;
-                default : break;
+                default :
+                    break;
             }
         }
 
         //    下一页
         $scope.loadMore = function (page) {
             $scope.curPage = page;
-            Index.getNextPage(page,$ionicScrollDelegate);
+            Index.getNextPage(page, $ionicScrollDelegate);
         }
 
         //上一页
         $scope.getLastPage = function (page) {
             $scope.curPage = page;
-            Index.getLastPage(page,  $ionicScrollDelegate);
+            Index.getLastPage(page, $ionicScrollDelegate);
         }
 
-        $scope.selCurCity = function(city){
-            Common.searchCity(city , $scope.setCurCity , $ionicPopup);
+        $scope.selCurCity = function (city) {
+            Common.searchCity(city, $scope.setCurCity, $ionicPopup);
         }
+
+        //    获取城用城市
+        $rootScope.usedCity = Common.readUsedCity();
 
     })
 
 /**
  * 公用
  */
-    .controller('CommonCtrl', function (User, $scope , $rootScope , $ionicPopup) {
+    .controller('CommonCtrl', function (User, $scope, $rootScope, $ionicPopup) {
         $scope.checkLogin = function (tplName) {
             $scope.goTplName = tplName;
             User.checkLogin(tplName);
@@ -140,15 +145,15 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
 /**
  * 用户
  */
-    .controller('UserCenterCtrl', function (User , Common) {
+    .controller('UserCenterCtrl', function (User, Common) {
         User.checkLogin();
         User.getData();
 
     })
 
-    .controller('UserBillCtrl' , function(User , $scope , $rootScope , $location){
+    .controller('UserBillCtrl', function (User, $scope, $rootScope, $location) {
         //还款
-        $scope.refund = function(id , conNum){
+        $scope.refund = function (id, conNum) {
             if ($rootScope.pay == undefined) {
                 $rootScope.pay = {
                     amount: ''
@@ -173,7 +178,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
 
         //    充值
         $scope.recharge = function (conNum) {
-            if ( isNaN(conNum) || conNum == 0){
+            if (isNaN(conNum) || conNum == 0) {
                 $ionicPopup.alert({title: '失败', subTitle: '充值数值必须不能为0！', okText: '确认'});
                 return;
             }
@@ -290,7 +295,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
 /**
  * 用户注册
  */
-    .controller('UserRegCtrl', function (User, $scope, $rootScope, $ionicPopup  ,Common , $interval) {
+    .controller('UserRegCtrl', function (User, $scope, $rootScope, $ionicPopup, Common, $interval) {
 
         if ($rootScope.reg == undefined) {
             $rootScope.reg = {
@@ -314,8 +319,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
         }
 
         //重新获取验证码
-        $scope.rGetSMScode = function(){
-            Common.rGetSMScode($interval , $scope.getSMScode , $ionicPopup);
+        $scope.rGetSMScode = function () {
+            Common.rGetSMScode($interval, $scope.getSMScode, $ionicPopup);
         }
 
         //    注册
@@ -330,7 +335,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
     })
 
     //用户找回登录密码
-    .controller('UserFindCtrl', function (User, $scope, $rootScope, $ionicPopup, $http, $location ,Common ,$interval) {
+    .controller('UserFindCtrl', function (User, $scope, $rootScope, $ionicPopup, $http, $location, Common, $interval) {
         if ($rootScope.find == undefined) {
             $rootScope.find = {
                 phone: '',
@@ -351,8 +356,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
             })
         }
         //重新获取验证码
-        $scope.rGetSMScode = function(){
-            Common.rGetSMScode($interval , $scope.getSMScode , $ionicPopup);
+        $scope.rGetSMScode = function () {
+            Common.rGetSMScode($interval, $scope.getSMScode, $ionicPopup);
         }
 
         /**
@@ -371,7 +376,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
     })
 
     //用户中心-安全
-    .controller('UserSafeCtrl', function (User, $scope, $rootScope, $ionicPopup, $location ,Common , $interval) {
+    .controller('UserSafeCtrl', function (User, $scope, $rootScope, $ionicPopup, $location, Common, $interval) {
         if ($rootScope.safe == undefined) {
             $rootScope.safe = {
                 oldpassword: '',
@@ -393,12 +398,12 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
             var str = name == 'user-safe-password-pay' ? 'changePayPass' : 'changePhone';
             $rootScope.tempPhone = $rootScope.userInfo.phone_number;
             User.getCheckCode($ionicPopup, $rootScope.userInfo.phone_number, str);
-            if ( name) $location.url('/tab/' + name);
+            if (name) $location.url('/tab/' + name);
         }
 
         //重新获取验证码
-        $scope.rGetSMScode = function(){
-            Common.rGetSMScode($interval , $scope.getSMScode ,$ionicPopup ,'safe');
+        $scope.rGetSMScode = function () {
+            Common.rGetSMScode($interval, $scope.getSMScode, $ionicPopup, 'safe');
         }
 
         $scope.changePayPass = function () {
@@ -410,14 +415,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
             User.changeEmail($ionicPopup);
         }
 
-    //    获取激活邮件
-        $scope.doactive = function(){
+        //    获取激活邮件
+        $scope.doactive = function () {
             User.doactive($ionicPopup);
         }
 
     })
 //    借款
-    .controller('UserDaiCtrl', function (User, $scope, $ionicPopup, Common , $rootScope , $interval) {
+    .controller('UserDaiCtrl', function (User, $scope, $ionicPopup, Common, $rootScope, $interval) {
         User.dai().getInfo($interval);
         User.getData();
         $scope.loanNum = ['100', '200', '500', '700', '800', '1000', '1500', '2000', '3000'];
@@ -461,7 +466,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
  * 登陆
  */
 
-    .controller('LoginCtrl', function (User, $scope, $ionicPopup , Common) {
+    .controller('LoginCtrl', function (User, $scope, $ionicPopup, Common) {
 
         $scope.doLogin = function (username, password, checkCode) {
             User.doLogin(username, password, checkCode, $scope.goTplNam, $ionicPopup);
@@ -480,9 +485,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
  */
 
     .controller('PlaneCtrl', function (Plane, $scope, $rootScope, $ionicPopup, $location, User, Common, $cordovaDatePicker, $ionicLoading) {
-        if ( $rootScope.plane == undefined){
+        if ($rootScope.plane == undefined) {
             $rootScope.plane = {
-                dDate:new Date().format('yyyy-MM-dd')
+                dDate: new Date().format('yyyy-MM-dd')
             }
         }
         $scope.changeTpl = function (curSel) {
@@ -519,8 +524,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
         /**
          * 预定航班订单
          */
-        $scope.planeBook = function(flightNo , seatCode){
-            Plane.getOrderInfo(seatCode , User , $ionicLoading);
+        $scope.planeBook = function (flightNo, seatCode) {
+            Plane.getOrderInfo(seatCode, User, $ionicLoading);
         }
 
     })
@@ -528,21 +533,22 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
 /**
  * 城市选择
  */
-    .controller('PlaneChooseCtrl', function (Plane, $scope, $location  ,Common , $ionicPopup) {
+    .controller('PlaneChooseCtrl', function (Plane, $scope, $location, Common, $ionicPopup) {
         $scope.setCurCity = function (city) {
+            Common.updateUsedCity(city);
             Plane.selCity(city);
             $location.url('/tab/plane');
         }
 
-        $scope.selCurCity = function(city){
-            Common.searchCity(city , $scope.setCurCity , $ionicPopup);
+        $scope.selCurCity = function (city) {
+            Common.searchCity(city, $scope.setCurCity, $ionicPopup);
         }
     })
 
 /**
  * 旅游
  */
-    .controller('TravelCtrl', function (Travel, Common , $rootScope , $ionicLoading , $scope, $ionicPopup, $location, $ionicScrollDelegate) {
+    .controller('TravelCtrl', function (Travel, Common, $rootScope, $ionicLoading, $scope, $ionicPopup, $location, $ionicScrollDelegate) {
         $scope.curCity = '北京'; //当前城市
         $scope.tplName = 'travel.html';
         $scope.tplLastTpl = '';
@@ -591,7 +597,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
          * 选择城市
          * @param city
          */
-        $scope.selCity = function (city) {
+        $scope.setCurCity = function (city) {
+            Common.updateUsedCity(city);
             Travel.selCity($scope, city);
         }
 
@@ -616,21 +623,27 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
             Travel.searchCurMenu();
         }
 
-        if(typeof Zepto == 'undefined'){
+        if (typeof Zepto == 'undefined') {
             var oHead = document.getElementsByTagName('head').item(0);
-            var oScript= document.createElement("script");
+            var oScript = document.createElement("script");
             oScript.type = "text/javascript";
-            oScript.src="js/common/zepto.js";
-            oHead.appendChild( oScript);
+            oScript.src = "js/common/zepto.js";
+            oHead.appendChild(oScript);
         }
 
         var default_customer = {'name': '', 'ename': '', phone: '', email: '', idnumber: ''};
-        $rootScope.updateCustomers = function(){
+        $rootScope.updateCustomers = function () {
             var User = $scope.userInfo;
-            if(!User){
+            if (!User) {
                 $scope.customers = [default_customer];
-            }else{
-                $scope.customers = [{'name':User.real_name, 'ename':'', phone:User.phone_number, email: User.user_login, idnumber:User.id_number}];
+            } else {
+                $scope.customers = [{
+                    'name': User.real_name,
+                    'ename': '',
+                    phone: User.phone_number,
+                    email: User.user_login,
+                    idnumber: User.id_number
+                }];
             }
             $scope.contactor_name = User ? User.real_name : '';
             $scope.contactor_phone = User ? User.phone_number : '';
@@ -656,14 +669,23 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
         $scope.submitForm = function (isValid, e) {
             e.preventDefault();
             if (!isValid) {
-                $ionicPopup.alert({title: '请补齐必填项', subTitle: '', okText: '确认'});                return;
+                $ionicPopup.alert({title: '请补齐必填项', subTitle: '', okText: '确认'});
+                return;
             }
             var para1 = $(e.target).serializeArray();
-            var para = {down_pay: 0, pay_months: 12, room_count: 0, insurance30_count: 0,insurance50_count: 0, insurance10_count: 0, _r: Math.random()}
+            var para = {
+                down_pay: 0,
+                pay_months: 12,
+                room_count: 0,
+                insurance30_count: 0,
+                insurance50_count: 0,
+                insurance10_count: 0,
+                _r: Math.random()
+            }
             for (var i in para1) {
                 para[para1[i].name] = para1[i].value;
             }
-            $.post(conf.common.webHost+$(e.target).attr('action'), para, function (recv) {
+            $.post(conf.common.webHost + $(e.target).attr('action'), para, function (recv) {
                 if (recv.state == 'fail') {
                     $ionicPopup.alert({title: '成功', subTitle: recv.info, okText: '确认'});
                 } else {
@@ -684,8 +706,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
             }
         };
 
-        $scope.selCurCity = function(city){
-            Common.searchCity(city , $scope.setCurCity , $ionicPopup);
+        $scope.selCurCity = function (city) {
+            Common.searchCity(city, $scope.setCurCity, $ionicPopup);
         }
     })
 
@@ -693,7 +715,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
 /**
  * 酒店
  */
-    .controller('HotelCtrl', function (Hotel, $scope ,$rootScope,$ionicScrollDelegate, Common, $ionicPopup, $location, $ionicSlideBoxDelegate, $cordovaDatePicker , $ionicLoading) {
+    .controller('HotelCtrl', function (Hotel, $scope, $rootScope, $ionicScrollDelegate, Common, $ionicPopup, $location, $ionicSlideBoxDelegate, $cordovaDatePicker, $ionicLoading) {
         $scope.tplName = 'search.html';
         $scope.lastTplName = '';
         $scope.btn = '';
@@ -726,6 +748,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
         Hotel.getData();
 
         $scope.setCurCity = function (city) {
+            Common.updateUsedCity(city);
             Hotel.setCurCity(city);
             $rootScope.plane.dCity = city;
             $location.url('/tab/hotel');
@@ -751,7 +774,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
         }
 
         $scope.search = function () {
-            Hotel.search($scope , $ionicLoading);
+            Hotel.search($scope, $ionicLoading);
         }
 
         $scope.updateSearch = function (name, value, isAppend) {
@@ -814,7 +837,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
         }
 
         $scope.getDetal = function (id) {
-            Hotel.getDetal(id, $ionicSlideBoxDelegate , $ionicLoading);
+            Hotel.getDetal(id, $ionicSlideBoxDelegate, $ionicLoading);
         }
 
         $scope.hotelBook = function (id) {
@@ -838,8 +861,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
             $rootScope.hotel.curMenuIndex = index;
         }
 
-        $scope.selCurCity = function(city){
-            Common.searchCity(city , $scope.setCurCity , $ionicPopup);
+        $scope.selCurCity = function (city) {
+            Common.searchCity(city, $scope.setCurCity, $ionicPopup);
         }
 
     })
@@ -848,7 +871,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
  * 订单相关
  */
     //酒店订单
-    .controller('HotelOrderCtrl', function (Hotel, $scope, $rootScope, User, Common, Order, $cordovaDatePicker , $ionicPopup) {
+    .controller('HotelOrderCtrl', function (Hotel, $scope, $rootScope, User, Common, Order, $cordovaDatePicker, $ionicPopup) {
         if ($rootScope.temp == undefined) {
             $rootScope.temp = User.getInfo();
         }
@@ -893,7 +916,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
         //更新结算价
         $scope.updateTotalPay = function (roomNum) {
             $rootScope.hotel.order.TotalPrice = roomNum * $rootScope.hotelOrderInfo.TotalPrice;
-            $scope.getMonthPay($rootScope.hotel.order.ByStages , $rootScope.hotel.order.TotalPrice);
+            $scope.getMonthPay($rootScope.hotel.order.ByStages, $rootScope.hotel.order.TotalPrice);
         }
 
         /**
@@ -907,47 +930,50 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
 /**
  * 机票订单
  */
-    .controller('PlaneOrderCtrl' , function($scope , $rootScope , Order , $ionicPopup , Common , User){
-        if ( $rootScope.curIndex == undefined){
+    .controller('PlaneOrderCtrl', function ($scope, $rootScope, Order, $ionicPopup, Common, User) {
+        if ($rootScope.curIndex == undefined) {
             $rootScope.curIndex = 0;
         }
-        User.getInfo().then(function(d){
-            if ( $rootScope.plane == undefined || $rootScope.plane.order == undefined){
+        User.getInfo().then(function (d) {
+            if ($rootScope.plane == undefined || $rootScope.plane.order == undefined) {
                 $rootScope.plane.order = {
-                    totalPay:$rootScope.plane.orderInfo.flight.totalprice,
-                    passenger_count:0,//乘客数
-                    contactName:d[1],//联系人姓名
-                    contactPhone:d[0],//联系人电话
-                    finance_month:12,//分期月数
-                    monthPay:$scope.getMonthPay(12 , this.totalPay)//月付
+                    totalPay: $rootScope.plane.orderInfo.flight.totalprice,
+                    passenger_count: 0,//乘客数
+                    contactName: d[1],//联系人姓名
+                    contactPhone: d[0],//联系人电话
+                    finance_month: 12,//分期月数
+                    monthPay: $scope.getMonthPay(12, this.totalPay)//月付
                     //username0:'',//联系人1
                     //useridtype0:1,//证件类型 默认身份证
                     //userid0:''//证件号码
                 }
             }
-            if ( $rootScope.temp == undefined){
+            if ($rootScope.temp == undefined) {
                 $rootScope.temp = {
-                    linkManList:[]
+                    linkManList: []
                 };
                 //    初始化
                 $scope.addLinkMan();
-            }else{
-                if ( $rootScope.temp.linkManList == undefined){
+            } else {
+                if ($rootScope.temp.linkManList == undefined) {
                     $rootScope.temp.linkManList = [];
                 }
             }
             $scope.fenList = [];
-            for ( var i = 3; i <= 24; i ++ ){$scope.fenList.push(i)};
+            for (var i = 3; i <= 24; i++) {
+                $scope.fenList.push(i)
+            }
+            ;
         })
 
         //创建乘客数据，生成订单前和初始化调用
-        var createData = function(){
+        var createData = function () {
             var list = $rootScope.temp.linkManList;
             var order = $rootScope.plane.order;
-            for ( var i = 0; i < list.length ; i ++ ){
-                order['username'+i] = list[i].username;
-                order['useridtype'+i] = list[i].useridtype;
-                order['userid'+i] = list[i].userid;
+            for (var i = 0; i < list.length; i++) {
+                order['username' + i] = list[i].username;
+                order['useridtype' + i] = list[i].useridtype;
+                order['userid' + i] = list[i].userid;
             }
         }
 
@@ -956,22 +982,22 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
             Common.getMonthPay([month, money], 'plane.order.monthPay');
         }
 
-        $scope.createPlaneOrder = function(){
+        $scope.createPlaneOrder = function () {
             createData();
             Order.createPlaneOrder($ionicPopup);
         }
 
 
-    //    添加联系人
-        $scope.addLinkMan = function(){
+        //    添加联系人
+        $scope.addLinkMan = function () {
             var linkMan = {};
-                linkMan['username'+$rootScope.curIndex] = '';
-                linkMan['useridtype'+$rootScope.curIndex] = 1;
-                linkMan['userid'+$rootScope.curIndex] = '';
-                linkMan['length'] = $rootScope.curIndex;
-            if ( $rootScope.curIndex + 1  > 9){
+            linkMan['username' + $rootScope.curIndex] = '';
+            linkMan['useridtype' + $rootScope.curIndex] = 1;
+            linkMan['userid' + $rootScope.curIndex] = '';
+            linkMan['length'] = $rootScope.curIndex;
+            if ($rootScope.curIndex + 1 > 9) {
                 $ionicPopup.alert({title: '失败', subTitle: '联系人不能超过9个！', okText: '确认'});
-                return ;
+                return;
             }
             $rootScope.temp.linkManList.push(linkMan);
             $rootScope.curIndex += 1;
@@ -979,24 +1005,24 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
             updateTotalPay();
         }
 
-    //    删除联系人
-        $scope.delLinkMan = function(index){
-            if ( $rootScope.curIndex - 1  <= 0){
+        //    删除联系人
+        $scope.delLinkMan = function (index) {
+            if ($rootScope.curIndex - 1 <= 0) {
                 return;
             }
             var temp = $rootScope.temp.linkManList[0];
             $rootScope.temp.linkManList.shift();
-            $rootScope.temp.linkManList[index-1] = temp;
+            $rootScope.temp.linkManList[index - 1] = temp;
             $rootScope.plane.order.passenger_count -= 1;
             $rootScope.curIndex -= 1;
             updateTotalPay();
         }
 
 
-    //    更新结算价
-        var updateTotalPay = function(){
+        //    更新结算价
+        var updateTotalPay = function () {
             $rootScope.plane.order.totalPay = $rootScope.plane.orderInfo.flight.totalprice * $rootScope.plane.order.passenger_count;
-            $scope.getMonthPay($rootScope.plane.order.finance_month , $rootScope.plane.order.totalPay);
+            $scope.getMonthPay($rootScope.plane.order.finance_month, $rootScope.plane.order.totalPay);
         }
 
 
@@ -1009,7 +1035,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
         $scope.pay = {
             url: {
                 topUp: 'http://app.letyoufun.com/User/Center/mywallet_charge/amount/' + $rootScope.pay.amount + '/app/1/redirect_url/AppServer/Pay/topUpResult',
-                refund:'http://app.letyoufun.com/User/Center/alipay/id/'+$rootScope.pay.id+'/count/'+$rootScope.pay.amount+'/app/1/redirect_url/AppServer/Pay/topUpResult'
+                refund: 'http://app.letyoufun.com/User/Center/alipay/id/' + $rootScope.pay.id + '/count/' + $rootScope.pay.amount + '/app/1/redirect_url/AppServer/Pay/topUpResult'
             }
         };
 
@@ -1018,12 +1044,12 @@ angular.module('starter.controllers', ['ngCordova', 'ionic'])
         }
 
         //分期付款
-        $scope.payable = function(){
+        $scope.payable = function () {
 
         }
 
-    //    全款支付
-        $scope.fullPay = function(){
+        //    全款支付
+        $scope.fullPay = function () {
 
         }
 

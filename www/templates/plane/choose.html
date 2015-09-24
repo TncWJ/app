@@ -18,7 +18,7 @@
             <section>
                 <h3 class="citytit">常用城市</h3>
                 <div class="citychooze clearfix">
-                    <a ng-class="place.city == '深圳' ?'on':'' " ng-click="setCurCity('深圳');">深圳</a><a ng-class="place.city == '上海' ?'on':'' " ng-click="setCurCity('上海');">上海</a>
+                    <a ng-class="place.city == usedCity[0].name ?'on':'' " ng-click="setCurCity(usedCity[0].name);">{{usedCity[0].name}}</a><a ng-class="place.city == usedCity[1].name ?'on':'' " ng-click="setCurCity(usedCity[1].name);">{{usedCity[1].name}}</a>
                 </div>
             </section>
             <section>

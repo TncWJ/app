@@ -2,7 +2,7 @@ angular.module('starter.services', [])
 /**
  * 公用
  */
-    .factory('Common', ['$rootScope', '$http', '$sce','$location' ,function ($rootScope, $http, $sce , $location) {
+    .factory('Common', ['$rootScope', '$http', '$sce', '$location', function ($rootScope, $http, $sce, $location) {
         var com = {};
 
         //    时间选择器
@@ -147,15 +147,55 @@ angular.module('starter.services', [])
             }
         }
 
+        //读常用城市
+        com.readUsedCity = function(){
+            var json =  [
+                {
+                    name:'上海',
+                    ctr:0
+                },
+                {
+                    name:'北京',
+                    ctr:0
+                }
+            ];
+            if ( localStorage.getItem('usedCity') == undefined){
+                localStorage.setItem('usedCity' , JSON.stringify(json));
+            }
+
+            return JSON.parse(localStorage.getItem('usedCity'));
+        }
+
+        //写常用城市
+        com.writeUsedCity = function(v){
+            localStorage.setItem('usedCity' , JSON.stringify(v));
+        }
+
+        //更新常用城市
+        com.updateUsedCity = function(city){
+            var data = com.readUsedCity();
+            var index = lyf.inObject(city ,  data);
+
+            if ( index ){
+                data[index].ctr ++;
+            }else{
+                data.push({name:city , ctr:0});
+            }
+            data.sort(function(a , b){
+                return -(parseInt(a.ctr - b.ctr));
+            })
+            this.writeUsedCity(data);
+        }
+
         return com;
     }])
 /**
  * 用户
  */
-    .factory('User', ['$rootScope', '$http', '$location', '$timeout' , 'Common', function ($rootScope, $http, $location, $timeout , Common) {
+    .factory('User', ['$rootScope', '$http', '$location', '$timeout', 'Common', function ($rootScope, $http, $location, $timeout, Common) {
         var user = {};
         var server = new ClientServer($http, $rootScope);
-        user.checkLogin = function (name , com) {
+        user.checkLogin = function (name, com) {
             if ($rootScope.isLogin == undefined) {
                 server.createRequest('user', 'checkLogin', '').then(function (d) {
                     if (d.type == 'success' && d.data == 'ok') {
@@ -220,17 +260,17 @@ angular.module('starter.services', [])
                     //    借款滚动
                     var list = $rootScope.curApplyNum.new_rows, s = false, temp = {};
                     var p = $interval(function () {
-                        if ( $location.url() != '/tab/dai'){
+                        if ($location.url() != '/tab/dai') {
                             $interval.cancel(p);
                         }
-                        if ( !s){
-                            for ( var i in list ){
+                        if (!s) {
+                            for (var i in list) {
                                 temp = list[i][0];
                                 list[i][0] = list[i][1];
                                 list[i][1] = temp;
                             }
-                        }else{
-                            for ( var i in list ){
+                        } else {
+                            for (var i in list) {
                                 temp = list[i][1];
                                 list[i][1] = list[i][0];
                                 list[i][0] = temp;
@@ -247,7 +287,7 @@ angular.module('starter.services', [])
 
             //提交现金贷申请
             userDai.commitLoan = function (param, $ionicPopup) {
-                server.createRequest('user', 'commitLoan', '' ,param).then(function (d) {
+                server.createRequest('user', 'commitLoan', '', param).then(function (d) {
                     var str = '';
                     if (d.success) {
                         $ionicPopup.alert({title: '成功', subTitle: '您的借款将在24小时内到帐！', okText: '确认'});
@@ -349,7 +389,7 @@ angular.module('starter.services', [])
 
         user.getCheckCode = function ($ionicPopup, moblie, type) {
             var phone = {phone_number: moblie, type: type};
-            server.createRequest('user', 'getSMSCode?r='+Math.random(), '', phone).then(function (d) {
+            server.createRequest('user', 'getSMSCode?r=' + Math.random(), '', phone).then(function (d) {
                 if (d.status) {
                 } else {
                     $ionicPopup.alert({title: '失败', subTitle: d.info, okText: '确认'});
@@ -379,7 +419,7 @@ angular.module('starter.services', [])
 
 
         user.getRegSMScode = function (phone, $ionicPopup) {
-            server.createRequest('reg', 'getSMScode?phone=' + phone+'&r='+Math.random(), '').then(function (d) {
+            server.createRequest('reg', 'getSMScode?phone=' + phone + '&r=' + Math.random(), '').then(function (d) {
                 if (d.status) {
                     $location.url('/tab/user-reg2');
                 } else {
@@ -451,18 +491,18 @@ angular.module('starter.services', [])
         }
 
         user.getSchoolList = function (provinceName, city) {
-            server.createRequest('user', 'get_school_list?provinceName=' + provinceName + '&city=' + city, '').then(function(d){
+            server.createRequest('user', 'get_school_list?provinceName=' + provinceName + '&city=' + city, '').then(function (d) {
                 $rootScope.schoolList = d;
                 $rootScope.showSchool = true;
             })
         }
 
-        user.doactive = function($ionicPopup){
-            server.createRequest('user' , 'doactive' , '').then(function(d){
-                if (d.status){
+        user.doactive = function ($ionicPopup) {
+            server.createRequest('user', 'doactive', '').then(function (d) {
+                if (d.status) {
                     $ionicPopup.alert({title: '成功', subTitle: '激活邮件发送成功，请重新登录！', okText: '确认'});
                     user.logOut();
-                }else{
+                } else {
                     $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
                 }
             })
