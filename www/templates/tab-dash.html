@@ -1,11 +1,12 @@
-<ion-view view-title="">
-    <ion-content scroll="false">
-        <header class="bar bar-nav orange head">
-            <a class="pull-left tab city" href="#/tab/dash-choose">{{place.city}}</a>
+<header class="bar bar-nav orange head">
+            <a class="pull-left tab city" href="#/tab/dash-choose">去昂{{place.city}}</a>
             <span class="callphone" ng-click="showPhone(true);"><img src="images/phoneicon.png"></span>
 
             <h1 class="search-h1"><input type="search" placeholder="搜索目的地" ng-blur="search(keyword);"
                                          ng-model="keyword"><span class="icon icon-search" ng-click="search(keyword);"></span></h1></header>
+<ion-view view-title="">
+    <ion-content scroll="false">
+        
         <div class="botphone popover2" ng-show="show">
             <img src="images/logo.jpg" class="logo">
             <h4>24小时客服电话</h4>
@@ -17,6 +18,7 @@
     </ion-content>
     <ion-content>
         <div class="content padt50" id="main_box">
+            <p class="destin_ding">已经到最顶端了！！</p>
             <div class="addWrap">
                 <ion-slide-box on-slide-changed="slideHasChanged($index)" auto-play="false" does-continue="true">
                     <ion-slide ng-repeat="v in banner">
@@ -238,9 +240,8 @@
                     </div>
                 </div>
             </div>
-
+           <p class="destin_di">已经到最底端了！！</p>
         </div>
-
     </ion-content>
 
 </ion-view>

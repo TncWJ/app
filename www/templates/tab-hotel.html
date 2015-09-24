@@ -1,4 +1,38 @@
-<ion-view title="酒店查找">
+<ion-view title="酒店查找" class="grey">
+   <ion-content scroll="false">
+     <div class="botphone popover2" >
+            <div class="bot_select select_fu">
+                <h3>星级（复选）</h3>
+                <div ng-init="xinIndex = 0"></div>
+                <div class="bot_select_con  clearfix">
+                    <span ng-class="xinIndex == 0 ? 'buxi on' : 'buxi'" ng-click="updateSearch('star' , [-1]);xinIndex = 0;">不限</span><span
+                        ng-click="updateSearch('star' , 1 , true);xinIndex = 1;" ng-class="xinIndex == 1 ? 'buxi on' : 'buxi'">二星级以下</span><span
+                        ng-click="updateSearch('star' , 3 , true);xinIndex = 2;" ng-class="xinIndex == 2 ? 'buxi on' : 'buxi'">三星/舒适</span><span
+                        ng-click="updateSearch('star' , 4 , true);xinIndex = 3;" ng-class="xinIndex == 3 ? 'buxi on' : 'buxi'">四星/高档</span><span
+                        ng-click="updateSearch('star' , 5 , true);xinIndex = 4;" ng-class="xinIndex == 4 ? 'buxi on' : 'buxi'">五星/豪华</span>
+                </div>
+            </div>
+            <div class="bot_select select_dan">
+                <h3>价格（单选）</h3>
+
+                <div ng-init="priceIndex = 0"></div>
+                <div class="bot_select_con  clearfix">
+                    <span ng-class="priceIndex == 0 ? 'buxi on' : 'buxi'" ng-click="updateSearch('price' , [{go:-1 , end:-1}]);priceIndex = 0;">不限</span><span
+                        ng-click="updateSearch('price' , {go:0 , end:150} , true);priceIndex = 1;" ng-class="priceIndex == 1 ? 'buxi on' : 'buxi'">￥150以下</span><span
+                        ng-click="updateSearch('price' , {go:150 , end:300} , true);priceIndex = 2;" ng-class="priceIndex == 2 ? 'buxi on' : 'buxi'">￥150-300</span><span
+                        ng-click="updateSearch('price' , {go:301 , end:450} , true);priceIndex = 3;" ng-class="priceIndex == 3 ? 'buxi on' : 'buxi'">￥301-450</span><span
+                        ng-click="updateSearch('price' , {go:451 , end:550} , true);priceIndex = 4;" ng-class="priceIndex == 4 ? 'buxi on' : 'buxi'">￥451-550</span><span
+                        ng-click="updateSearch('price' , {go:551 , end:700} , true);priceIndex = 5;" ng-class="priceIndex == 5 ? 'buxi on' : 'buxi'">￥551-700</span><span
+                        ng-click="updateSearch('price' , {go:701 , end:1000} , true);priceIndex = 6;" ng-class="priceIndex == 6 ? 'buxi on' : 'buxi'">￥701-1000</span><span
+                        ng-click="updateSearch('price' , {go:1000 , end:-1} , true);priceIndex = 7;" ng-class="priceIndex == 7 ? 'buxi on' : 'buxi'">￥1000以上</span>
+                </div>
+            </div>
+            <div class="pad10">
+                <a class="publicbtn btn btn-block btn-orange hotel_sure" id="#hotel_sure"
+                   ng-click="showXin = false">确定</a>
+            </div>
+        </div>
+   </ion-content>
     <ion-content>
         <div class="content grey" id="main_box">
             <div class="hotel_search">
@@ -70,39 +104,7 @@
                 </div>
             </div>
         </div>
-        <div class="mask"></div>
-        <div class="botphone popover2" ng-show="showXin">
-            <div class="bot_select select_fu">
-                <h3>星级（复选）</h3>
-                <div ng-init="xinIndex = 0"></div>
-                <div class="bot_select_con  clearfix">
-                    <span ng-class="xinIndex == 0 ? 'buxi on' : 'buxi'" ng-click="updateSearch('star' , [-1]);xinIndex = 0;">不限</span><span
-                        ng-click="updateSearch('star' , 1 , true);xinIndex = 1;" ng-class="xinIndex == 1 ? 'buxi on' : 'buxi'">二星级以下</span><span
-                        ng-click="updateSearch('star' , 3 , true);xinIndex = 2;" ng-class="xinIndex == 2 ? 'buxi on' : 'buxi'">三星/舒适</span><span
-                        ng-click="updateSearch('star' , 4 , true);xinIndex = 3;" ng-class="xinIndex == 3 ? 'buxi on' : 'buxi'">四星/高档</span><span
-                        ng-click="updateSearch('star' , 5 , true);xinIndex = 4;" ng-class="xinIndex == 4 ? 'buxi on' : 'buxi'">五星/豪华</span>
-                </div>
-            </div>
-            <div class="bot_select select_dan">
-                <h3>价格（单选）</h3>
-
-                <div ng-init="priceIndex = 0"></div>
-                <div class="bot_select_con  clearfix">
-                    <span ng-class="priceIndex == 0 ? 'buxi on' : 'buxi'" ng-click="updateSearch('price' , [{go:-1 , end:-1}]);priceIndex = 0;">不限</span><span
-                        ng-click="updateSearch('price' , {go:0 , end:150} , true);priceIndex = 1;" ng-class="priceIndex == 1 ? 'buxi on' : 'buxi'">￥150以下</span><span
-                        ng-click="updateSearch('price' , {go:150 , end:300} , true);priceIndex = 2;" ng-class="priceIndex == 2 ? 'buxi on' : 'buxi'">￥150-300</span><span
-                        ng-click="updateSearch('price' , {go:301 , end:450} , true);priceIndex = 3;" ng-class="priceIndex == 3 ? 'buxi on' : 'buxi'">￥301-450</span><span
-                        ng-click="updateSearch('price' , {go:451 , end:550} , true);priceIndex = 4;" ng-class="priceIndex == 4 ? 'buxi on' : 'buxi'">￥451-550</span><span
-                        ng-click="updateSearch('price' , {go:551 , end:700} , true);priceIndex = 5;" ng-class="priceIndex == 5 ? 'buxi on' : 'buxi'">￥551-700</span><span
-                        ng-click="updateSearch('price' , {go:701 , end:1000} , true);priceIndex = 6;" ng-class="priceIndex == 6 ? 'buxi on' : 'buxi'">￥701-1000</span><span
-                        ng-click="updateSearch('price' , {go:1000 , end:-1} , true);priceIndex = 7;" ng-class="priceIndex == 7 ? 'buxi on' : 'buxi'">￥1000以上</span>
-                </div>
-            </div>
-            <div class="pad10">
-                <a class="publicbtn btn btn-block btn-orange hotel_sure" id="#hotel_sure"
-                   ng-click="showXin = false">确定</a>
-            </div>
-        </div>
+        
 
     </ion-content>
 </ion-view>

@@ -55,7 +55,7 @@ h1,h2,h3,h4,h5,h6{font-size:14px;}
 .head h1{margin:0px 30px 0px 85px;font-size:13px;width:100%;}
 .head h1 input{font-size:12px;padding-left:10px;background:#fff;background-size: 19px;}
 .head h1 input[type=search]{border:none;font-weight: normal;margin: 2px 0;}
-.head a.tab{color:#fff;font-weight:bold;line-height:44px;padding-right:13px;background:url(../../images/tab.png) right center no-repeat;display:block;width:80px;padding-right:12px;text-align:center;}
+.head a.tab{color:#fff;font-weight:bold;line-height:44px;margin-left:-10px;padding-right:13px;background:url(../../images/tab.png) right center no-repeat;display:block;width:80px;padding-right:12px;text-align:center;}
 .head span img{width:16px;height:22px;margin-right:5px;}
 .orange{background:#ff6102;}
 .orange .title,.orange .icon,.orange .btn-link{color:#fff;background:none;}
@@ -480,6 +480,8 @@ padding:10px;
 .search-h1 input,.search-h1 span{display:block;}
 .search-h1 span.icon{width: 30px;position: absolute;top:5px;right: 35px;color: #ccc;}
 .search-h1.search-more span.icon{right: 5px;}
+.destin_di{text-align: center;margin: 10px 0;}
+.destin_ding{text-align: center;margin:-30px 0 10px;}
 @media screen and (max-width: 640px){
 
 .ho_se_left{left:0;margin-left: 0;}
