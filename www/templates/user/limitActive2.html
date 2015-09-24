@@ -1,55 +1,93 @@
-<ion-view>
+<ion-view title="学籍信息">
     <ion-content>
-        <header class="bar bar-nav">
-            <a class="icon icon-left-nav pull-left" ng-click="changeTpl('limitActivate1.html');"></a>
-
-            <h1 class="title">学籍信息</h1>
-        </header>s
         <div class="content pad50 grey" id="main_box">
+            <ul class="tx_bz">
+                <li>
+                    <div></div>
+                    <span>1</span>
+
+                    <p>填写个人信息</p>
+                </li>
+                <li class="on">
+                    <div></div>
+                    <span>2</span>
+
+                    <p>填写学籍信息</p>
+                </li>
+                <li>
+                    <div></div>
+                    <span>3</span>
+
+                    <p>证件信息</p>
+                </li>
+            </ul>
+
             <form class="input-group chpass">
                 <div class="input-row border_radius">
                     <label>学校所在地</label>
-                    <input type="text" placeholder="如：深圳市" ng-model="userRz.schoolRool.place">
+                    <div class="school">
+                        <!--省-->
+                    <select ng-model="provinceId" ng-change="updateProvince(provinceId)">
+                        <option ng-repeat="v in provinceList.result_rows"  value="{{v.region_id}}">{{v.region_name}}</option>
+                    </select>
+                        <!--市-->
+                    <select ng-model="city" ng-change="updateSchoolList(city)" ng-show="showCity">
+                        <option  ng-repeat="v in cityData" value="{{v.region_name}}">{{v.region_name}}</option>
+                    </select>
+                        <!--学院名-->
+                    <select ng-model="schoolIndex" ng-change="updateSchoolName(schoolIndex)" ng-show="showSchool">
+                        <option ng-repeat="v in schoolList" value="{{$index}}">{{v.name}}</option>
+                    </select>
+                    </div>
+                    <!--<input type="text" placeholder="如：深圳市" ng-model="userRz.schoolRool.place">-->
                 </div>
                 <div class="input-row border_radius">
                     <label>所在大学</label>
-                    <input type="text" placeholder="请输入您所在的大学名称" ng-model="userRz.schoolRool.name">
+                    <input type="text" placeholder="请输入您所在的大学名称" ng-model="schoolName">
                 </div>
                 <div class="input-row border_radius">
                     <label>学院全称</label>
-                    <input type="text" placeholder="请输入您所在的学院名称" ng-model="userRz.schoolRool.academy">
+                    <input type="text" placeholder="请输入您所在的学院名称" ng-model="verify.institude_name">
                 </div>
                 <div class="input-row border_radius">
                     <label>专业全称</label>
-                    <input type="text" placeholder="请输入您所在的专业名称" ng-model="userRz.schoolRool.major">
+                    <input type="text" placeholder="请输入您所在的专业名称" ng-model="verify.major">
                 </div>
                 <div class="input-row border_radius">
                     <label>班级</label>
-                    <input type="text" placeholder="请输入您所在的班级名称" ng-model="userRz.schoolRool.classNo">
+                    <input type="text" placeholder="请输入您所在的班级名称" ng-model="verify.grade">
                 </div>
                 <div class="input-row border_radius">
                     <label>完整宿舍地址</label>
-                    <input type="text" value="12912989" placeholder="请输入您的宿舍完整地址" ng-model="userRz.schoolRool.dormDir">
+                    <input type="text" value="12912989" placeholder="请输入您的宿舍完整地址" ng-model="verify.dorm_address">
                 </div>
                 <div class="input-row border_radius">
                     <label>学历</label>
-                    <input type="text" placeholder="请输入您的学历" ng-model="userRz.schoolRool.studentBack">
+                    <div class="enter_year text-right">
+                    <select name="" id="" ng-model="verify.education_background">
+                        <option ng-repeat="v in edBackground" value="{{v}}" ng-selected="$index == 1">{{v}}</option>
+                    </select>
+                    </div>
                 </div>
                 <div class="input-row border_radius">
                     <label>入学年份</label>
-                    <input type="text" placeholder="请输入您所在的入学年份" ng-model="userRz.schoolRool.year">
+                    <div class="enter_year text-right">
+                    <select name="" id="" ng-model="verify.school_year">
+                        <option ng-repeat="v in schoolYearList" value="{{v}}" ng-selected="$index == 1">{{v}}</option>
+                    </select>
+                  </div>
                 </div>
                 <div class="input-row border_radius">
                     <label>学号</label>
-                    <input type="text" ng-model="userRz.schoolRool.studentNo" placeholder="请输入您的学号">
+                    <input type="text" ng-model="verify.student_number" placeholder="请输入您的学号">
                 </div>
                 <div class="input-row border_radius">
                     <label>学信网账号</label>
-                    <input type="text" ng-model="userRz.schoolRool.xuexin.username" placeholder="请输入您的学信帐号">
+                    <input type="text" ng-model="verify.xuexin_uesername" placeholder="请输入您的学信帐号">
                 </div>
                 <div class="input-row border_radius">
                     <label>学信网密码</label>
-                    <input type="password" ng-model="userRz.schoolRool.xuexin.userpass" placeholder="请输入您的学信密码">
+                    <input type="password" ng-model="verify.xuexin_password" placeholder="请输入您的学信密码">
                 </div>
             </form>
             <div class="zhu_btn pad10"><a href="#" class="btn btn-block btn-orange" ng-click="userRzCenter(2);">确认</a></div>

@@ -1,0 +1,40 @@
+<ion-view title="填写验证码" class="grey">
+    <ion-content>
+        <div class="content pad50 grey" id="main_box">
+            <ul class="tx_bz">
+                <li>
+                    <div></div>
+                    <span>1</span>
+
+                    <p>填写手机号</p>
+                </li>
+                <li class="on">
+                    <div></div>
+                    <span>2</span>
+
+                    <p>填写验证码</p>
+                </li>
+                <li>
+                    <div></div>
+                    <span>3</span>
+
+                    <p>设置密码</p>
+                </li>
+            </ul>
+            <!--第二步-->
+            <form class="input-group chpass">
+            <div class="input-row border_radius">
+                <label>验证码</label>
+                <input type="text" placeholder="数字验证码" ng-model="reg.sms_code">
+            </div>
+                <div class="input-row border_radius">
+                    <label>重新获取验证码</label>
+                    <button ng-click="rGetSMScode();" ng-disabled="isNaN(time)" class="btn hq-yzm">{{time}}</button>
+                </div>
+            <div class="padlr10 padt10">
+                <a class="btn btn-block btn-orange" href="#/tab/user-reg3">下一步，设置密码</a>
+            </div>
+        </form>
+        </div>
+    </ion-content>
+</ion-view>

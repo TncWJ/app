@@ -10,6 +10,8 @@ var conf = {
             //'serverTplDir':'http://localhost/static/letyoufunDev/',
             //'serverTplDir':'http://192.168.1.88/static/letyoufunDev/',
             //'webHost':'http://localhost/letyoufunR010/index.php/',
-            'notFoundImg':'http://localhost/letyoufun/statics/images/upimg/traceling1.jpg'
+            //'notFoundImg':'http://localhost/letyoufun/statics/images/upimg/traceling1.jpg'
+
+            phone:'4006476400'
         }
 };

@@ -1,10 +1,5 @@
-<ion-view>
+<ion-view title="舱位选择">
     <ion-content>
-        <header class="bar bar-nav orange">
-            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
-
-            <h1 class="title">舱位选择</h1>
-        </header>
         <div class="content pad50 grey" id="main_box">
             <div class="plane_cw">
                 <section>
@@ -33,8 +28,8 @@
                 </section>
                 <section>
                     <ul class="table-view plane_list nopa">
-                        <li class="table-view-cell" ng-repeat="v in flightLists">
-                            <button class="btn btn-orange" ng-click="goToDetal('flight' , '' , '' , 'pay')">预订</button>
+                        <a class="table-view-cell" ng-repeat="v in flightLists">
+                            <a href="#/tab/plane-order1"> <button class="btn btn-orange" >预订</button></a>
                             <span href="#" class="pull-right money">￥{{v.minprice}}</span> <h4>(经济舱)3.2折</h4>
 
                             <p><a href="#">退订规定</a></p></li>

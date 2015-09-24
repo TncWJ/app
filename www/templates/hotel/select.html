@@ -1,22 +1,23 @@
-<ion-view>
+<ion-view title="酒店筛选">
+<ion-content scroll="false">
+    <div class="bot_sure botphone popover2">
+         <a href="#/tab/hotel" class="btn btn-block btn-orange publicbtn" >完成</a>
+     </div>
+</ion-content>
     <ion-content>
-        <header class="bar bar-nav orange">
-            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
-            <h1 class="title">酒店筛选</h1>
-        </header>
-        <div class="content grey" id="main_box">
+        <div class="content grey padb50" id="main_box">
             <div class="hotel_select">
                 <div class="ho_se_right">
-                    <ul class="ho_list on">
+                    <ul ng-class="hotel.curMenuIndex == 0 ? 'ho_list on' : 'ho_list'" ng-show="hotel.curMenuIndex == 0">
                         <li ng-click="clear();" ng-class="curSelectIndex.Areas == -1 ? 'on' : ''"><span></span>不限</li>
                         <li ng-repeat="v in data.HotelAreas" ng-click="selectOn('Areas' , {code:v.location ,name:v.locationname} ,$index);" ng-class="$index == curSelectIndex.Areas ? 'on' : ''"><span></span>{{v.locationname}}</li>
                     </ul>
-                    <ul class="ho_list">
+                    <ul ng-class="hotel.curMenuIndex == 1 ? 'ho_list on' : 'ho_list'"  ng-show="hotel.curMenuIndex == 1">
                         <li ng-click="clear();"><span></span>不限</li>
                         <li ng-repeat="v in data.HotelZones" ng-click="selectOn('Zones' , {code:v.zone , name:v.zonename} , $index);" ng-class="$index == curSelectIndex.Zones ? 'on' : ''"><span></span>{{v.zonename}}</li>
 
                     </ul>
-                    <ul class="ho_list">
+                    <ul ng-class="hotel.curMenuIndex == 2 ? 'ho_list on' : 'ho_list'"  ng-show="hotel.curMenuIndex == 2">
                         <li ng-click="clear();"><span></span>不限</li>
                         <li ng-repeat="v in data.showbands" ng-click="selectOn('Showbands' , {code:v.bandid , name:v.bandname} , $index);" ng-class="$index == curSelectIndex.bands ? 'on' : ''"><span></span>{{v.bandname}}</li>
                     </ul>
@@ -24,13 +25,10 @@
             </div>
             <div class="ho_se_left">
                 <ul class="left_chooze">
-                    <li class="xinz on" ng-click="showDetal(0);"><span></span>行政区</li>
-                    <li class="squan" ng-click="showDetal(1);"><span></span>商圈</li>
-                    <li class="brand" ng-click="showDetal(2);"><span></span>品牌</li>
+                    <li ng-class="hotel.curMenuIndex == 0 ? 'xinz on' : 'xinz'"  ng-click="changeMenu(0);"><span></span>行政区</li>
+                    <li ng-class="hotel.curMenuIndex == 1 ? 'squan on' : 'squan'" ng-click="changeMenu(1);"><span></span>商圈</li>
+                    <li ng-class="hotel.curMenuIndex == 2 ? 'brand on' : 'brand'" ng-click="changeMenu(2);" ><span></span>品牌</li>
                 </ul>
-            </div>
-            <div class="bot_sure">
-                <a href="#" class="btn btn-block btn-orange publicbtn" ng-click="changeTpl('search.html');">完成</a>
             </div>
         </div>
     </ion-content>

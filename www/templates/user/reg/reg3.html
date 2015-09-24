@@ -1,0 +1,47 @@
+<ion-view title="设置密码" class="grey">
+    <ion-content>
+        <div class="content pad50 grey" id="main_box">
+            <ul class="tx_bz">
+                <li>
+                    <div></div>
+                    <span>1</span>
+
+                    <p>填写手机号</p>
+                </li>
+                <li>
+                    <div></div>
+                    <span>2</span>
+
+                    <p>填写验证码</p>
+                </li>
+                <li class="on">
+                    <div></div>
+                    <span>3</span>
+
+                    <p>设置密码</p>
+                </li>
+            </ul>
+            <!--第三步-->
+            <form class="input-group chpass">
+            <div class="input-row border_radius">
+                <label>密码</label>
+                <input type="password" placeholder="6-16位字符" ng-model="reg.user_pass" >
+            </div>
+            <div class="input-row border_radius">
+                <label>再次输入密码</label>
+                <input type="password" placeholder="6-16位字符" ng-model="reg.user_pass2">
+            </div>
+            <div class="yzm-block clearfix reg-yzm">
+                <div class="input-row border_radius input-yzm">
+                    <label>验证码</label>
+                    <input type="text" placeholder="请输入验证码" ng-model="reg.verify">
+                </div>
+                <img ng-click="getCheckCode();" ng-src="{{checkCodeSrc}}" alt="" class="yzm-img"/>
+            </div>
+            <div class="padlr10">
+                <a class="btn btn-block btn-orange loginbtn" ng-click="doReg();">完成注册</a>
+            </div>
+            <form class="input-group chpass">
+        </div>
+    </ion-content>
+</ion-view>

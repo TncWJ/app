@@ -1,54 +1,49 @@
-<ion-view>
+<ion-view title="学籍信息">
     <ion-content>
-        <header class="bar bar-nav">
-            <a class="icon icon-left-nav pull-left"></a>
-
-            <h1 class="title">学籍信息</h1>
-        </header>
         <div class="content pad50 grey" id="main_box">
             <ul class="tx_bz">
                 <li>
                     <div></div>
                     <span>1</span>
 
+                    <p>填写个人信息</p>
+                </li>
+                <li>
+                    <div></div>
+                    <span>2</span>
+
                     <p>填写学籍信息</p>
                 </li>
                 <li class="on">
                     <div></div>
-                    <span>2</span>
-
-                    <p>填写证件信息</p>
-                </li>
-                <li>
-                    <div></div>
                     <span>3</span>
 
-                    <p>认证成功</p>
+                    <p>证件信息</p>
                 </li>
             </ul>
             <!--更改地址-->
-            <form action="http://test.letyoufun.com/AppServer/User/doactive_step3" method="post">
+            <form  enctype="multipart/form-data" action="http://app.letyoufun.com/AppServer/User/doactive_step3?from_app=''" method="post" target="uploadImgs">
                 <ul class="table-view usersafe userinCon userrzhao">
                     <li class="table-view-cell">
                         <p>
-                            <input type="file" name="id_card_pic1" id="idcard_1"/>
+                            <input type="file" name="id_card_pic1" id="idcard_1" ng-click="selPhotos('id_card_pic1')" value="{{imgSrc.id_card_pic1}}"/>
                             身份证正面照</p>
                     </li>
                     <li class="table-view-cell">
                         <p>
-                            <input type="file" name="id_card_pic2" id="idcard_2"/>
+                            <input type="file" name="id_card_pic2" id="idcard_2" ng-click="selPhotos('id_card_pic2')" value="{{imgSrc.id_card_pic2}}"/>
                             身份证背面照</p>
                     </li>
                     <li class="table-view-cell">
                         <p>
 
-                            <input type="file" name="id_card_hand" id="idcard_3"/>
+                            <input type="file" name="id_card_hand" id="idcard_3" ng-click="selPhotos('id_card_hand')" value="{{imgSrc.id_card_hand}}"/>
                             手持身份证照
                         </p>
                     </li>
                     <li class="table-view-cell">
                         <p>
-                            <input type="file" name="student_card_pic" id="idcard_4"/>
+                            <input type="file" name="student_card_pic" id="idcard_4" ng-click="selPhotos('student_card_pic')" value="{{imgSrc.student_card_pic}}"/>
                             学生证
                         </p>
                     </li>
@@ -58,7 +53,9 @@
                     <input type="submit" value="上传" class="btn btn-block btn-orange"/>
                 </div>
             </form>
-
+        </div>
+        <div id="upload" style="display:none;">
+            <iframe src="" frameborder="0" name="uploadImgs" id="submit"></iframe>
         </div>
     </ion-content>
 </ion-view>

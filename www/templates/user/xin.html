@@ -1,10 +1,5 @@
-<ion-view>
+<ion-view title="个人充值">
     <ion-content>
-        <header class="bar bar-nav">
-            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
-
-            <h1 class="title">个人充值</h1>
-        </header>
         <div class="content pad50 grey" id="main_box">
             <div class="cz_main">
                 <div class="cz_box" ng-click="showTotal = false" ng-show="showTotal">
@@ -14,9 +9,8 @@
                     剩余总额<br><span>￥<i>{{userWallet.customer.credit_limit|currency:''}}</i></span>
                 </div>
                 <div class="zhu_btn">
-                    <a class="btn btn-block btn-orange" href="userxinsucc.html"
-                       ng-if="userWallet.customer.creadit_activate != 1"
-                       ng-click="changeTpl('limitActivate1.html')">立即激活</a>
+                    <a class="btn btn-block btn-orange" href="#/tab/user-limitActive"
+                       ng-if="userWallet.customer.creadit_activate != 1">立即激活</a>
                     <a class="btn btn-block btn-grey" href="javascript:void(0);"
                        ng-if="userWallet.customer.creadit_activate == 1">已经激活</a>
                 </div>

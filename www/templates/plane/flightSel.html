@@ -1,9 +1,10 @@
-<ion-view>
+<ion-view title="机票筛选">
+<ion-content scroll="false">
+    <div class="bot_sure botphone popover2">
+                <a href="plane_list.html" class="btn btn-orange btn2" ng-click="searchFlight();">完成</a><a  class="btn btn2 reset">重置</a>
+            </div>
+</ion-content>
     <ion-content>
-        <header class="bar bar-nav orange">
-            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
-            <h1 class="title">机票筛选</h1>
-        </header>
         <div class="content grey" id="main_box">
             <div class="hotel_select">
                 <div class="ho_se_right">
@@ -31,9 +32,7 @@
                     <li class="cang"><span></span>舱位选择</li>
                 </ul>
             </div>
-            <div class="bot_sure">
-                <a href="plane_list.html" class="btn btn-orange btn2" ng-click="searchFlight();">完成</a><a  class="btn btn2 reset">重置</a>
-            </div>
+            
         </div>
     </ion-content>
 </ion-view>

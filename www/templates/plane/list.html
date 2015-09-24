@@ -1,43 +1,39 @@
-<ion-view>
+<ion-view title="{{plane.dCity}}——{{plane.aCity}}">
     <ion-content>
-        <header class="bar bar-nav orange">
-            <a class="icon icon-left-nav pull-left" ng-click="changeTpl('plane.html');"></a>
-            <h1 class="title">{{dCity}}——{{aCity}}</h1>
-        </header>
         <div class="content" id="main_box">
             <section>
-                <div class="chooze_time">
-                    <div class="calender">
-                        <img src="images/rlicon.jpg">
-                        <h4>低价日历</h4>
-                    </div>
-                    <div class="timetab">
-                        <div class="timeMain">
-                            <div class="prev">
-                                <span class="icon icon-left-nav"></span>
-                            </div>
-                            <div class="timetabCon">
-                                <ul class="clearfix">
-                                    <li ng-repeat="v in lowPriceList">
-                                        <p><span>{{v.minprice|currency:'￥'}}</span>起</p>
-                                        <p>
-                                            {{v.departdate}}<em>{{v.day}}</em>
-                                        </p>
-                                    </li>
+                <!--<div class="chooze_time">-->
+                    <!--<div class="calender">-->
+                        <!--<img src="images/rlicon.jpg">-->
+                        <!--<h4>低价日历</h4>-->
+                    <!--</div>-->
+                    <!--<div class="timetab">-->
+                        <!--<div class="timeMain">-->
+                            <!--<div class="prev">-->
+                                <!--<span class="icon icon-left-nav"></span>-->
+                            <!--</div>-->
+                            <!--<div class="timetabCon">-->
+                                <!--<ul class="clearfix">-->
+                                    <!--<li ng-repeat="v in plane.lowPriceList">-->
+                                        <!--<p><span>{{v.minprice|currency:'￥'}}</span>起</p>-->
+                                        <!--<p>-->
+                                            <!--{{v.departdate}}<em>{{v.day}}</em>-->
+                                        <!--</p>-->
+                                    <!--</li>-->
 
-                                </ul>
-                            </div>
-                            <div class="next">
-                                <span class="icon icon-right-nav"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="next">-->
+                                <!--<span class="icon icon-right-nav"></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
             </section>
             <section>
                 <span ng-if="flightList.count == 0">当前未找到匹配的航班</span>
                 <ul class="plane_list">
-                    <li ng-repeat="v in flightList.data">
+                    <li ng-repeat="v in plane.flightList.data">
                         <a href="#" ng-click="searchSeat($index);">
                             <div class="listone">
                                 <div class="add_plane">
@@ -65,9 +61,9 @@
                 </ul>
             </section>
         </div>
-        <nav class="bar bar-tab plane_foo">
+        <!--<nav class="bar bar-tab plane_foo">
             <a class="tab-item" href="#">
-                <span class="icon"  ng-click="changeTpl(');"></span>
+                <span class="icon"></span>
                 <span class="tab-label">筛选</span>
             </a>
             <a class="tab-item" href="#">
@@ -78,6 +74,6 @@
                 <span class="icon" ng-click="sortFlightList('sPrice' , 'OurPrice');"></span>
                 <span class="tab-label">票价由高到低</span>
             </a>
-        </nav>
+        </nav>-->
     </ion-content>
 </ion-view>

@@ -1,31 +1,26 @@
 <ion-view>
     <ion-content>
-        <header class="bar bar-nav orange">
-            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
-
-            <h1 class="title">订单填写</h1>
-        </header>
         <div class="hotel_order">
             <h3>{{hotelOrderInfo.hotel.hotelname}}</h3>
             <p>{{hotelOrderInfo.room.roomtypename}}</p>
             <h5><span>入住：<em>{{hotelOrderInfo.checkindate}}</em></span><span>离店：<em>{{hotelOrderInfo.checkoutdate}}</em><em>共：{{hotelOrderInfo.TotalDays}}晚</em></span></h5>
             <p>{{hotelOrderInfo.room.ratelist[0].breakfast ? '含早餐' : '无早餐'}}</p>
-            <h5><span>费用：<em class="color">{{hotelOrderInfo.TotalPrice|currency:'￥'}}</em></span></h5>
-            <h5><span>分期：<em class="color">分{{hotelOrderInfo.DefaultStage}}期</em></span><span>月供：<em class="color">{{hotelOrderInfo.RefundEachMonth|currency:'￥'}}</em></span></h5>
+            <h5><span>费用：<em class="color">{{hotel.order.TotalPrice|currency:'￥'}}</em></span></h5>
+            <h5><span>分期：<em class="color">分{{hotel.order.ByStages}}期</em></span><span>月供：<em class="color">{{hotel.order.RefundEachMonth|currency:'￥'}}</em></span></h5>
         </div>
         <section>
             <div class="index_box plane_order2">
                 <h3>预订人信息</h3>
                 <ul class="table-view">
-                    <li class="table-view-cell"><span>预订人姓名</span><em>{{order.name}}</em></li>
-                    <li class="table-view-cell"><span>预订人手机</span><em>{{order.phone}}</em></li>
+                    <li class="table-view-cell"><span>预订人姓名</span><em>{{hotel.order.Customer}}</em></li>
+                    <li class="table-view-cell"><span>预订人手机</span><em>{{hotel.order.PhoneNumber}}</em></li>
                 </ul>
             </div>
 
         </section>
         </div>
         <div class="pla_pay_btn">
-            <a href="#" class="btn btn-block btn-orange" ng-click="createHotelOrder();">立即支付</a>
+            <a href="#" class="btn btn-block btn-orange" ng-click="createHotelOrder();">提交订单</a>
         </div>
     </ion-content>
 </ion-view>

@@ -1,19 +1,14 @@
-<ion-view>
+<ion-view title="我的账单">
     <ion-content>
-        <header class="bar bar-nav">
-            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
-
-            <h1 class="title">我的账单</h1>
-        </header>
-        <div class="content pad50 grey" id="main_box">
+        <div class="content pad50 grey" id="main_box" ng-init="curBill='cur';">
             <div class="segmented-control ordertit">
-                <a class="control-item active" href="#" ng-click="update('curBill' , 'cur');">
+                <a ng-class="curBill == 'cur' ? 'control-item active' : 'control-item'" href="#" ng-click="curBill ='cur';">
                     本期账单
                 </a>
-                <a class="control-item" href="#" ng-click="update('curBill' , 'next');">
+                <a ng-class="curBill == 'next' ? 'control-item active' : 'control-item'" href="#" ng-click="curBill ='next';">
                     下期账单
                 </a>
-                <a class="control-item" href="#" ng-click="update('curBill' , 'paid');">
+                <a ng-class="curBill == 'paid' ? 'control-item active' : 'control-item'" href="#" ng-click="curBill ='paid';">
                     已还账单
                 </a>
             </div>
@@ -36,7 +31,7 @@
                                 </a>
                             </div>
                             <div class="orderbot">
-                                <a href="#" class="btn btn-orange2 btn-outlined" ng-click="refund(v.detail_id);">立即还款</a>
+                                <a href="#" class="btn btn-orange2 btn-outlined"  ng-click="refund(v.detail_id , v.amount);">立即还款</a>
                                 <!--<i class="btn btn-orange2 btn-outlined">取消订单</i>-->
                             </div>
                         </li>
@@ -60,7 +55,7 @@
                                 </a>
                             </div>
                             <div class="orderbot">
-                                <a href="#" class="btn btn-orange2 btn-outlined" ng-click="refund(v.detail_id);">立即还款</a>
+                                <a href="#" class="btn btn-orange2 btn-outlined"  ng-click="refund(v.detail_id , v.amount);">立即还款</a>
                                 <!--<i class="btn btn-orange2 btn-outlined">取消订单</i>-->
                             </div>
                         </li>
@@ -84,7 +79,7 @@
                                 </a>
                             </div>
                             <div class="orderbot">
-                                <a href="#" class="btn btn-orange2 btn-outlined" ng-click="refund(v.detail_id);">立即还款</a>
+                                <a href="#" class="btn btn-orange2 btn-outlined" ng-click="refund(v.detail_id , v.amount);">立即还款</a>
                                 <!--<i class="btn btn-orange2 btn-outlined">取消订单</i>-->
                             </div>
                         </li>

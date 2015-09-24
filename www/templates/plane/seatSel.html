@@ -1,43 +1,36 @@
-<ion-view>
+<ion-view title="舱位选择">
     <ion-content>
-        <header class="bar bar-nav orange">
-            <a class="icon icon-left-nav pull-left" ng-click="changeTpl('planeList.html');"></a>
-
-            <h1 class="title">舱位选择</h1>
-        </header>
         <div class="content pad50 grey" id="main_box">
             <div class="plane_cw">
                 <section>
                     <div class="plane_infor">
-                        <p class="hk_infor"><span><img src="images/plane_icon4.jpg"/>{{today}}</span> <span><img
-                                src="images/hkicon.jpg"/>{{moreSeat.airLineName}}{{moreSeat.flightNo}}<em>{{planeType}}</em><em>中</em></span></p>
+                        <p class="hk_infor"><span><img src="images/plane_icon4.jpg"/>{{plane.dDate}}</span> <span><img
+                                src="images/hkicon.jpg"/>{{plane.moreSeat.airLineName}}{{plane.moreSeat.flightNo}}<em>{{plane.moreSeat.planeType}}</em><em>中</em></span></p>
 
                         <div class="add_plane pad10">
                             <div class="addbox1">
-                                <h3>{{dCity}}</h3>
-                                <h5>{{moreSeat.taskOffTime}}</h5>
+                                <h3>{{plane.dCity}}</h3>
+                                <h5>{{plane.moreSeat.taskOffTime}}</h5>
 
-                                <p>{{moreSeat.arriveAirport}}</p>
+                                <p>{{plane.moreSeat.arriveAirport}}</p>
                             </div>
                             <div class="addbox2">
                                 <img src="images/plane_icon3.jpg"/>
                             </div>
                             <div class="addbox1">
-                                <h3>{{aCity}}</h3>
-                                <h5>{{moreSeat.arrivetime}}</h5>
+                                <h3>{{plane.aCity}}</h3>
+                                <h5>{{plane.moreSeat.arrivetime}}</h5>
 
-                                <p>{{moreSeat.departAirport}}</p>
+                                <p>{{plane.moreSeat.departAirport}}</p>
                             </div>
                         </div>
                     </div>
                 </section>
                 <section>
-                    <ul class="table-view plane_list nopa" ng-init="val = moreSeat">
+                    <ul class="table-view plane_list nopa pl-show-main" ng-init="val = plane.moreSeat">
                         <li class="table-view-cell" ng-repeat="v in val.seatList">
-                            <button class="btn btn-orange" ng-click="planeBook(val.flightNo , v.seatid);">预订</button>
+                            <button class="btn btn-orange yud-btno" ng-click="planeBook(val.flightNo , v.seatid);">预订</button>
                             <span href="#" class="pull-right money">{{v.price|currency:'￥'}}</span> <h4>{{v.seatMsg}}</h4>
-
-                            <p><a href="#">退订规定</a></p></li>
                     </ul>
                     <!--<a class="more_cw" href="#">更多舱位<span class="icon icon-down-nav"></span></a>-->
                 </section>

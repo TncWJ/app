@@ -186,17 +186,6 @@ lyf.checkRpPass = function(pass1 , pass2){
          window.location.href = conf.common.serverTplDir+tplName+'?templateName='+param;
     }
 
-/**
- * 添加后退事件
- */
-    $(function(){
-        $('.pull-left').each(function(){
-            $(this).click(function(){
-                    window.history.go(-1);
-            })
-        })
-    })
-
 
 /**
  * 中文名称验证
@@ -222,3 +211,59 @@ lyf.IsDate = function(str){
         return r == null ? false : true;
     }
 }
+
+/**
+ * 获取星期
+ * @param num
+ * @returns {string}
+ */
+lyf.getDay = function (num) {
+    var arr = ['周日', '周二', '周三', '周四', '周五', '周六'];
+    return arr[num];
+}
+
+lyf.getTimeMsg = function(){
+    var now = new Date();
+    var hour = now.getHours();
+    var msg = '';
+    if(hour < 6){
+        msg ="凌晨好";
+    }
+    else if (hour < 9){
+        msg ="早上好";
+    }
+    else if (hour < 12){
+        msg ="上午好";
+    }
+    else if (hour < 14){
+        msg ="中午好";
+    }
+    else if (hour < 17){
+        msg ="下午好";
+    }
+    else if (hour < 19){
+        msg ="傍晚好";
+    }
+    else if (hour < 22){
+        msg ="晚上好";
+    }
+    else {
+        msg ="晚上好";
+    }
+    return msg;
+}
+
+/**
+ * 元素是否在数组里
+ * @param e
+ * @param arr
+ */
+lyf.inArray = function(e , arr){
+    for ( var i in arr){
+        if ( i == e){
+            return true;
+        }
+    }
+    return false;
+}
+

@@ -1,23 +1,27 @@
 <ion-view view-title="">
-    <ion-content>
-
+    <ion-content scroll="false">
         <header class="bar bar-nav orange head">
             <a class="pull-left tab city" href="#/tab/dash-choose">{{place.city}}</a>
-            <a class="icon pull-right call" href="#myPopover"><img src="images/phoneicon.png"></a>
+            <span class="callphone" ng-click="showPhone(true);"><img src="images/phoneicon.png"></span>
 
-            <h1><input type="search" placeholder="搜索目的地" ng-blur="search(keyword);" ng-model="keyword"></h1>
-        </header>
-        <div class="content" id="main_box">
+            <h1 class="search-h1"><input type="search" placeholder="搜索目的地" ng-blur="search(keyword);"
+                                         ng-model="keyword"><span class="icon icon-search" ng-click="search(keyword);"></span></h1></header>
+        <div class="botphone popover2" ng-show="show">
+            <img src="images/logo.jpg" class="logo">
+            <h4>24小时客服电话</h4>
+
+            <p>{{conf.phone|phone}}（免长途费）</p>
+            <a class="btn btn-orange btn-block" href="tel:{{conf.phone}}">电话咨询</a>
+            <button class="btn btn-grey btn-block" ng-click="showPhone(false)">取消</button>
+        </div>
+    </ion-content>
+    <ion-content>
+        <div class="content padt50" id="main_box">
             <div class="addWrap">
-                <ion-slide-box on-slide-changed="slideHasChanged($index)" auto-play="true" does-continue="true">
-                    <ion-slide>
-                        <div><a href="javascript:;"><img class="img-responsive" src="images/banner.jpg"/></a></div>
-                    </ion-slide>
-                    <ion-slide>
-                        <div><a href="javascript:;"><img class="img-responsive" src="images/banner.jpg"/></a></div>
-                    </ion-slide>
-                    <ion-slide>
-                        <div><a href="javascript:;"><img class="img-responsive" src="images/banner.jpg"/></a></div>
+                <ion-slide-box on-slide-changed="slideHasChanged($index)" auto-play="false" does-continue="true">
+                    <ion-slide ng-repeat="v in banner">
+                        <div><a href="#" ng-click="bannerGoTo(v.slide_url);"><img class="img-responsive"
+                                                                                  my-src="{{v.slide_pic}}"/></a></div>
                     </ion-slide>
                 </ion-slide-box>
 
@@ -35,45 +39,88 @@
                     <span class="icon index_b_nav"><img src="images/indexicon4.jpg"></span>
                     <span class="tab-label">机票</span>
                 </a>
-                <a href="#/tab/user-dai" class="tab-item">
+                <a href="#/tab/dai" class="tab-item">
                     <span class="icon index_b_nav"><img src="images/indexicon6.jpg"></span>
                     <span class="tab-label">现金贷</span>
                 </a>
             </aside>
-            <dl class="lv_block clearfix pad10">
-                <dt>
-                    <a href="#/tab/travel">
-                        <h5>周边游</h5>
+            <!--<dl class="lv_block clearfix pad10">-->
+            <!--<dt>-->
+            <!--<a href="#" ng-click="setTravelCurMenu('zhoubian')">-->
+            <!--<h5>周边游</h5>-->
 
-                        <p>精选一日游、周边游、靠谱</p>
-                    </a>
-                </dt>
-                <dd>
-                    <a href="#/tab/travel">
-                        <h5>境外游</h5>
+            <!--<p>精选一日游、周边游、靠谱</p>-->
+            <!--</a>-->
+            <!--</dt>-->
+            <!--<dd>-->
+            <!--<a href="#" ng-click="setTravelCurMenu('jingwai')">-->
+            <!--<h5>境外游</h5>-->
 
-                        <p>经典行程地道玩法、省钱</p>
-                    </a>
-                    <a href="#/tab/travel">
-                        <h5>境内游</h5>
+            <!--<p>经典行程地道玩法、省钱</p>-->
+            <!--</a>-->
+            <!--<a href="#" ng-click="setTravelCurMenu('jingnei')">-->
+            <!--<h5>境内游</h5>-->
 
-                        <p>个性境内旅游方案、畅想</p>
-                    </a>
-                </dd>
-            </dl>
+            <!--<p>个性境内旅游方案、畅想</p>-->
+            <!--</a>-->
+            <!--</dd>-->
+            <!--</dl>-->
             <div id="picScroll" class="picScroll">
                 <div class="hd">
                     <ul></ul>
                 </div>
                 <div class="bd">
                     <ul ng-repeat="val in hotCity.lists">
-                        <li ng-repeat="v in val">
-                            <a href="#" ng-click="selCity(v.cityname)">
-                                <img src="images/img1.jpg">
+                        <li>
+                            <a href="#" ng-click="selCity('广州')">
+                                <img src="images/city/gz.jpg">
 
-                                <p>{{v.cityname}}</p>
+                                <p>广州</p>
                             </a>
                         </li>
+                        <li>
+                            <a href="#" ng-click="selCity('深圳')">
+                                <img src="images/city/sz.jpg">
+
+                                <p>深圳</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" ng-click="selCity('北京')">
+                                <img src="images/city/bj.jpg">
+
+                                <p>北京</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" ng-click="selCity('上海')">
+                                <img src="images/city/sh.jpg">
+
+                                <p>上海</p>
+                            </a>
+                        </li>
+                        <!--<li>-->
+                        <!--<a href="#" ng-click="selCity('重庆')">-->
+                        <!--<img src="images/city/cq.jpg">-->
+
+                        <!--<p>重庆</p>-->
+                        <!--</a>-->
+                        <!--</li>-->
+                        <li>
+                            <a href="#" ng-click="selCity('西安')">
+                                <img src="images/city/xa.jpg">
+
+                                <p>西安</p>
+                            </a>
+                        </li>
+                        <!--<li>-->
+                        <!--<a href="#" ng-click="selCity('天津')">-->
+                        <!--<img src="images/city/tj.jpg">-->
+
+                        <!--<p>天津</p>-->
+                        <!--</a>-->
+                        <!--</li>-->
+
                     </ul>
                     <ul></ul>
                     <ul></ul>
@@ -84,7 +131,8 @@
 
                 <div id="slideBox1" class="slideBox slideBox1">
                     <div class="bd">
-                        <ion-slide-box on-slide-changed="slideHasChanged($index)" auto-play="true" does-continue="true">
+                        <ion-slide-box on-slide-changed="slideHasChanged($index)" auto-play="false"
+                                       does-continue="true">
                             <ion-slide ng-repeat="v in travelList.zhoubian">
                                 <a href="#" ng-click="showTravel(v.packageid)">
                                     <dl>
@@ -111,7 +159,8 @@
 
                 <div id="slideBox2" class="slideBox slideBox2">
                     <div class="bd">
-                        <ion-slide-box on-slide-changed="slideHasChanged($index)" auto-play="true" does-continue="true">
+                        <ion-slide-box on-slide-changed="slideHasChanged($index)" auto-play="false"
+                                       does-continue="true">
                             <ion-slide ng-repeat="v in travelList.jingnei">
                                 <a href="#" ng-click="showTravel(v.packageid)">
                                     <dl>
@@ -138,7 +187,8 @@
 
                 <div id="slideBox3" class="slideBox slideBox1">
                     <div class="bd">
-                        <ion-slide-box on-slide-changed="slideHasChanged($index)" auto-play="true" does-continue="true">
+                        <ion-slide-box on-slide-changed="slideHasChanged($index)" auto-play="false"
+                                       does-continue="true">
                             <ion-slide ng-repeat="v in travelList.jingwai">
                                 <a href="#" ng-click="showTravel(v.packageid)">
                                     <dl>
@@ -166,7 +216,8 @@
 
                 <div id="slideBox5" class="slideBox slideBox5">
                     <div class="bd">
-                        <ion-slide-box on-slide-changed="slideHasChanged($index)" auto-play="true" does-continue="true">
+                        <ion-slide-box on-slide-changed="slideHasChanged($index)" auto-play="false"
+                                       does-continue="true">
                             <ion-slide ng-repeat="v in hotHotel.lists">
                                 <a href="#" ng-click="showHotel(v.packageid)">
                                     <dl>
@@ -174,8 +225,7 @@
                                         <dd><p>{{v.hotelname}}</p>
 
                                             <p>
-                                                <span>{{v.ourprice}}</span><em>|</em><span>{{v.MonthPay}}<em>×
-                                                12</em></span></p></dd>
+                                                <span>特惠价：{{v.ourprice|currency:'￥'}}</span>
                                     </dl>
                                 </a>
 
@@ -190,13 +240,8 @@
             </div>
 
         </div>
-        <div id="myPopover" class="popover botphone">
-            <img src="images/logo.jpg" class="logo">
-            <h4>24小时客服电话</h4>
 
-            <p>400-888-3658（免长途费）</p>
-            <a class="btn btn-orange btn-block" href="tel:400-888-3658">电话咨询</a>
-            <button class="btn btn-grey btn-block">取消</button>
-        </div>
     </ion-content>
+
 </ion-view>
+

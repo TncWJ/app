@@ -1,21 +1,181 @@
 angular.module('starter.services', [])
+/**
+ * 公用
+ */
+    .factory('Common', ['$rootScope', '$http', '$sce','$location' ,function ($rootScope, $http, $sce , $location) {
+        var com = {};
 
+        //    时间选择器
+        com.dateSelector = function ($cordovaDatePicker, type) {
+            var t = type ? type : 'date';
+            var options = {
+                date: new Date(),
+                mode: t, // or 'time'
+                minDate: new Date() - 10000,
+                allowOldDates: true,
+                allowFutureDates: false,
+                doneButtonLabel: 'DONE',
+                doneButtonColor: '#F2F3F4',
+                cancelButtonLabel: 'CANCEL',
+                cancelButtonColor: '#000000'
+            };
+            //时间选择
+            $rootScope.selDate = function (name) {
+                $cordovaDatePicker.show({
+                    date: new Date(),
+                    mode: 'date'
+                }).then(function (date) {
+                    var time = new Date(date).format('yyyy-MM-dd');
+                    var str = name.split('.');
+                    if (str.length == 2) {
+                        $rootScope[str[0]][str[1]] = time;
+                    }
+                    if (str.length == 1) {
+                        $rootScope[str[0]] = time;
+                    }
+                    if (str.length == 3) {
+                        $rootScope[str[0]][str[1]][str[2]] = time
+                    }
+                });
+            }
+        }
+
+        //获取分期月付
+        com.getMonthPay = function (param, name) {
+            $http.post(lyf.go('AppServer/Index/getMonthPay'), {
+                'month': param[0],
+                'totalprice': param[1]
+            }).then(function (d) {
+                if (!name) {
+                    $rootScope.payPrice = d.data.pay;
+                    $rootScope.payMonth = param[0];
+                } else {
+                    var str = name.split('.');
+                    if (str.length == 1) $rootScope[name] = d.data.pay;
+                    if (str.length == 2) $rootScope[str[0]][str[1]] = d.data.pay;
+                    if (str.length == 3) $rootScope[str[0]][str[1]][str[2]] = d.data.pay;
+                }
+            })
+        }
+
+        //图片选择器
+        com.imgSelector = function ($cordovaImagePicker) {
+            var options = {
+                maximumImagesCount: 1,
+                width: 800,
+                height: 800,
+                quality: 80
+            };
+
+            $rootScope.selPhotos = function (name) {
+                $cordovaImagePicker.getPictures(options)
+                    .then(function (results) {
+                        $rootScope.imgSrc[name] = results[0];
+                    }, function (error) {
+                        // error getting photos
+                    });
+            }
+
+        }
+
+        //文件上传
+        com.fileUpload = function ($cordovaFileTransfer, server, typeName) {
+            $rootScope.upload = function () {
+                var filePath = $rootScope['img'][typeName];
+                var options = {};
+                $cordovaFileTransfer.upload(server, filePath, options)
+                    .then(function (d) {
+                        // Success!
+                        if (d.status) {
+                            alert('ok');
+                        }
+                    }, function (err) {
+                        // Error
+                    }, function (progress) {
+                        // constant progress updates
+                    });
+            }
+
+        }
+
+        //解决ng不允许iframe跨域
+        com.getSrc = function (src) {
+            return $sce.trustAsResourceUrl(src);
+        }
+
+        //搜索城市
+        com.searchCity = function (city, fn, $ionicPopup) {
+            var list = $rootScope.hotCity.lists;
+            var more = $rootScope.hotCity.moreCity;
+            var isOk = false;
+            for (var i in list) {
+                if (city == list[i].cityname) {
+                    isOk = true;
+                }
+            }
+
+            if (!isOk) {
+                if (lyf.inArray(city, more)) {
+                    fn(city);
+                } else {
+                    $ionicPopup.alert({title: '错误', subTitle: '暂不支持该城市', okText: '确认'});
+                }
+            } else {
+                fn(city);
+            }
+        }
+
+        //重新获取验证码
+        com.rGetSMScode = function ($interval, fn, $ionicPopup, type) {
+            if ($rootScope.time != '获取验证码') {
+                $ionicPopup.alert({title: '错误', subTitle: '请不要重复获取！', okText: '确认'});
+                return;
+            } else {
+                $rootScope.time = 60;
+            }
+            var p = $interval(function () {
+                $rootScope.time -= 1;
+                if ($rootScope.time == 0) {
+                    $interval.cancel(p);
+                    $rootScope.time = '获取验证码';
+                }
+            }, 1000, 60);
+            if (type == 'safe') {
+                fn(false);
+            } else {
+                fn($rootScope.tempPhone);
+            }
+        }
+
+        return com;
+    }])
 /**
  * 用户
  */
-    .factory('User', ['$rootScope', '$http', '$location', function ($rootScope, $http, $location) {
+    .factory('User', ['$rootScope', '$http', '$location', '$timeout' , 'Common', function ($rootScope, $http, $location, $timeout , Common) {
         var user = {};
         var server = new ClientServer($http, $rootScope);
-        user.checkLogin = function (name) {
-            server.createRequest('user', 'checkLogin', '').then(function (d) {
-                if (d.type == 'success' && d.data == 'ok') {
-                    //    ok
-                    $location.url('/tab/' + name);
-                } else {
-                    //    error
-                    $location.url('/tab/login');
-                }
-            })
+        user.checkLogin = function (name , com) {
+            if ($rootScope.isLogin == undefined) {
+                server.createRequest('user', 'checkLogin', '').then(function (d) {
+                    if (d.type == 'success' && d.data == 'ok') {
+                        //    ok
+                        $rootScope.isLogin = true;
+                    } else {
+                        //    error
+                        $rootScope.isLogin = false;
+                    }
+                })
+                $timeout(function () {
+                    $rootScope.isLogin ? $location.url('/tab/' + name) : $location.url('/tab/login');
+                }, 1500)
+            } else if ($rootScope.isLogin == false) {
+                $location.url('/tab/login');
+            } else {
+                $location.url('/tab/' + name)
+            }
+
+
         }
 
         user.doLogin = function (name, password, checkCode, goTplName, $ionicPopup) {
@@ -26,15 +186,19 @@ angular.module('starter.services', [])
             }).then(function (d) {
                 if (d.status) {
                     //    ok
+                    $rootScope.isLogin = true;
+                    user.getData();
                     $location.url('/tab/' + goTplName);
                 } else {
                     //    error
+                    $rootScope.isLogin = false;
                     $ionicPopup.alert({title: '登陆失败', subTitle: d.error, okText: '确认'});
                 }
             })
         }
 
         user.logOut = function () {
+            $rootScope.isLogin = false;
             server.createRequest('user', 'logout', '').then(function (d) {
                 if (d.status) {
                     $location.url('tab/dash');
@@ -50,23 +214,40 @@ angular.module('starter.services', [])
             /**
              * 获取当前借款信息
              */
-            userDai.getInfo = function () {
-                server.createRequest('user', 'curApplyNum', 'curApplyNum');
+            userDai.getInfo = function ($interval) {
+                server.createRequest('user', 'getLoanData', '').then(function (d) {
+                    $rootScope.curApplyNum = d;
+                    //    借款滚动
+                    var list = $rootScope.curApplyNum.new_rows, s = false, temp = {};
+                    var p = $interval(function () {
+                        if ( $location.url() != '/tab/dai'){
+                            $interval.cancel(p);
+                        }
+                        if ( !s){
+                            for ( var i in list ){
+                                temp = list[i][0];
+                                list[i][0] = list[i][1];
+                                list[i][1] = temp;
+                            }
+                        }else{
+                            for ( var i in list ){
+                                temp = list[i][1];
+                                list[i][1] = list[i][0];
+                                list[i][0] = temp;
+                            }
+                        }
+
+                    }, 3000)
+                })
             }
             //获取分期月支付
-            userDai.getPayMonth = function (param) {
-                $http.post(lyf.go('AppServer/Index/getMonthPay'), {
-                    'month': param[0],
-                    'totalprice': param[1]
-                }).then(function (d) {
-                    $rootScope.payPrice = d.data.pay;
-                    $rootScope.payMonth = param[0];
-                })
+            userDai.getPayMonth = function (param, Common) {
+                Common.getMonthPay(param);
             }
 
             //提交现金贷申请
             userDai.commitLoan = function (param, $ionicPopup) {
-                server.createRequest('user', 'commitLoan', '', param).then(function (d) {
+                server.createRequest('user', 'commitLoan', '' ,param).then(function (d) {
                     var str = '';
                     if (d.success) {
                         $ionicPopup.alert({title: '成功', subTitle: '您的借款将在24小时内到帐！', okText: '确认'});
@@ -80,166 +261,96 @@ angular.module('starter.services', [])
             return userDai;
         }
 
-        /**
-         * 还款
-         */
-        user.refund = function () {
-            return {
-                //从服务器获取一个表单
-                getForm: function (id) {
-                    server.createRequest('user', 'getAlipayForm/id/' + id + '/count/1', '').then(function (d) {
-                        $("#pay_result").html(d);
-                    });
-                },
-                //申请提现
-                commitBank: function (num) {
-                    server.createRequest('user', 'returnMoneyToBank', '', {amount: num}).then(function (d) {
-                        if (d.success) {
-                            lyf.alert('成功', '提现成功！', 3000);
-                        }
-                    });
-                },
-                //    充值
-                recharge: function (num) {
-                    server.createRequest('user', 'mywallet_charge', '', {amount: num}).then(function (d) {
-                        if (d.success) {
-                            $("#pay_result").html(d.data);
-                        }
-                    });
-                }
-            }
-        }
 
         /**
-         * 用户认证
+         * 修改登陆密码
          */
-
-        user.verify = function () {
-            var userRz = {};
-            var server = new ClientServer($http, $rootScope);
-
-
-            /**
-             * 认证第一步
-             */
-            userRz.rz1 = function ($scope) {
-                var param = {};
-                param.real_name = $scope.userRz.name;
-                param.id_number = $scope.userRz.idcard;
-                param.user_login = $scope.userInfo.user_login;
-                param.alipay_account = $scope.userRz.alipayNo;
-                param.weixin_account = $scope.userRz.weixin;
-                param.contactors = {
-                    0: {
-                        relation: '父亲',
-                        name: $scope.userRz.linkMan.name,
-                        phone: $scope.userRz.linkMan.phone
-                    }
-                };
-                $scope.rzInfo = param;
-                server.createRequest('user', 'doactive_step1', '', param).then(function (d) {
-                    if (d.status) {
-                        $scope.changeTpl('limitActivate2.html');
-                    } else {
-                        lyf.alert('错误提醒', d.error, 3000);
-                    }
-                });
-            }
-
-            userRz.rz2 = function ($scope) {
-                var param = $scope.rzInfo;
-                param.school_id = '? number:0 ?';
-                param.institude_name = $scope.userRz.schoolRool.academy;
-                param.major = $scope.userRz.schoolRool.major;
-                param.grade = $scope.userRz.schoolRool.classNo;
-                param.dorm_address = $scope.userRz.schoolRool.dormDir;
-                param.education_background = $scope.userRz.schoolRool.studentBack;
-                param.school_year = $scope.userRz.schoolRool.year;
-                param.student_number = $scope.userRz.schoolRool.studentNo;
-                param.xuexin_uesername = $scope.userRz.schoolRool.xuexin.username;
-                param.xuexin_password = $scope.userRz.schoolRool.xuexin.userpass;
-
-                $scope.rzInfo = param;
-                server.createRequest('user', 'doactive_step2', '', param).then(function (d) {
-                    if (d.status) {
-                        $scope.changeTpl('limitActivate3.html');
-                    } else {
-                        lyf.alert('操作失败', d.info, 3000);
-                    }
-                });
-            };
-
-            /**
-             * 认证三，上传证件照
-             * @param $scope
-             */
-            userRz.rz3 = function ($scope) {
-
-            }
-            return userRz;
-        }
-
-        /**
-         * 修改密码
-         */
-        user.changePass = function ($scope, nmae, $ionicPopup) {
-            server.createRequest('user', 'checkSMSCode?sms_code=' + $scope.checkCode, '').then(function (d) {
-
-                if (d.type == 'success') {
-                    switch ($scope.type) {
-                        case 'changeLoginPass':
-                            //修改登录密码
-                            server.createRequest('user', 'changeLoginPass', '', {
-                                oldpassword: $scope.curPass,
-                                password: $scope.pass1,
-                                repassword: $scope.pass2
-                            }).then(function (d) {
-                                if (d.status != 1) {
-                                    $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
-                                } else {
-                                    $ionicPopup.alert({title: '成功', subTitle: '下次请使用新密码登陆！', okText: '确认'});
-                                    server.createRequest('user', 'logout', '').then(function (d) {
-                                        if (d.status) {
-                                            //    ok
-                                            $location.url('/tab/dash');
-                                        }
-                                    })
-                                }
-                            })
-                            break;
-                        case 'changePayPass':
-                            //    修改支付密码
-                            server.createRequest('user', 'changePayPass', '', {
-                                oldpassword: $scope.curPass,
-                                password: $scope.pass1,
-                                repassword: $scope.pass2
-                            }).then(function (d) {
-                                if (d.status != 1) {
-                                    $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
-                                } else {
-                                    $ionicPopup.alert({title: '成功', subTitle: '支付密码修改成功，请使用新密码支付！', okText: '确认'});
-                                }
-                            })
-                            break;
-                        default :
-                            break;
-                    }
+        user.changeLoginPass = function ($ionicPopup) {
+            server.createRequest('user', 'changeLoginPass', '', $rootScope.safe).then(function (d) {
+                if (d.status) {
+                    $ionicPopup.alert({title: '成功', subTitle: '登录密码修改成功，下次记得使用新密码登陆！', okText: '确认'});
+                    $location.url('/tab/user');
                 } else {
-                    $ionicPopup.alert({title: '失败', subTitle: '验证码不正确！', okText: '确认'});
+                    $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
                 }
             })
-
         }
+
+        //修改支付密码
+
+        user.changePayPass = function ($ionicPopup) {
+            server.createRequest('user', 'changePayPass', '', $rootScope.safe).then(function (d) {
+                if (d.status) {
+                    $ionicPopup.alert({title: '成功', subTitle: '支付密码修改成功，下次记得使用新密码支付！', okText: '确认'});
+                    $location.url('/tab/user');
+                } else {
+                    $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
+                }
+            })
+        }
+
+        /**
+         * 修改邮箱
+         */
+        user.changeEmail = function ($ionicPopup) {
+            server.createRequest('user', 'changeEmail?user_login=' + $rootScope.safe.user_login, '').then(function (d) {
+                if (d.status) {
+                    $ionicPopup.alert({title: '成功', subTitle: '邮箱修改成功！', okText: '确认'});
+                    $location.url('/tab/user');
+                } else {
+                    $ionicPopup.alert({title: '失败', subTitle: d.info, okText: '确认'});
+                }
+            });
+        }
+
+        user.changePhone = function ($ionicPopup) {
+            var sms_code = $rootScope.safe.sms_code;
+            var phone = $rootScope.safe.phone;
+
+            server.createRequest('user', 'changePhone?phone=' + phone + '&sms_code=' + sms_code).then(function (d) {
+                if (d.status) {
+                    $ionicPopup.alert({title: '成功', subTitle: '手机修改成功！', okText: '确认'});
+                    $location.url('/tab/user');
+                } else {
+                    $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
+                }
+            })
+        }
+
+        //提现
+        user.returnMoneyToBank = function ($ionicPopup, conNum) {
+            server.createRequest('user', 'returnMoneyToBank', '', {amount: conNum}).then(function (d) {
+                if (d.success) {
+                    $rootScope.userWallet.customer.cash -= conNum;
+                    $ionicPopup.alert({title: '成功', subTitle: '您的提现已经申请成功。！', okText: '确认'});
+                } else {
+                    $ionicPopup.alert({title: '失败', subTitle: d.data, okText: '确认'});
+                }
+            })
+        }
+
+        //充值
+        user.recharge = function ($ionicPopup, conNum) {
+            server.createRequest('user', 'mywallet_charge', '', {amount: conNum}).then(function (d) {
+                if (d.success) {
+                    angular.element(document.querySelector('#pay_result')).append(script);
+                    //由于框架视图的限制，此处需要手动执行JS脚本
+                    eval(angular.element(document.querySelector('#pay_result')).find('script').html());
+                } else {
+                    $ionicPopup.alert({title: '失败', subTitle: d.data, okText: '确认'});
+                }
+            })
+        }
+
 
         /**
          * 获取验证码
          */
 
-        user.getCheckCode = function ($scope, $ionicPopup, moblie, type) {
+        user.getCheckCode = function ($ionicPopup, moblie, type) {
             var phone = {phone_number: moblie, type: type};
-            server.createRequest('user', 'getSMSCode', '', phone).then(function (d) {
+            server.createRequest('user', 'getSMSCode?r='+Math.random(), '', phone).then(function (d) {
                 if (d.status) {
-                    $scope.time = '已发送';
                 } else {
                     $ionicPopup.alert({title: '失败', subTitle: d.info, okText: '确认'});
                 }
@@ -249,51 +360,113 @@ angular.module('starter.services', [])
         /**
          * 获取相关数据
          */
-        user.getData = function ($rootScope) {
+        user.getData = function () {
             server.createRequest('user', 'getMyWallet', 'userWallet');
             server.createRequest('user', 'getBill', 'userBill');
             server.createRequest('user', 'getMyOrder', 'userOrder');
             server.createRequest('user', 'getCollect', 'userCollect');
-            server.createRequest('user', 'getUserInfo', '').then(function (d) {
-                $rootScope.userInfo = d;
-                if (lyf.isMoblie(d.phone_number)) {
-                    $rootScope.moblie = d.phone_number;
+            server.createRequest('user', 'getUserInfo', 'userInfo');
 
-                    //激活额度信息
-                    $rootScope.userRz = {
-                        name: '',
-                        phone: d.phone_number,
-                        idcard: '',
-                        email: '',
-                        alipayNo: '',
-                        weixin: '',
-                        linkMan: {
-                            name: '',
-                            phone: ''
-                        },
-                        //学籍信息
-                        schoolRool: {
-                            place: '',
-                            name: '',
-                            academy: '', //学院
-                            major: '', //专业
-                            classNo: '', //班级名或编号
-                            dormDir: '', //宿舍完整地址
-                            studentBack: '',//学历
-                            year: '', // 入学年份
-                            studentNo: '', //学号
-                            //学信网
-                            xuexin: {
-                                username: '',
-                                userpass: ''
-                            }
-                        }
-                    }
+        }
+        //可获取userInfo
+        user.getInfo = function () {
+            return (server.createRequest('user', 'getUserInfo', '').then(function (d) {
+                return [d.phone_number, d.real_name];
+            }));
+        }
+
+        // 用户注册
+
+
+        user.getRegSMScode = function (phone, $ionicPopup) {
+            server.createRequest('reg', 'getSMScode?phone=' + phone+'&r='+Math.random(), '').then(function (d) {
+                if (d.status) {
+                    $location.url('/tab/user-reg2');
+                } else {
+                    $ionicPopup.alert({title: '失败', subTitle: d.info, okText: '确认'});
                 }
             })
+        }
+
+        user.doReg = function ($ionicPopup) {
+            server.createRequest('reg', 'doReg', '', $rootScope.reg).then(function (d) {
+                if (d.status) {
+                    $location.url('/tab/user-reg4');
+                } else {
+                    $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
+                }
+            })
+        }
+
+        //找回登录密码
+
+        user.findLoginPass = function ($ionicPopup) {
+            server.createRequest('user', 'findLoginPass', '', $rootScope.find).then(function (d) {
+                if (d.status) {
+                    $location.url('/tab/user-find-findPassSuccess');
+                } else {
+                    $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
+                }
+            })
+        }
+
+        //额度激活
+        user.doactive_step1 = function ($scope, $ionicPopup) {
+            server.createRequest('user', 'doactive_step1', '', $scope.verify).then(function (d) {
+                if (d.status) {
+                    $ionicPopup.alert({title: '成功', subTitle: '个人信息保存成功！', okText: '确认'});
+                    $location.url('/tab/user-limitActive2');
+                } else {
+                    $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
+                }
+            })
+            //    test
+            //$location.url('/tab/user-limitActive2');
 
         }
 
+        user.doactive_step2 = function ($scope, $ionicPopup) {
+            server.createRequest('user', 'doactive_step2', '', $scope.verify).then(function (d) {
+                if (d.status) {
+                    $ionicPopup.alert({title: '成功', subTitle: '身份信息保存成功！', okText: '确认'});
+                    $location.url('/tab/user-limitActive3');
+                } else {
+                    $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
+                }
+            })
+
+            //    test
+            //$location.url('/tab/user-limitActive3');
+        }
+
+        user.doactive_step3 = function ($scope, $ionicPopup) {
+            server.createRequest('user', 'doactive_step3', '', $scope.verify).then(function (d) {
+                if (d.status) {
+                    $ionicPopup.alert({title: '成功', subTitle: '证件信息保存成功！', okText: '确认'});
+                    $location.url('/tab/user-limitActive2');
+                } else {
+                    $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
+                }
+            })
+        }
+
+        user.getSchoolList = function (provinceName, city) {
+            server.createRequest('user', 'get_school_list?provinceName=' + provinceName + '&city=' + city, '').then(function(d){
+                $rootScope.schoolList = d;
+                $rootScope.showSchool = true;
+            })
+        }
+
+        user.doactive = function($ionicPopup){
+            server.createRequest('user' , 'doactive' , '').then(function(d){
+                if (d.status){
+                    $ionicPopup.alert({title: '成功', subTitle: '激活邮件发送成功，请重新登录！', okText: '确认'});
+                    user.logOut();
+                }else{
+                    $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
+                }
+            })
+        }
         return user;
     }])
 /**
@@ -305,71 +478,86 @@ angular.module('starter.services', [])
         plane.getData = function () {
 
         }
-        plane.getFlight = function ($scope) {
+        plane.getFlight = function ($ionicLoading) {
+            $ionicLoading.show(
+                {template: '加载中。。。'}
+            );
             var time = new Date().getTime();
-            $scope.seatCode = $scope.seatCode ? $scope.seatCode : 'Y';
-            server.createRequest('flight', 'getSearch/c/' + $scope.dCity + '-' + $scope.aCity + '-' + parseInt(time / 1000), '').then(function (d) {
+            server.createRequest('flight', 'getSearch/c/' + $rootScope.plane.dCity + '-' + $rootScope.plane.aCity + '-' + parseInt(time / 1000), '').then(function (d) {
                 var data = {
-                    date: $scope.today,
+                    date: $rootScope.plane.dDate,
                     dCity: d.aCityCode,
                     aCity: d.dCityCode,
                     //服务器端命名错误，次处交换位置
-                    dCityName: $scope.dCity,
-                    aCityName: $scope.aCity,
+                    dCityName: $rootScope.plane.dCity,
+                    aCityName: $rootScope.plane.aCity,
                     condition: {
-                        filter_Classes: [$scope.seatCode]
+                        filter_Classes: [$rootScope.plane.seatCode]
                     },
-                    column: $scope.sortKey,
-                    sort: $scope.sort
+                    column: $rootScope.plane.sortKey,
+                    sort: $rootScope.plane.sort
                 };
-                if ($scope.airCode) data.condition['filter_Airline'] = [$scope.airCode];
-                if ($scope.timeD) data.condition['filter_DTime'] = [$scope.timeD];
-                $scope.aCode = d.aCityCode;
-                $scope.dCode = d.dCityCode;
+                if ($rootScope.plane.airCode) data.condition['filter_Airline'] = [$rootScope.plane.airCode];
+                if ($rootScope.plane.timeD) data.condition['filter_DTime'] = [$rootScope.plane.timeD];
+                $rootScope.plane.aCode = d.aCityCode;
+                $rootScope.plane.dCode = d.dCityCode;
                 //server.createRequest('flight' , 'getLowPrice' , 'lowList' , param);
                 return (  server.createRequest('flight', 'flightSearch', '', data) );
 
 
             }).then(function (d) {
-                $scope.flightList = d;
-                server.createRequest('flight', 'getLowPriceList', '', {
-                    'aCity': $scope.aCode,
-                    'dCity': $scope.dCode,
-                    'date': $scope.today
-                }).then(function (d) {
-                    for (var i = 0; i < d.length; i++) {
-                        d[i].departdate = new Date(d[i].departdate).format('yyyy-MM-dd');
-                        d[i].day = run.getDay(new Date(d[i].departdate).getDay());
-                    }
-                    $scope.lowPriceList = d;
-                });
+                $rootScope.plane.flightList = d;
+                //server.createRequest('flight', 'getLowPriceList', '', {
+                //    'aCity': $rootScope.plane.aCode,
+                //    'dCity': $rootScope.plane.dCode,
+                //    'date': $rootScope.plane.dDate
+                //}).then(function (d) {
+                //    for (var i = 0; i < d.length; i++) {
+                //        d[i].departdate = new Date(d[i].departdate).format('yyyy-MM-dd');
+                //        d[i].day = lyf.getDay(new Date(d[i].departdate).getDay());
+                //    }
+                //    $rootScope.lowPriceList = d;
+                //});
 
                 //查询相关航空公司
-                server.createRequest('flight', 'getAirlineList', 'airList', {
-                    'aCity': $scope.aCode,
-                    'dCity': $scope.dCode,
-                    'date': $scope.today
+                server.createRequest('flight', 'getAirlineList', '', {
+                    'aCity': $rootScope.plane.aCode,
+                    'dCity': $rootScope.plane.dCode,
+                    'date': $rootScope.plane.dDate
+                }).then(function (d) {
+                    $rootScope.plane.airList = d;
+                    //加载完成
+                    $ionicLoading.hide();
                 });
             })
         }
 
-        plane.getOrderInfo = function (seatCode, $scope) {
+        plane.getOrderInfo = function (seatCode, User, $ionicLoading) {
+            $ionicLoading.show(
+                {template: '加载中。。。'}
+            );
             server.createRequest('flight', 'getOrderInfo/t/' + seatCode, '').then(function (d) {
-                $scope.orderInfo = d;
-                $scope.curDay = run.getDay(parseInt(d.flight.day));
-                console.log($scope.curDay);
+                $rootScope.plane.orderInfo = d;
+                $rootScope.plane.curDay = lyf.getDay(parseInt(d.flight.day));
+                User.checkLogin('plane-order1');
+                $ionicLoading.hide();
             });
-        }
-        //创建订单
-        plane.createOrder = function ($scope) {
-            //
         }
 
         //获取更多仑位
-        plane.searchSeat = function (index, $scope, User) {
-            User.checkLogin('plane-seatSel');
-            $scope.moreSeat = $scope.flightList.data[index];
+        plane.searchSeat = function (index) {
+            //User.checkLogin('plane-seatSel');
+            $rootScope.plane.moreSeat = $rootScope.plane.flightList.data[index];
+        }
 
+        //选择城市
+        plane.selCity = function (city) {
+            $rootScope.place.city = city;
+            if ($rootScope.plane.curSel == 'dCity') {
+                $rootScope.plane.dCity = city;
+            } else {
+                $rootScope.plane.aCity = city;
+            }
         }
         return plane;
     }])
@@ -381,7 +569,10 @@ angular.module('starter.services', [])
         var travel = {};
         var server = new ClientServer($http, $rootScope);
 
-        travel.getData = function () {
+        travel.getData = function ($ionicLoading) {
+            $ionicLoading.show({
+                template: '加载中。。。'
+            });
             server.createRequest('user', 'getUserInfo', '').then(function (d) {
                 $rootScope.userInfo = d;
                 $rootScope.user = {
@@ -391,12 +582,17 @@ angular.module('starter.services', [])
                     idcard: d.id_number,
                     enname: ''
                 }; //联系人信息
+                typeof $rootScope.updateCustomers == 'function' && $rootScope.updateCustomers();
+                server.createRequest('index', 'getHotCity', '').then(function (d) {
+                    $rootScope.hotCity = d;
+                    server.createRequest('travel', 'getTravel', '').then(function (d) {
+                        $rootScope.zhoubian = d;
+                        $ionicLoading.hide();
+                    })
+                })
             });
-            server.createRequest('index', 'getHotCity', 'hotCity');
-            server.createRequest('travel', 'getTravel', 'zhoubian');
+
             //server.createRequest('travel' , 'getTravel/class/3' , 'zhoubian');
-            server.createRequest('travel', 'getTravel/class/1', 'jingnei');
-            server.createRequest('travel', 'getTravel/class/2', 'jingwai');
         }
 
         travel.getDetal = function (id) {
@@ -407,7 +603,47 @@ angular.module('starter.services', [])
          * 搜索选择城市的旅游
          */
         travel.selCity = function ($scope, city) {
-            server.createRequest('travel', 'getTravel/placearrive/' + city, $scope.curMenu);
+            $rootScope.plane.dCity = city;
+            $rootScope.place.city = city;
+            server.createRequest('travel', 'getTravel/placestart/' + city, 'zhoubian');
+        }
+
+        ////获取列表下一页
+        travel.getNextPage = function (page, $scope, $ionicScrollDelegate) {
+            $ionicScrollDelegate.scrollTop(true);
+            var strPage = page ? '/p/' + page : '';
+            server.createRequest('travel', 'getTravel/' + travel._getCode() + strPage, '').then(function (d) {
+                $rootScope.zhoubian = d;
+                $rootScope.$broadcast('scroll.infiniteScrollComplete');
+            });
+        }
+
+        ////获取列表上一页
+        travel.getLastPage = function (page, $scope, $ionicScrollDelegate) {
+            var pos = $ionicScrollDelegate.getScrollPosition();
+            $ionicScrollDelegate.scrollTo(pos.left, pos.top + 200);
+            var strPage = page ? '/p/' + page : '';
+            if (page >= 1) {
+                server.createRequest('travel', 'getTravel/' + travel._getCode() + strPage, '').then(function (d) {
+                    $rootScope.zhoubian = d;
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
+            }
+        }
+
+        //获取当前菜单代码
+        travel._getCode = function () {
+            var code = '';
+            if ($rootScope.curMenu == 'zhoubian') code = 'class/3';
+            if ($rootScope.curMenu == 'jingwai') code = 'class/2';
+            if ($rootScope.curMenu == 'jingnei') code = 'class/1';
+            return code;
+        }
+
+
+        //搜索当前栏目
+        travel.searchCurMenu = function () {
+            server.createRequest('travel', 'getTravel/' + travel._getCode(), 'zhoubian');
         }
         return travel;
     }])
@@ -415,7 +651,7 @@ angular.module('starter.services', [])
 /**
  * 酒店
  */
-    .factory('Hotel', ['$rootScope', '$http', '$location', function ($rootScope, $http, $location) {
+    .factory('Hotel', ['$rootScope', '$http', '$location', function ($rootScope, $http, $location, $ionicScrollDelegate) {
         var hotel = {};
         var server = new ClientServer($http, $rootScope);
         hotel.getData = function () {
@@ -444,113 +680,97 @@ angular.module('starter.services', [])
         }
 
         //酒店搜索
-        hotel.search = function ($scope) {
-            var selPriceCode = '';//价格查询码
-            var selStar = ''; //星级码
-            //不限制
-            var len = $scope.price.length;
-            for (var i = 0; i < len; i++) {
-                var goPrice = $scope.price[i].go;
-                var endPrice = $scope.price[i].end;
-
-                if (goPrice == -1 && endPrice == -1) {
-                    selPriceCode = '';
-                } else {
-                    if (endPrice == -1) {
-                        //    无上限搜索
-                        if (len - i - 1) {
-                            selPriceCode += goPrice + 'TO' + ',';
-                        } else {
-                            selPriceCode += goPrice + 'TO'
-                        }
-                    } else if (goPrice == 0) {
-                        //以下
-                        if (len - i - 1) {
-                            selPriceCode += endPrice + 'TO' + ',';
-                        } else {
-                            selPriceCode += endPrice + 'TO'
-                        }
-                    } else {
-                        //区间搜索
-                        if (len - i - 1) {
-                            selPriceCode += goPrice + 'TO' + endPrice + ',';
-                        } else {
-                            selPriceCode += endPrice + 'TO'
-                        }
-                    }
-                }
-            }
-
-            for (i = 0; i < $scope.star.length; i++) {
-                var num = $scope.star[i];
-                if (num == -1) {
-                    selStar = '';
-                } else {
-                    selStar += num;
-                }
-            }
-            var data = {};
-            data.mudi = $scope.place.city;
-            data.hotel_start = $scope.today;
-            data.hotel_end = $scope.tomorrow;
-            data.AreaId = $scope.curAreasCode;
-            data.OurPrice = selPriceCode;
-            data.HotelStarRate = selStar;
-            server.createRequest('hotel', 'searchHotel', 'hotelList', data);
+        hotel.search = function ($scope, $ionicLoading) {
+            $ionicLoading.show(
+                {template: '加载中。。。'}
+            );
+            server.createRequest('hotel', 'searchHotel', '', data).then(function (d) {
+                $rootScope.hotelList = d;
+                //加載完成
+                $ionicLoading.hide();
+            });
             $location.url('/tab/hotel-list');
         }
         //获取详情
-        hotel.getDetal = function (hotelId, $ionicSlideBoxDelegate) {
+        hotel.getDetal = function (hotelId, $ionicSlideBoxDelegate, $ionicLoading) {
+            $ionicLoading.show({
+                template: '加载中。。。'
+            })
             server.createRequest('hotel', 'getDetal/hotelid/' + hotelId, '').then(function (d) {
                 $rootScope.hotelDetal = d;
                 $ionicSlideBoxDelegate.update();
+                $ionicLoading.hide();
                 $location.url('tab/hotel-content');
             })
         }
 
         //预定显示
 
-        hotel.hotelBook = function (id, $scope) {
-            var data = {};
-            data.roomNum = 1;
-            data.name = '';
-            data.lastTime = '';
-            data.phone = '';
-            $scope.order = data;
-            server.createRequest('hotel', 'getOderInfo/roomid/' + id + '/checkindate/' + $scope.today + '/checkoutdate/' + $scope.tomorrow, '').then(function (d) {
+        hotel.hotelBook = function (id) {
+            server.createRequest('hotel', 'getOderInfo/roomid/' + id + '/checkindate/' + $rootScope.dDate + '/checkoutdate/' + $rootScope.aDate, '').then(function (d) {
                 if (d.status == 0) {
                     $location.url('/tab/login');
                 } else {
-                    $scope.hotelOrderInfo = d;
+                    $rootScope.hotelOrderInfo = d;
                     $location.url('tab/hotel-order1');
                 }
             });
         }
 
-//        提交酒店订单
-        hotel.createHotelOrder = function ($scope) {
-            var param = {};
-            param.CheckInDate = $scope.today;
-            param.CheckOutDate = $scope.tomorrow;
-            param.ReserveRoomNumber = $scope.roomNum;
-            param.Customer = [$scope.order.name];
-            param.PhoneNumber = $scope.order.phone;
-            param.Arrival = '14:00'; //后续用真实时间
-            param.ByStages = 12;
-            param.terms = 1;
-            param.roomid = $scope.hotelOrderInfo.roomid;
-            param.TotalPrice = $scope.hotelOrderInfo.TotalPrice;
-            param.RefundEachMonth = $scope.hotelOrderInfo.RefundEachMonth;
-            server.createRequest('hotel', 'createHotelOrder', '', param).then(function (d) {
-                if (d.status == 0) {
-                    $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
-                } else {
-                    $ionicPopup.alert({title: '成功', subTitle: '预定成功，请尽快支付！', okText: '确认'});
-                    $location.url('/tab/user');
-                }
+
+        //获取列表下一页
+        hotel.getNextPage = function (page, $scope, $ionicScrollDelegate) {
+            $ionicScrollDelegate.scrollTop(true);
+            var strPage = page ? '?page=' + page : '';
+            server.createRequest('hotel', 'searchHotel/' + strPage, '').then(function (d) {
+                $rootScope.hotelList = d;
+                $rootScope.$broadcast('scroll.infiniteScrollComplete');
             });
         }
 
+        ////获取列表上一页
+        hotel.getLastPage = function (page, $scope, $ionicScrollDelegate) {
+            var pos = $ionicScrollDelegate.getScrollPosition();
+            $ionicScrollDelegate.scrollTo(pos.left, pos.top + 200);
+            var strPage = page ? '?page=' + page : '';
+            if (page >= 1) {
+                server.createRequest('hotel', 'searchHotel/' + strPage, '').then(function (d) {
+                    $rootScope.hotelList = d;
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
+            }
+        }
+        /**
+         * 选择
+         * @param selName
+         * @param data
+         * @param index
+         */
+        hotel.selectOn = function (selName, data, index) {
+            switch (selName) {
+                case 'Areas':
+                    //行政区域
+                    $rootScope.curAreasCode = data.code;
+                    $rootScope.curAreasName = data.name;
+                    $rootScope.curSelectIndex.Areas = index;
+                    break;
+                case 'Zones':
+                    //    商圈
+                    $rootScope.curZonesCode = data.code;
+                    $rootScope.curZonesName = data.name;
+                    $rootScope.curSelectIndex.Zones = index;
+                    break;
+                case 'Showbands':
+                    //酒店品牌
+                    $rootScope.curbandsCode = data.code;
+                    $rootScope.curbandsName = data.name;
+                    $rootScope.curSelectIndex.bands = index;
+                    break;
+                default :
+                    break;
+            }
+
+        }
         return hotel;
     }])
 
@@ -561,15 +781,26 @@ angular.module('starter.services', [])
         var index = {};
         var server = new ClientServer($http, $rootScope);
         index.getData = function ($ionicSlideBoxDelegate) {
-            server.createRequest('index', 'getCurPlace', 'place');
-            server.createRequest('index', 'getHotCity', '').then(function (d) {
-                $rootScope.hotCity = d;
-                server.createRequest('index', 'getTravel', '').then(function (d) {
-                    $rootScope.travelList = d;
-                    server.createRequest('index', 'getHotHotel', '').then(function (d) {
+            server.createRequest('index', 'getCurPlace', '').then(function (d) {
+                $rootScope.place = d;
+                server.createRequest('index', 'getHotCity', '').then(function (d) {
+                    $rootScope.hotCity = d;
+                    server.createRequest('index', 'getTravel?city=' + $rootScope.place.city, '').then(function (d) {
+                        $rootScope.travelList = d;
+                        var jingnei = [], jingwai = [], zhoubian = [];
+                        for (var i = 0; i < 5; i++) {
+                            jingnei.push(d.jingnei[i]);
+                            jingwai.push(d.jingwai[i]);
+                            zhoubian.push(d.zhoubian[i]);
+                        }
+                        $rootScope.travelList.zhoubian = zhoubian;
+                        $rootScope.travelList.jingnei = jingnei;
+                        $rootScope.travelList.jingwai = jingwai;
                         server.createRequest('index', 'getHotHotel', '').then(function (d) {
-                            $rootScope.hotHotel = d;
-                            $ionicSlideBoxDelegate.update();
+                            server.createRequest('index', 'getHotHotel', '').then(function (d) {
+                                $rootScope.hotHotel = d;
+                                $ionicSlideBoxDelegate.update();
+                            })
                         })
                     })
                 })
@@ -584,6 +815,7 @@ angular.module('starter.services', [])
         index.search = function (keyword) {
             server.createRequest('index', 'search?keyword=' + keyword, '').then(function (d) {
                 $rootScope.searchList = d;
+                $rootScope.keyword = keyword;
                 $location.url('/tab/dash-search');
             })
         }
@@ -596,9 +828,92 @@ angular.module('starter.services', [])
             server.createRequest('index', 'getSearchDetal?id=' + id, 'searchDetal');
         }
 
+        ////获取列表下一页
+        index.getNextPage = function (page, $ionicScrollDelegate) {
+            var strPage = page ? '/p/' + page : '';
+            $ionicScrollDelegate.scrollTop(true);
+            server.createRequest('index', 'search/keyword/' + $rootScope.keyword + '/page' + strPage, '').then(function (d) {
+                $rootScope.searchList = d;
+                $rootScope.$broadcast('scroll.infiniteScrollComplete');
+            });
+        }
+
+        ////获取列表上一页
+        index.getLastPage = function (page, $ionicScrollDelegate) {
+            var pos = $ionicScrollDelegate.getScrollPosition();
+            $ionicScrollDelegate.scrollTo(pos.left, pos.top + 200);
+            var strPage = page ? '/p/' + page : '';
+            if (page >= 1) {
+                server.createRequest('index', 'search/keyword/' + $rootScope.keyword + '/page' + strPage, '').then(function (d) {
+                    $rootScope.searchList = d;
+                    $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                });
+            }
+        }
+
         //选择当前城市
         index.setCurCity = function (city, Hotel) {
             Hotel.setCurCity(city);
         }
+
+        /**
+         * 获取Banner
+         */
+        index.getBanner = function ($ionicSlideBoxDelegate) {
+            server.createRequest('index', 'getBanner', '').then(function (d) {
+                $rootScope.banner = d;
+                $ionicSlideBoxDelegate.update();
+            });
+        }
         return index;
+    }])
+
+/**
+ * 订单
+ */
+    .factory('Order', ['$rootScope', '$http', '$location', function ($rootScope, $http, $location) {
+        var server = new ClientServer($http, $rootScope);
+        var order = {};
+
+        //创建酒店订单
+        order.createHotelOrder = function ($ionicPopup) {
+            server.createRequest('order', 'createHotelOrder', '', $rootScope.hotel.order).then(function (d) {
+                if (d.status) {
+                    $rootScope.hotel.orderInfo = d;
+                    $ionicPopup.alert({title: '成功', subTitle: '创建订单成功，请尽快支付！', okText: '确认'});
+                    $location.url('/tab/user-order');
+                } else {
+                    //    error
+                    $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
+                    $location.url('/tab/dash');
+
+                }
+            })
+        }
+
+        //创建机票订单
+        order.createPlaneOrder = function ($ionicPopup) {
+            server.createRequest('order', 'createPlaneOrder?t=' + $rootScope.plane.orderInfo.flightId, '', $rootScope.plane.order).then(function (d) {
+                if (d.status) {
+                    $ionicPopup.alert({title: '成功', subTitle: '机票订单创建成功，请尽快支付', okText: '确认'});
+                    $location.url('/tab/pay');
+                } else {
+                    $ionicPopup.alert({title: '失败', subTitle: d.error, okText: '确认'});
+                    $location.url('/tab/dash');
+
+                }
+            })
+        }
+
+        //        取消酒店订单
+        order.cancelHotelOrder = function () {
+
+        }
+
+        //    取消机票订单
+        order.cancelPlaneOrder = function () {
+
+        }
+
+        return order;
     }])

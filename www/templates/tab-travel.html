@@ -1,79 +1,52 @@
 <ion-view title="旅游">
     <ion-content>
-        <header class="bar bar-nav orange head">
-            <a class="pull-left tab city" href="" ng-click="changeTpl('travelChoose.html');">{{curCity}}</a>
-            <a class="icon pull-right call" href="#myPopover"><img src="images/phoneicon.png"></a>
-            <h1><input type="search" placeholder="旅游目的地搜索" ng-model="curCity"></h1>
-        </header>
+        <ion-refresher
+                pulling-text="加载中。。。"
+                on-refresh="getLastPage(curPage - 1)"
+                ></ion-refresher>
         <div class="content grey" id="main_box">
             <section class="pad10 border_bottom white">
                 <div class="dest clearfix">
-                    <a href="#"  ng-repeat="v in hotCity.lists[0]" ng-click="selCity(v.cityname)">{{v.cityname}}</a>
-                    <a href="#"  ng-repeat="v in hotCity.lists[1]" ng-click="selCity(v.cityname)">{{v.cityname}}</a>
+                    <a href="#" ng-repeat="v in hotCity.lists" ng-click="selCity(v.cityname)" ng-class="v.cityname == plane.dCity ? 'orange' : ''">{{v.cityname}}</a>
                 </div>
-                <a class="more_cw" href="#" ng-click="selAll();">查看所有产品<span class="icon icon-right-nav"></span></a>
+                <!--<a class="more_cw" href="#" ng-click="selAll();">查看所有产品<span class="icon icon-right-nav"></span></a>-->
             </section>
             <section>
                 <div class="segmented-control traveltab">
-                    <a class="control-item active" href="#item1mobile" ng-click="update('curMenu' , 'zhoubian')">周边旅游</a>
-                    <a class="control-item" href="#item2mobile" ng-click="update('curMenu' , 'jingnei')">国内旅游</a>
-                    <a class="control-item" href="#item3mobile" ng-click="update('curMenu' , 'jingwai')">出境旅游</a>
+                    <a ng-class="curMenu == 'zhoubian' ? 'control-item active' : 'control-item'" href="#"
+                       ng-click="changeMenu('zhoubian');index = 1;">周边旅游</a>
+                    <a  ng-class="curMenu == 'jingnei' ? 'control-item active' : 'control-item'" href="#" ng-click="changeMenu( 'jingnei');index = 2;">国内旅游</a>
+                    <a  ng-class="curMenu == 'jingwai' ? 'control-item active' : 'control-item'" href="#" ng-click="changeMenu('jingwai'); index = 3;">出境旅游</a>
                 </div>
                 <div class="card travel_list">
-                    <div id="item1mobile" class="control-content active" ng-show="box1">
+                    <div id="item1mobile" class="control-content active">
                         <ul class="table-view">
-                            <li class="table-view-cell media nopa" ng-repeat="v in zhoubian.lists">
-                                <a class="navigate-right nopa" href="#"  ng-click="showDetal(v.packageid);">
-                                    <img class="media-object pull-left" src="{{v.image_url}}">
-                                    <div class="media-body">
-                                        <h4>{{v.packagename}}</h4>
-                                        <h6><em>{{v.today_price*12}}</em>起</h6>
-                                        <p><span>月供<em>{{v.today_price}}</em></span><span>分<em>12</em>期</span></p>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="item2mobile" class="control-content" ng-show="box2">
-                        <ul class="table-view">
-                            <li class="table-view-cell media nopa" ng-repeat="v in zhoubian.lists">
-                                <a class="navigate-right nopa" href="#" ng-click="showDetal(v.packageid)">
-                                    <img class="media-object pull-left" src="{{v.image_url}}">
-                                    <div class="media-body">
-                                        <h4>{{v.packagename}}</h4>
-                                        <h6><em>{{v.today_price*12}}</em>起</h6>
-                                        <p><span>月供<em>{{v.today_price}}</em></span><span>分<em>12</em>期</span></p>
-                                    </div>
-                                </a>
-                            </li>
+                            <ion-list>
+                                <ion-item ng-repeat="v in zhoubian.lists">
+                                    <li class="table-view-cell media nopa">
+                                        <a class="navigate-right nopa" href="#" ng-click="showDetal(v.packageid);">
+                                            <img class="media-object pull-left" src="{{v.image_url}}">
 
-                        </ul>
-                    </div>
-                    <div id="item3mobile" class="control-content" ng-show="box3">
-                        <ul class="table-view">
-                            <li class="table-view-cell media nopa" ng-repeat="v in zhoubian.lists">
-                                <a class="navigate-right nopa" href="#" ng-click="showDetal(v.packageid)">
-                                    <img class="media-object pull-left" src="{{v.image_url}}">
-                                    <div class="media-body">
-                                        <h4>{{v.packagename}}</h4>
-                                        <h6><em>{{v.today_price*12}}</em>起</h6>
-                                        <p><span>月供<em>{{v.today_price}}</em></span><span>分<em>12</em>期</span></p>
-                                    </div>
-                                </a>
-                            </li>
-
+                                            <div class="media-body">
+                                                <h4>{{v.packagename}}{{v.productname}}</h4>
+                                                <h6><em>￥{{v.today_price}}</em>起</h6>
+                                                <p><span>月供<em>{{(v.today_price/12).toFixed(0)}}</em></span><span>分<em>12</em>期</span>
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ion-item>
+                            </ion-list>
+                            <ion-infinite-scroll
+                                    on-infinite="loadMore(curPage+1)"
+                                    distance="1%"
+                                    >
+                            </ion-infinite-scroll>
                         </ul>
                     </div>
                 </div>
             </section>
 
-        </div>
-        <div id="myPopover" class="popover botphone">
-            <img src="images/logo.jpg" class="logo">
-            <h4>24小时客服电话</h4>
-            <p>400-888-3658（免长途费）</p>
-            <button class="btn btn-orange btn-block">电话咨询</button>
-            <button class="btn btn-grey btn-block">取消</button>
         </div>
     </ion-content>
 </ion-view>

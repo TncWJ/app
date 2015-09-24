@@ -39,6 +39,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             }
         }
     })
+
+    //格式化电话
+    .filter('phone' , function(){
+        return function(phone){
+            var arr = [];
+                arr[0] = phone.substr(0 , 3);
+                arr[1] = phone.substr(3 , 3);
+                arr[2] = phone.substr(6 , 4);
+            return arr.join('-');
+        }
+    })
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
         // Ionic uses AngularUI Router which uses the concept of states
@@ -47,7 +58,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         // Each state's controller can be found in controllers.js
 
         $ionicConfigProvider.tabs.position("bottom");
-
+        $ionicConfigProvider.backButton.previousTitleText(false).text('');//禁止默认显示back
         $stateProvider
 
             // setup an abstract state for the tabs directive
@@ -120,7 +131,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 url: '/user-zhi',
                 views: {
                     'tab-user': {
-                        templateUrl: 'templates/user/zhi.html'
+                        templateUrl: 'templates/user/zhi.html',
+                        controller:'UserBalanceCtrl'
                     }
                 }
             })
@@ -136,7 +148,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 url: '/user-zhang',
                 views: {
                     'tab-user': {
-                        templateUrl: 'templates/user/zhang.html'
+                        templateUrl: 'templates/user/zhang.html',
+                        controller:'UserBillCtrl'
                     }
                 }
             })
@@ -165,7 +178,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 url: '/user-limitActive',
                 views: {
                     'tab-user': {
-                        templateUrl: 'templates/user/limitActive.html'
+                        templateUrl: 'templates/user/limitActive.html',
+                        controller:'UserVerifyCtrl'
                     }
                 }
             })
@@ -173,7 +187,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 url: '/user-limitActive2',
                 views: {
                     'tab-user': {
-                        templateUrl: 'templates/user/limitActive2.html'
+                        templateUrl: 'templates/user/limitActive2.html',
+                        controller:'UserVerifyCtrl'
                     }
                 }
             })
@@ -182,7 +197,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 url: '/user-limitActive3',
                 views: {
                     'tab-user': {
-                        templateUrl: 'templates/user/limitActive3.html'
+                        templateUrl: 'templates/user/limitActive3.html',
+                        controller:'UserVerifyCtrl'
                     }
                 }
             })
@@ -201,7 +217,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 views: {
                     'tab-user': {
                         templateUrl: 'templates/user/safe.html',
-                        controller: 'UserCenterCtrl'
+                        controller:'UserSafeCtrl'
                     }
                 }
             })
@@ -214,7 +230,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 views: {
                     'tab-user': {
                         templateUrl: 'templates/user/loginPass.html',
-                        controller: 'UserCenterCtrl'
+                        controller:'UserSafeCtrl'
                     }
                 }
             })
@@ -223,7 +239,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 views: {
                     'tab-user': {
                         templateUrl: 'templates/user/payPass.html',
-                        controller: 'UserCenterCtrl'
+                        controller:'UserSafeCtrl'
                     }
                 }
             })
@@ -231,22 +247,104 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 url: '/user-safe-moblie',
                 views: {
                     'tab-user': {
-                        templateUrl: 'templates/user/moblie.html'
+                        templateUrl: 'templates/user/moblie.html',
+                        controller:'UserSafeCtrl'
+                    }
+                }
+            })
+
+            .state('tab.user-safe-email', {
+                url: '/user-safe-email',
+                views: {
+                    'tab-user': {
+                        templateUrl: 'templates/user/email.html',
+                        controller:'UserSafeCtrl'
                     }
                 }
             })
 
             //现金贷
-            .state('tab.user-dai', {
-                url: '/user-dai',
+            .state('tab.dai', {
+                url: '/dai',
                 views: {
-                    'tab-user': {
+                    'tab-dai': {
                         templateUrl: 'templates/user/dai.html',
                         controller: 'UserDaiCtrl'
                     }
                 }
             })
 
+        //    用户注册
+            .state('tab.user-reg', {
+                url: '/user-reg',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/user/reg/reg.html',
+                        controller: 'UserRegCtrl'
+                    }
+                }
+            })
+
+            .state('tab.user-reg2', {
+                url: '/user-reg2',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/user/reg/reg2.html',
+                        controller: 'UserRegCtrl'
+                    }
+                }
+            })
+
+            .state('tab.user-reg3', {
+                url: '/user-reg3',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/user/reg/reg3.html',
+                        controller: 'UserRegCtrl'
+                    }
+                }
+            })
+
+            .state('tab.user-reg4', {
+                url: '/user-reg4',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/user/reg/reg4.html',
+                        controller: 'UserRegCtrl'
+                    }
+                }
+            })
+
+        //    找回密码
+            .state('tab.user-find-moblie', {
+                url: '/user-find-moblie',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/user/findPass/moblie.html',
+                        controller: 'UserFindCtrl'
+                    }
+                }
+            })
+
+            .state('tab.user-find-password', {
+                url: '/user-find-password',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/user/findPass/password.html',
+                        controller: 'UserFindCtrl'
+                    }
+                }
+            })
+
+            .state('tab.user-find-findPassSuccess', {
+                url: '/user-find-findPassSuccess',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/user/findPass/findPassSuccess.html',
+                        controller: 'UserFindCtrl'
+                    }
+                }
+            })
         /**
          * 首页导航
          */
@@ -350,7 +448,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/hotel/order1.html',
-                        controller: 'HotelCtrl'
+                        controller: 'HotelOrderCtrl'
                     }
                 }
             })
@@ -360,7 +458,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/hotel/order2.html',
-                        controller: 'HotelCtrl'
+                        controller: 'HotelOrderCtrl'
                     }
                 }
             })
@@ -385,7 +483,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/plane/choose.html',
-                        controller:'PlaneCtrl'
+                        controller:'PlaneChooseCtrl'
                     }
                 }
             })
@@ -424,7 +522,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/plane/order1.html',
-                        controller:'PlaneCtrl'
+                        controller:'PlaneOrderCtrl'
                     }
                 }
             })
@@ -433,12 +531,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/plane/order2.html',
-                        controller:'PlaneCtrl'
+                        controller:'PlaneOrderCtrl'
                     }
                 }
             })
             .state('tab.plane-seatSel', {
-                url: '/plane-detal',
+                url: '/plane-seatSel',
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/plane/seatSel.html',
@@ -526,6 +624,49 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                     'tab-dash': {
                         templateUrl: 'templates/index/searchContent.html',
                         controller:'DashCtrl'
+                    }
+                }
+            })
+
+        /**
+         * 支付
+         */
+            //充值
+            .state('tab.pay', {
+                url: '/pay',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/pay/pay.html',
+                        controller:'PayCtrl'
+                    }
+                }
+            })
+            .state('tab.pay-topUp', {
+                url: '/pay-topUp',
+                views: {
+                    'tab-pay': {
+                        templateUrl: 'templates/pay/topUp.html',
+                        controller:'PayCtrl'
+                    }
+                }
+            })
+
+            .state('tab.pay-sucess', {
+                url: '/pay-sucess',
+                views: {
+                    'tab-pay': {
+                        templateUrl: 'templates/pay/sucess.html'
+                    }
+                }
+            })
+
+            .state('tab.pay-refund', {
+                url: '/pay-refund',
+                views: {
+                    'tab-pay': {
+                        templateUrl: 'templates/pay/refund.html',
+                        controller:'PayCtrl'
+
                     }
                 }
             })

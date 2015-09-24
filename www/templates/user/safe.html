@@ -1,10 +1,5 @@
-<ion-view>
+<ion-view title="安全中心">
     <ion-content>
-        <header class="bar bar-nav">
-            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
-
-            <h1 class="title">安全中心</h1>
-        </header>
         <div class="content pad50 grey" id="main_box">
             <section>
                 <dl class="userinfor clearfix">
@@ -18,14 +13,14 @@
             </section>
             <ul class="table-view usersafe">
                 <li class="table-view-cell">
-                    <a class="navigate-right">
-                        <em class="pull-right" ng-if="userInfo.user_status == 1">已验证</em>
-                        <em class="pull-right" ng-if="userInfo.user_status != 1">未验证</em>
+                    <span class="navigate-right">
+                        <a href="#/tab/user-safe-email"><em class="pull-right" ng-if="userInfo.user_status == 1">已验证</em></a>
+                        <a href="#"><em class="pull-right" ng-if="userInfo.user_status != 1" ng-click="doactive();">未验证</em></a>
                         绑定邮箱<span>{{userInfo.user_login}}</span>
-                    </a>
+                    </span>
                 </li>
                 <li class="table-view-cell">
-                    <a class="navigate-right pull-right" href="#/tab/user-safe-moblie">
+                    <a class="navigate-right pull-right" href="#" ng-click="getSMScode('user-safe-moblie');">
                         <em class="pull-right">修改</em>
                     </a>
 
@@ -39,8 +34,9 @@
                     </a>
                 </li>
                 <li class="table-view-cell">
-                    <a class="navigate-right" href="#/tab/user-safe-password-pay">
-                        <em class="pull-right">已设置</em>
+                    <a class="navigate-right" href="#" ng-click="getSMScode('user-safe-password-pay');">
+                        <em class="pull-right" ng-if="userInfo.pay_pass != ''">已设置</em>
+                        <em class="pull-right" ng-if="userInfo.pay_pass == ''">未设置</em>
                         交易密码<span>*******</span>
                     </a>
                 </li>

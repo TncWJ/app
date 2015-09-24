@@ -1,10 +1,15 @@
-<ion-view title="搜索">
+<ion-view title="搜索结果">
     <ion-content>
-        <header class="bar bar-nav orange head">
-            <a class="pull-left tab city" href="" ng-click="changeTpl('travelChoose.html');">{{curCity}}</a>
-            <a class="icon pull-right call" href="#myPopover"><img src="images/phoneicon.png"></a>
-            <h1><input type="search" placeholder="旅游目的地搜索" ng-model="curCity"></h1>
-        </header>
+        <ion-refresher
+                pulling-text="加载中。。。"
+                on-refresh="getLastPage(curPage - 1)"
+                ></ion-refresher>
+        <div class="content" id="main_box">
+        <!--<header class="bar bar-nav orange head">-->
+            <!--<a class="pull-left tab city" href="" ng-click="changeTpl('travelChoose.html');">{{curCity}}</a>-->
+            <!--<a class="icon pull-right call" href="#myPopover"><img src="images/phoneicon.png"></a>-->
+            <!--<h1><input type="search" placeholder="旅游目的地搜索" ng-model="curCity"></h1>-->
+        <!--</header>-->
         <div class="content grey" id="main_box">
             <section>
                 <div class="card travel_list">
@@ -25,12 +30,10 @@
             </section>
 
         </div>
-        <div id="myPopover" class="popover botphone">
-            <img src="images/logo.jpg" class="logo">
-            <h4>24小时客服电话</h4>
-            <p>400-888-3658（免长途费）</p>
-            <button class="btn btn-orange btn-block">电话咨询</button>
-            <button class="btn btn-grey btn-block">取消</button>
-        </div>
+            <ion-infinite-scroll
+                    on-infinite="loadMore(curPage+1)"
+                    distance="1%"
+                    >
+            </ion-infinite-scroll>
     </ion-content>
 </ion-view>

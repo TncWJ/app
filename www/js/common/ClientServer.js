@@ -63,6 +63,8 @@ ClientServer.prototype.init = function($http , $scope){
     api['travel'] = 'AppServer/Travel';
     api['user'] = 'AppServer/User';
     api['hotel'] = 'AppServer/Hotel';
+    api['reg'] = 'AppServer/Reg';
+    api['order'] = 'AppServer/Order';
 
     this.api = api;
     this.data = {};

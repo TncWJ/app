@@ -1,12 +1,15 @@
-<ion-view>
+<ion-view title="产品详情">
+    <ion-content scroll="false">
+        <div class="botphone popover2 yud">
+            <!--预定-->
+            <a href="#/tab/travel-order1"></a>
+        </div>
+    </ion-content>
     <ion-content>
-        <header class="bar bar-nav orange">
-            <a class="icon icon-left-nav pull-left" ng-click="changeTpl('travel.html');"></a>
-            <h1 class="title">产品详情</h1>
-        </header>
-        <div class="content pad50 grey" id="main_box">
+        <div class="content padb50 grey" id="main_box">
             <section>
-                <div class="intro_tra white">
+                <div class="intro_tra white" style="
+    padding-top: 15px;">
                     <div class="addWrap">
                         <div class="swipe" id="mySwipe">
                             <div class="swipe-wrap">
@@ -22,10 +25,10 @@
                     <!--<img src="images/tra_con.jpg" class="w100">-->
                     <h3>{{travelDetal.li.productname}}</h3>
                     <p ng-if="travelDetal.li.today_price == null"><span>暂无报价</span></p>
-                    <p ng-hide="travelDetal.li.today_price == null"><span>乐有方价： ￥{{travelDetal.li.today_price}}起</span><i> 乐有方价：<em> ￥{{travelDetal.li.today_price}}</em>起</i></p>
+                    <p ng-hide="travelDetal.li.today_price == null"><span>乐有方价： ￥{{travelDetal.li.today_price}}起</span></p>
                 </div>
             </section>
-            <section>
+            <!--<section>
                 <ul class="table-view">
                     <li class="table-view-cell">
                         <a class="navigate-right" id="demo" href="#/tab/travel-calendar">
@@ -34,7 +37,7 @@
                         </a>
                     </li>
                 </ul>
-            </section>
+            </section>-->
             <div class="tra_intro pad10 white">
                 <h3 class="tra_con_tit chan">产品介绍</h3>
                 <div class="tra_block">
@@ -59,9 +62,10 @@
                             </dl>
                             <div ng-if="travelDetal.li.trips == null">暂无详细信息</div>
                         </div>
-                        <p class="show trahasmo"><span class="icon icon-down-nav"></span><span class="icon icon-up-nav"></span></p>
+                        <!--<p class="show trahasmo"><span class="icon icon-down-nav"></span><span class="icon icon-up-nav"></span></p>-->
                     </div>
                 </section>
+                <!--
                 <section>
                     <ul class="table-view">
                         <li class="table-view-cell">
@@ -70,12 +74,8 @@
                             </a>
                         </li>
                     </ul>
-                </section>
+                </section>-->
             </div>
-            <div class="bar bar-standard bar-footer yud">
-                <span class="icon icon-star" ng-click="addCollect();"></span>
-                <!--预定-->
-                <a href="#/tab/travel-order1"></a>
-            </div>
+
     </ion-content>
 </ion-view>

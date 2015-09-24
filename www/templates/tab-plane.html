@@ -6,24 +6,24 @@
                     <p class="tit_line"></p>
                     <h5>单程</h5>
                 </div>
-                <div class="citychange">
+                <div class="citychange"  ng-click="changeTpl('dCity')">
                     <div class="cityone">
                         <dl>
                             <dt></dt>
                             <dd>
                                 <h6>出发城市</h6>
-                                <p><span class="dCityName" ng-click="changeTpl('choose' , 'dCity')">{{dCity}}</span></p>
+                                <p><span class="dCityName" ng-click="changeTpl('dCity')">{{plane.dCity}}</span></p>
                             </dd>
                         </dl>
                     </div>
                     <div class="citytwo" ng-click="exchangeCity();">
 
                     </div>
-                    <div class="citythree">
+                    <div class="citythree"  ng-click="changeTpl('aCity')">
                         <dl>
                             <dt>
                             <h6>到达城市</h6>
-                            <p><span class="aCityName" ng-click="changeTpl('choose' , 'aCity')">{{aCity}}</span></p>
+                            <p><span class="aCityName" ng-click="changeTpl('aCity')">{{plane.aCity}}</span></p>
                             </dt>
                             <dd>
 
@@ -33,17 +33,16 @@
                 </div>
             </section>
             <section>
-                <ul class="table-view padt10">
+                <ul class="table-view pad10">
                     <li class="table-view-cell chtime nopa">
                         <h3>出发日期</h3>
                         <p>
-                            <input id="demo" type="text" value="{{today}}"/>
+                            <input id="demo" type="text" ng-model="plane.dDate" ng-click="selDate('plane.dDate');"/>
                         </p>
                     </li>
                 </ul>
                 <div class="plane_bot">
                     <button class="btn btn-positive btn-block btn-orange search_plane"  ng-click="searchFlight()">搜索</button>
-                    <p class="lc"><a href="#">机票预订流程说明</a></p>
                 </div>
             </section>
             <nav class="nav_txt bar-tab">
@@ -61,7 +60,7 @@
             </nav>
 
         </div>
-        <div id="myPopover" class="popover botphone">
+        <div id="myPopover">
             <h4></h4>
         </div>
     </ion-content>

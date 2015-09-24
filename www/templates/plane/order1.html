@@ -1,33 +1,46 @@
-<ion-view>
+<ion-view title="填写订单">
+<ion-content scroll="false"> 
+    <div class="plane_total clearfix otphone popover2">
+            <div class="pull-left">
+                <p><em>总额<span>{{plane.order.totalPay|currency:'￥'}}</span></em><em><span>{{plane.order.passenger_count}}</span>成人</em></p>
+                <p><em>分<span>{{plane.order.finance_month}}期</span></em><em>月供<span>{{plane.order.monthPay|currency:'￥'}}</span></em></p>
+            </div>
+            <div class="pull-right">
+                <a href="#/tab/plane-order2" class="btn btn-orange">下一步</a>
+            </div>
+        </div>
+        <div class="plane_pri botphone popover2" ng-show="mxshow">
+            <p class="hk_infor">7月21日，周二出发</p>
+            <div class="pri_infor">
+                <p class="clearfix"><span>成人价：</span><em>￥290×1</em></p>
+                <p class="clearfix"><span>机建/燃油：</span><em>￥50×1</em></p>
+            </div>
+        </div>
+</ion-content>
     <ion-content>
-        <header class="bar bar-nav orange">
-            <a class="icon icon-left-nav pull-left" ng-click="changeTpl('planeList.html');"></a>
-
-            <h1 class="title">订单详情</h1>
-        </header>
-        <div class="content pad50 grey" id="main_box">
+        <div class="content padb50 grey" id="main_box">
             <div class="plane_cw plane_order">
                 <section>
                     <div class="plane_infor">
-                        <p class="hk_infor">{{today}}，{{curDay}}出发</p>
+                        <p class="hk_infor">{{plane.dDate}}，{{plane.curDay}}出发</p>
                         <div class="add_plane pad10">
                             <div class="addbox1">
-                                <h3>{{dCity}}</h3>
-                                <h5>{{orderInfo.flight.takeofftime}}</h5>
+                                <h3>{{plane.dCity}}</h3>
+                                <h5>{{plane.orderInfo.flight.takeofftime}}</h5>
 
-                                <p>{{orderInfo.flight.aairportname}}</p>
+                                <p>{{plane.orderInfo.flight.aairportname}}</p>
                             </div>
                             <div class="addbox2">
                                 <img src="images/plane_icon3.jpg"/>
                             </div>
                             <div class="addbox1">
-                                <h3>{{aCity}}</h3>
-                                <h5>{{orderInfo.flight.arrivetime}}</h5>
+                                <h3>{{plane.aCity}}</h3>
+                                <h5>{{plane.orderInfo.flight.arrivetime}}</h5>
 
-                                <p>{{orderInfo.flight.dairportname}}</p>
+                                <p>{{plane.orderInfo.flight.dairportname}}</p>
                             </div>
                         </div>
-                        <p class="hk_list"><img src="images/plane_icon.jpg">{{moreSeat.airLineName}} {{orderInfo.flight.flightno}}<em>|</em>{{orderInfo.flight.seatmsg}}</p>
+                        <p class="hk_list"><img src="images/plane_icon.jpg">{{moreSeat.airLineName}} {{plane.orderInfo.flight.flightno}}<em>|</em>{{plane.orderInfo.flight.seatmsg}}</p>
                     </div>
                 </section>
             </div>
@@ -35,23 +48,23 @@
                 <div class="pla_or_main">
                     <h3 class="pla_or_tit">乘客信息</h3>
                     <div class="ck_con">
-                        <dl class="ck_infor" ng-repeat="v in passe">
-                            <dt ng-click="changePasse(-1 , $index);"></dt>
+                        <dl class="ck_infor" ng-repeat="v in temp.linkManList">
+                            <dt ng-click="delLinkMan();"></dt>
                             <dd>
                                 <form class="input-group">
                                     <div class="input-row">
-                                        <label>成人票</label>
-                                        <input type="text" placeholder="姓名" ng-model="passe[$index].name">
+                                        <label>姓名</label>
+                                        <input type="text" placeholder="姓名" ng-model="temp.linkManList[$index].username">
                                     </div>
                                     <div class="input-row">
                                         <label>身份证</label>
-                                        <input type="email" placeholder="必填" ng-model="passe[$index].idcard">
+                                        <input type="text" placeholder="必填" ng-model="temp.linkManList[$index].userid">
                                     </div>
                                 </form>
                             </dd>
                         </dl>
                     </div>
-                    <button class="addxck" ng-click="changePasse(1 , $index);">添加新乘客</button>
+                    <button class="addxck btn btn-block noma" ng-click="addLinkMan();">添加新乘客</button>
                 </div>
                 <div class="pla_or_main">
                     <h3 class="pla_or_tit">联系人信息</h3>
@@ -61,35 +74,30 @@
                             <form class="input-group">
                                 <div class="input-row">
                                     <label>姓名</label>
-                                    <input type="text" placeholder="必填" ng-model="linkMan.name">
+                                    <input type="text" placeholder="必填" ng-model="plane.order.contactName">
                                 </div>
                                 <div class="input-row">
                                     <label>联系电话</label>
-                                    <input type="email" placeholder="必填" ng-model="linkMane.phone">
+                                    <input type="email" placeholder="必填" ng-model="plane.order.contactPhone">
                                 </div>
+                                <div class="input-row plane-fenq">
+                                 <label>分期(月)</label>
+
+                                 <div class="enter_year">
+                                  <select name="" id="" ng-model="plane.order.finance_month"
+                                ng-change="getMonthPay(plane.order.finance_month , plane.order.totalPay)">
+                                 <option ng-repeat="v in fenList" value="{{v}}" ng-selected="v == 12">{{v}}月
+                            </option>
+                        </select>
+                    </div>
+                </div>
                             </form>
                         </dd>
                     </dl>
                 </div>
+                
             </section>
         </div>
-        <div class="plane_total clearfix">
-            <div class="pull-left">
-                <p><em>总额<span>{{(orderInfo.flight.totalprice *( passeIndex+1))|currency:'￥'}}</span></em><em><span>{{passeIndex+1}}</span>成人</em></p>
-                <p><em>分<span>12期</span></em><em>月供<span>{{(orderInfo.monthPay * (passeIndex+1))|currency:'￥'}}</span></em></p>
-            </div>
-            <div class="pull-right">
-                <span class="feiy">费用明细</span>
-                <a href="plane_order2.html" class="btn btn-orange" ng-click="bookCommit();">下一步</a>
-            </div>
-        </div>
-        <div class="mask"></div>
-        <div class="plane_pri">
-            <p class="hk_infor">7月21日，周二出发</p>
-            <div class="pri_infor">
-                <p class="clearfix"><span>成人价：</span><em>￥290×1</em></p>
-                <p class="clearfix"><span>机建/燃油：</span><em>￥50×1</em></p>
-            </div>
-        </div>
+        
     </ion-content>
 </ion-view>

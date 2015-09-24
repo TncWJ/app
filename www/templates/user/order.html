@@ -1,10 +1,10 @@
 <ion-view title="全部订单">
     <ion-content>
         <div class="content pad50 grey" id="main_box">
-            <div ng-if="myOrder.order_list_count == 0 || myOrder.order_list_count == null">暂无订单信息！</div>
+            <div ng-if="userOrder.order_list_count == 0 || userOrder.order_list_count == null">暂无订单信息！</div>
             <ul class="table-view huan_zh">
-                <li class="table-view-cell media pad10" ng-repeat="v in myOrder.order_list">
-                    <a href="{{v.product_url}}"><img class="media-object pull-left" ng-src="v.product_url"></a>
+                <li class="table-view-cell media pad10 clearfix" ng-repeat="v in userOrder.order_list">
+                    <a href="#" class="pull-left pay-noma"><img class="media-object" ng-src="{{v.product_url}}"></a>
 
                     <div class="media-body">
                         <dl>
@@ -15,11 +15,11 @@
                                 <span>月供<i>{{v.month_amount|currency:'￥'}}</i></span><span>分<i>{{v.finance_count}}</i>期</span>
                             </p>
 
-                            <p>下次还款日期：2015年9月10日</p>
+                            <!--<p>下次还款日期：2015年9月10日</p>-->
                             </dt>
                             <dd>
                                 <h5>{{(v.month_amount * v.finance_count)|currency:'￥'}}</h5>
-                                <a href="pay.html" class="btn btn-orange">支付</a>
+                                <a href="#/tab/pay" class="btn btn-orange">支付</a>
                             </dd>
                         </dl>
                     </div>

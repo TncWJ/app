@@ -1,10 +1,5 @@
 <ion-view title="现金贷">
     <ion-content>
-        <header class="bar bar-nav">
-            <a class="icon icon-left-nav pull-left" ng-click="goToLastTpl();"></a>
-
-            <h1 class="title">现金贷</h1>
-        </header>
         <div class="content pad50 grey" id="main_box">
             <div class="white">
                 <section>
@@ -13,9 +8,13 @@
                         <dd>
                             <p>{{timeMsg}}，<span>{{userInfo.real_name}}</span></p>
 
-                            <p ng-show="userInfo.user_status == 1" class="rez_p">用户已认证</p>
+                            <p ng-show="userInfo.creadit_activate == 1" class="rez_p"><img class="ren r_span r-spantwo"
+                                                                                            ng-src="./images/user/rz_icon.png"
+                                                                                            alt=""/></p>
 
-                            <p ng-show="userInfo.user_status != 1" class="rez_p">待 认证</p>
+                            <p ng-show="userInfo.creadit_activate != 1" class="rez_p"><img class="ren r_span r-spantwo"
+                                                                                           ng-src="./images/user/rz_icon2.png"
+                                                                                           alt=""/></p>
                         </dd>
                     </dl>
                 </section>
@@ -37,16 +36,35 @@
                     <h3 class="jie_tit">【借款人数】</h3>
 
                     <div class="num_show">
-                        <span>{{curApplyNum.num[7]}}</span>
-                        <span>{{curApplyNum.num[6]}}</span>
-                        <span>{{curApplyNum.num[5]}}</span>
-                        <span>{{curApplyNum.num[4]}}</span>
-                        <span>{{curApplyNum.num[3]}}</span>
-                        <span>{{curApplyNum.num[2]}}</span>
-                        <span>{{curApplyNum.num[1]}}</span>
-                        <span>{{curApplyNum.num[0]}}</span>
+                        <span>{{curApplyNum.loan_count_list[7]}}</span>
+                        <span>{{curApplyNum.loan_count_list[6]}}</span>
+                        <span>{{curApplyNum.loan_count_list[5]}}</span>
+                        <span>{{curApplyNum.loan_count_list[4]}}</span>
+                        <span>{{curApplyNum.loan_count_list[3]}}</span>
+                        <span>{{curApplyNum.loan_count_list[2]}}</span>
+                        <span>{{curApplyNum.loan_count_list[1]}}</span>
+                        <span>{{curApplyNum.loan_count_list[0]}}</span>
                     </div>
                 </div>
+                <div class="name-border">
+                <div class="jie_num pad10">
+                    <h3 class="jie_tit">【借款人名单】</h3>
+                    <ul class="name_show">
+                        <li class="list-name shen">
+                            <div>申请人</div>
+                            <div>学院</div>
+                            <div>申请金额</div>
+                        </li>
+                    </ul>
+                    <ul class="name_show">
+                        <li class="list-name" ng-repeat=" v in curApplyNum.new_rows">
+                            <div>{{v[0].phone_number}}</div>
+                            <div>{{v[0].school_name}}</div>
+                            <div>{{v[0].amount|currency:'￥'}}</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
                 <div class="jie_num pad10">
                     <h3 class="jie_tit">【现金贷】</h3>
 

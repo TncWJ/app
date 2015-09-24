@@ -22,14 +22,37 @@
 .input-group .wangpass{text-align:right;}
 .input-group .wangpass a{text-decoration:underline;color:#858585;}
 .input-yzm{width:75%;float:left;}
-.input-group.login div.input-row.input-yzm label{width:30%;}
+ .input-group.login div.input-row.input-yzm label{width:30%;}
 .input-group.login div.input-row.input-yzm input{width:65%;}
 .yzm-img{width:23%;float:right;margin-top:12px;height:40px;}
+.reg-yzm {background: #fff;border-bottom: 1px solid #ddd;}
+.reg-yzm div.input-row{border:none;}
+.reg-yzm .yzm-img{margin-top: 0;}
+.input-row.long label{width:45%;}
+.input-row.long input{width:55%;}
 /*修改密码*/
 .input-group.chpass{margin-top:10px;border-top:1px solid #ddd;background:#f4f4f4;}
 .input-group.chpass input[type="text"],.input-group.chpass input[type="password"]{text-align:right;height:45px;}
 .input-group.chpass div.input-row{border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;background:#fff;}
 .input-group.chpass div.input-row label{color:#333;line-height:25px;margin:10px 0px;padding:0px 0 0 10px;}
+.input-group.chpass .school,.input-group .enter_year{
+text-align: center;
+height: 45px;
+width: 65%;
+float:right;
+}
+.input-group .enter_year.text-right{text-align: right;}
+.input-group.chpass .school select{
+	width: 33.3%;float: left;height: 45px;background: none;border:none;
+}
+.input-group .enter_year select{
+	width: 100%;height: 45px;background: none;border:none;
+}
+.input-group select option{
+	width: 100%;
+}
+.input-group .enter_year.text-right select{text-align:right;}
+.hotel-sel.input-group .enter_year,.hotel-sel.input-group .enter_year select{height: 35px  !important;margin-bottom: 0;}
 /*安全中心*/
 .userinfor{padding:10px;margin:10px 0;border-top:1px solid #ddd;border-bottom:1px solid #ddd;background:#fff;}
 .userinfor dt{width:90px;height:90px;float:left;margin-right:10px;}
@@ -58,6 +81,7 @@ input[type="button"].yzmbtn{background:#e2e2e2;border-radius:3px;-webkit-border-
 .usertou{margin-top:10px;margin-bottom:10px;}
 .usersafe.userinCon .table-view-cell em.icon{color:#d9d9d9;}
 .usersafe.userinCon input{border:none;display:inline-block;width:70%;margin:0px;height:18px;overflow:hidden;float:right;text-align:right;padding:0px;color:#858585;}
+.usersafe.userinCon input[type="file"]{height:24px;line-height: 20px;}
 /*订单*/
 .orderbot{text-align:right;padding:5px 10px;}
 .card.orderlist{background:none;border:none;border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;margin:0px;}
@@ -110,6 +134,7 @@ input[type="button"].yzmbtn{background:#e2e2e2;border-radius:3px;-webkit-border-
 .lorrbtn{width:100px;height:25px;background:url(../images/user/login_bg.png);background-size:100px 25px;display:block;text-align:center;line-height:25px;color:#fff;font-size:15px;}
 .user_xq{width:100%;position:relative;}
 .r_span{width:60px;height:20px;background:url(../images/user/rz_icon2.png);background-size:60px 20px;display:block;position:absolute;right:50%;margin-right:-120px;top:0px;}
+.r_span.r-spantwo{ position: relative;top: 0;left: 0;right: 0;}
 a.lorrbtn:link,a.lorrbtn:visited,a.lorrbtn:hover,a.lorrbtn:active{color:#fff;}
 .r_span.ren{background:url(../images/user/rz_icon.png);background-size:60px 20px;}
 .dai_link .segmented-control{margin-bottom:10px;border:none;padding:5px 0;}
@@ -137,9 +162,17 @@ a.lorrbtn:link,a.lorrbtn:visited,a.lorrbtn:hover,a.lorrbtn:active{color:#fff;}
 .huan_zh .media-body dt p{margin-top:10px;margin-bottom:0px;line-height:20px;}
 .huan_zh .media-body dt p span{margin-right:20px;}
 .huan_zh .media-body dt p span i{color:#F60;}
-.huan_zh .media-body dd{text-align:right;width:50px;}
+.huan_zh .media-body dd{text-align:right;width:65px;padding-right: 5px;}
 .huan_zh .media-body dd h5{margin-top:10px;color:#f60;}
 .huan_zh .media-body dd .btn{height:20px;line-height:20px;padding:0px 5px;margin-top:20px;}
+.table-view-cell>a.pay-noma:not(.btn){margin-right:0 !important;}
+
+/*添加*/
+.btn.hq-yzm{vertical-align: middle;float:right;margin-top: 7px;margin-right: 10px;}
+.name_show li.list-name{width:100%;line-height: 30px;text-align: left;height: 30px;border-bottom: 1px dashed #ddd;}
+.name_show li.list-name div{width: 33.3%;float:left;height: 30px;}
+.name-border{border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;padding-bottom: 10px;margin-bottom: 10px;}
+.demo_select option{background:#FFF5EF;color:#000;border-bottom: 1px solid #ddd;}
 @media screen and (max-width: 390px) {
 .quanbot h5{font-size:10px;margin-bottom:0px;}
 .quanbot p{color:#fff;font-size:10px;}

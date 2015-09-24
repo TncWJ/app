@@ -1,17 +1,12 @@
-<ion-view>
+<ion-view title="个人信息">
     <ion-content>
-        <header class="bar bar-nav">
-            <a class="icon icon-left-nav pull-left" ng-click="changeTpl('user.html');s"></a>
-
-            <h1 class="title">学籍信息</h1>
-        </header>
         <div class="content pad50 grey" id="main_box">
             <ul class="tx_bz">
                 <li class="on">
                     <div></div>
                     <span>1</span>
 
-                    <p>填写学籍信息</p>
+                    <p>填写个人信息</p>
                 </li>
                 <li>
                     <div></div>
@@ -23,41 +18,50 @@
                     <div></div>
                     <span>3</span>
 
-                    <p>认证成功</p>
+                    <p>证件信息</p>
                 </li>
             </ul>
             <form class="input-group chpass">
-                <div class="input-row border_radius">
-                    <label>手机号</label>
-                    <input type="text" placeholder="默认" disabled="true" 　readOnly="true" ng-model="userRz.phone">
-                </div>
+                <!--<div class="input-row border_radius">-->
+                    <!--<label>手机号</label>-->
+                    <!--<input type="text" placeholder="默认" disabled="true" 　readOnly="true" ng-model="userRz.phone">-->
+                <!--</div>-->
                 <div class="input-row border_radius">
                     <label>真实姓名</label>
-                    <input type="text" placeholder="请输入您的真实姓名" ng-model="userRz.name">
+                    <input type="text" placeholder="请输入您的真实姓名" ng-model="verify.real_name">
                 </div>
                 <div class="input-row border_radius">
                     <label>身份证号</label>
-                    <input type="text" placeholder="请输入您的身份证号码" ng-model="userRz.idcard">
+                    <input type="text" placeholder="请输入您的身份证号码" ng-model="verify.id_number">
                 </div>
                 <div class="input-row border_radius">
                     <label>邮箱地址</label>
-                    <input type="text" placeholder="请输入您的邮箱地址" ng-model="userRz.email">
+                    <input type="text" placeholder="请输入您的邮箱地址" ng-model="verify.user_login">
                 </div>
                 <div class="input-row border_radius">
                     <label>支付宝账号</label>
-                    <input type="text" placeholder="请输入您的支付宝账号" ng-model="userRz.alipayNo">
+                    <input type="text" placeholder="请输入您的支付宝账号" ng-model="verify.alipay_account">
                 </div>
                 <div class="input-row border_radius">
                     <label>微信号</label>
-                    <input type="text" placeholder="选填" ng-model="userRz.weixin">
+                    <input type="text" placeholder="选填" ng-model="verify.weixin_account">
                 </div>
                 <div class="input-row border_radius">
-                    <label>联系人信息</label>
-                    <input type="text" placeholder="请输入您的联系人名称（选填）" ng-model="userRz.linkMan.name">
+                    <label>联系人类型</label>
+                    <div class="enter_year text-right">
+                        <select name="" id="" ng-model="verify.contactors.relation">
+                            <option ng-repeat="v in linkManType">{{v}}</option>
+                        </select>
+                    </div>
+                    <input type="text" placeholder="选填" ng-model="verify.contactors.relation">
+                </div>
+                <div class="input-row border_radius">
+                    <label>联系人姓名</label>
+                    <input type="text" placeholder="请输入您的联系人名称（选填）" ng-model="verify.contactors.name">
                 </div>
                 <div class="input-row border_radius">
                     <label>联系人手机</label>
-                    <input type="text" placeholder="请输入您的联系人手机号码（选填）" ng-model="userRz.linkMan.phone">
+                    <input type="text" placeholder="请输入您的联系人手机号码（选填）" ng-model="verify.contactors.phone">
                 </div>
 
             </form>

@@ -1,9 +1,5 @@
-<ion-view>
+<ion-view title="酒店详情">
     <ion-content>
-        <header class="bar bar-nav">
-            <a class="icon icon-left-nav pull-left" ng-click="changeTpl('hotelList.html');"></a>
-            <h1 class="title">酒店详情</h1>
-        </header>
         <div class="content pad50 grey" id="main_box">
             <dl class="hotel_show">
                 <dt>
@@ -30,7 +26,7 @@
                             <p>分<span>12</span>期，月供<span>{{v.amountbeforetax/12|currency:'￥'}}</span></p>
                             <p>{{v.invblockname}}/{{v.roomamenitycode.DescriptiveText}}/{{v.breakfast == 'false' ? '无早' : v.breakfast == 2 ? '含双早' : '含'+numberofbreakfast+'人早餐'}}</p>
                         </div>
-                        <div class="media-body pull-right">
+                        <div class="media-body pull-right pl-show-main">
                             <p>{{v.amountbeforetax|currency:'￥'}}</p>
                             <a href="#" class="btn btn-orange" ng-click="hotelBook(v.roomtypecode)">预定</a>
                         </div>

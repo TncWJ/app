@@ -19,7 +19,6 @@ em,i{font-style: normal;}
     zoom:1; /* for ie6 & ie7 */
 }
 ul li{list-style:none;}
-.pad50{padding-top:50px;}
 .pad90{padding-top:90px;}
 .pad10{padding:10px;}
 .padlr10{padding-left:10px;padding-right:10px;}
@@ -52,7 +51,6 @@ a.btn-orange:link,a.btn-orange:hover,a.btn-orange:visited{color:#fff;}
 	position: relative;
 	margin:0 auto;
 	min-height:100%;
-	padding-bottom:50px;
 }
 .orange{background:#ff6102;}
 .orange .title,.orange .icon,.orange .btn-link{color:#fff;background:none;}

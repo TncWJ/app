@@ -5457,20 +5457,20 @@ a.item-content {
   bottom: 20px;
   z-index: 1;
   width: 100%;
-  height: 15px;
+  height: 10px;
   text-align: center; }
   .slider-pager .slider-pager-page {
     display: inline-block;
     margin: 0px 3px;
-    width: 15px;
-    color: #000;
+    width: 10px;
+    color: #f60;
     text-decoration: none;
-    opacity: 0.3; }
+    opacity: 0.5; }
     .slider-pager .slider-pager-page.active {
       -webkit-transition: opacity 0.4s ease-in;
       transition: opacity 0.4s ease-in;
       opacity: 1; }
-
+.slider-pager .icon.ion-record{font-size:10px;}
 .scroll-refresher {
   position: absolute;
   top: -60px;
@@ -5865,7 +5865,7 @@ input[type="radio"], input[type="checkbox"] {
   width: auto; }
 
 input[type="file"] {
-  line-height: 34px; }
+  line-height: 24px; }
 
 .previous-input-focus, .cloned-text-input + input, .cloned-text-input + textarea {
   position: absolute !important;
@@ -6649,15 +6649,15 @@ progress {
         box-shadow: none;
         color: #fff; }
   .button.button-positive {
-    border-color: #0c63ee;
-    background-color: #387ef5;
+    border-color: #f60;
+    background-color: #ff6102;
     color: #fff; }
     .button.button-positive:hover {
       color: #fff;
       text-decoration: none; }
     .button.button-positive.active, .button.button-positive.activated {
-      border-color: #0c63ee;
-      background-color: #0c63ee;
+      border-color: #f60;
+      background-color: #ff6102;
       box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1); }
     .button.button-positive.button-clear {
       border-color: transparent;
