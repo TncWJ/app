@@ -1,0 +1,35 @@
+<ion-view title="费用&预订须知">
+    <ion-content>
+        <br class="content pad50 pad10" id="main_box">
+            <section>
+                <h3 class="maintit">费用包括</h3>
+                <div class="order_txt">
+                    <p data-ng-bind-html="travelDetal.li.feeinclude"></p>
+                </div>
+            </section>
+        <br>
+        <br>
+            <section>
+                <h3 class="maintit">费用不含</h3>
+                <div class="order_txt">
+                    <p data-ng-bind-html="travelDetal.li.feeexclude"></p>
+                </div>
+            </section>
+        <br>
+        <br>
+            <section>
+                <h3 class="maintit">预订须知</h3>
+                <h2 ng-if="travelDetal.li.supply_id == 1">
+                    本产品由上海驴妈妈兴旅国际旅行社有限公司及具有合法资质的地接社提供相关服务。
+                </h2>
+                <div class="order_txt">
+                    <div><strong>出行警示及说明</strong>
+                        <br>
+                        <br>
+                        <p data-ng-bind-html="travelDetal.li.warning"></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,6 +1,6 @@
 <ion-view title="学籍信息">
     <ion-content>
-        <div class="content pad50 grey" id="main_box">
+        <div class="content padt50 grey" id="main_box">
             <ul class="tx_bz">
                 <li>
                     <div></div>
@@ -28,14 +28,17 @@
                     <div class="school">
                         <!--省-->
                     <select ng-model="provinceId" ng-change="updateProvince(provinceId)">
+                         <option>省</option>
                         <option ng-repeat="v in provinceList.result_rows"  value="{{v.region_id}}">{{v.region_name}}</option>
                     </select>
                         <!--市-->
                     <select ng-model="city" ng-change="updateSchoolList(city)" ng-show="showCity">
+                         <option>市</option>
                         <option  ng-repeat="v in cityData" value="{{v.region_name}}">{{v.region_name}}</option>
                     </select>
                         <!--学院名-->
                     <select ng-model="schoolIndex" ng-change="updateSchoolName(schoolIndex)" ng-show="showSchool">
+                         <option>学院</option>
                         <option ng-repeat="v in schoolList" value="{{$index}}">{{v.name}}</option>
                     </select>
                     </div>

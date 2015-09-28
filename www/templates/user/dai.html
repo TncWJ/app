@@ -72,7 +72,8 @@
                         <div data-role="fieldcontain" class="demo-cont" id="demo_cont_select">
                             <label for="demo_select">贷款金额：</label>
                             <select name="Cities" id="demo_select" data-role="none" class="demo_select"
-                                    ng-model="curLoanPrice" ng-change="updateMonthPay([curPayMonth , curLoanPrice]);">
+                                    ng-model="curLoanPrice" ng-change="updateMonthPay([curPayMonth , curLoanPrice]);"
+                                    >
 
                                 <option ng-repeat="v in loanNum" ng-selected="v == 500" value="{{v}}">{{v}}</option>
                             </select>
@@ -90,10 +91,10 @@
                             <input type="text" ng-model="alipayNo" ng-change="update('alipayNo' , alipayNo);"/>
                         </div>
                         <div data-role="fieldcontain" class="demo-cont" id="demo_cont_select3">
-                            <label for="demo_select2">支付密码：</label>
+                            <label for="demo_select2">交易密码：</label>
                             <input type="password" ng-model="payPass" ng-change="update('payPass' , payPass);"/>
                         </div>
-                        <p class="edu">每月还款额度：{{payPrice}}<span></span></p>
+                        <p class="edu">每月还款额度：{{payPrice|currency:'￥'}}<span></span></p>
                     </div>
                     <button class="btn btn-orange btn-block" ng-click="commitLoan(alipayNo , payPass);">立即借贷</button>
                 </div>

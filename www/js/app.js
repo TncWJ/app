@@ -123,7 +123,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 url: '/user-order',
                 views: {
                     'tab-user': {
-                        templateUrl: 'templates/user/order.html'
+                        templateUrl: 'templates/user/order.html',
+                        controller:'UserOrderCtrl'
                     }
                 }
             })
@@ -473,6 +474,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                 }
             })
 
+            .state('tab.hotel-select2', {
+                url: '/hotel-select2',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/hotel/select2.html',
+                        controller: 'HotelCtrl'
+                    }
+                }
+            })
+
 
         /**
          * 机票
@@ -594,6 +605,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                     }
                 }
             })
+
+            .state('tab.travel-xz', {
+                url: '/travel-xz',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/travel/xz.html',
+                        controller:'TravelCtrl'
+                    }
+                }
+            })
+
 
         /**
          * 首页

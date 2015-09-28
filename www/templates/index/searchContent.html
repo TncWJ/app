@@ -1,4 +1,11 @@
 <ion-view title="搜索详情">
+    <ion-content scroll="false">
+        <div class="botphone popover2 yud">
+            <!--预定-->
+            <a href="#" ng-click="checkLogin('travel-order1')"></a>
+        </div>
+    </ion-content>
+
     <ion-content>
         <div class="content pad50 grey" id="main_box">
             <section>
@@ -56,23 +63,17 @@
                             </dl>
                             <div ng-if="searchDetal.li.trips == null">暂无详细信息</div>
                         </div>
-                        <p class="show trahasmo"><span class="icon icon-down-nav"></span><span class="icon icon-up-nav"></span></p>
                     </div>
                 </section>
                 <section>
-                    <ul class="table-view">
-                        <li class="table-view-cell">
-                            <a class="navigate-right" href="travel_xz.html">
+                    <ul class="table-view cor_border">
+                        <li class="table-view-cell" style="top:-50px;">
+                            <a class="navigate-right" href="#/tab/travel-xz">
                                 <h3 class="tra_con_tit fei">费用说明和预订须知</h3>
                             </a>
                         </li>
                     </ul>
                 </section>
-            </div>
-            <div class="bar bar-standard bar-footer yud">
-                <span class="icon icon-star" ng-click="addCollect();"></span>
-                <!--预定-->
-                <a href="#/tab/travel-order1"></a>
             </div>
     </ion-content>
 </ion-view>

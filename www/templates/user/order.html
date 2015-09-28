@@ -19,7 +19,7 @@
                             </dt>
                             <dd>
                                 <h5>{{(v.month_amount * v.finance_count)|currency:'￥'}}</h5>
-                                <a href="#/tab/pay" class="btn btn-orange">支付</a>
+                                <a href="#" ng-click="payNow(v.id  , v.order_type , v.amount)" class="btn btn-orange">支付</a>
                             </dd>
                         </dl>
                     </div>

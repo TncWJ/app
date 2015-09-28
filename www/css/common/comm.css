@@ -73,3 +73,6 @@ a.btn-orange:link,a.btn-orange:hover,a.btn-orange:visited{color:#fff;}
 .alertbox h3 .sclose{position:absolute;right:10px;top:5px;font-size:20px;}
 .alertmain{padding:10px;border-top:1px solid #ddd;border-bottom:1px solid #ddd;height:70px;text-align:center;line-height:40px;font-size:14px;}
 .alertbot{text-align:right;padding:5px 10px;}
+
+/*修复兼容*/
+.cor_border{border-top: hidden;}

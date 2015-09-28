@@ -29,5 +29,22 @@
                 </div>
             </section>
         </div>
+
+        <aside>
+            <section>
+                <h3 class="citytit">快速定位</h3>
+                <div class="citychooze clearfix">
+                    <a href="#" ng-repeat="v in pyList" ng-click="pySearchCity(v)"
+                       ng-class="curPy == v ? 'on' :''"
+                            >{{v}}</a>
+                </div>
+            </section>
+            <section>
+                <h3 class="citytit">{{curPy}}</h3>
+                <div class="citychooze2" name="A" id="A">
+                    <a href="#" ng-repeat="v in pyCityList" ng-click="setCurCity(v.city);">{{v.city}}</a>
+                </div>
+            </section>
+        </aside>
     </ion-content>
 </ion-view>

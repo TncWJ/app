@@ -1,10 +1,31 @@
-<ion-view title="旅游">
+<ion-view title="团游">
+    <ion-content scroll="false">
+        <div class="botphone popover2" ng-show="show">
+            <img src="images/logo.jpg" class="logo">
+            <h4>24小时客服电话</h4>
+
+            <p>{{conf.phone|phone}}（免长途费）</p>
+            <a class="btn btn-orange btn-block" href="tel:{{conf.phone}}">电话咨询</a>
+            <button class="btn btn-grey btn-block" ng-click="showPhone(false)">取消</button>
+        </div>
+    </ion-content>
+
     <ion-content>
         <ion-refresher
-                pulling-text="加载中。。。"
+                pulling-text="加载中..."
                 on-refresh="getLastPage(curPage - 1)"
                 ></ion-refresher>
         <div class="content grey" id="main_box">
+            <header class="bar bar-nav orange head">
+                <select name="" id="" ng-model="searchType">
+                    <option value="{{v.type}}" ng-repeat="v in typeList">{{v.name}}</option>
+                </select>
+            <a class="pull-left tab city" href="#">团游</a>
+            <!--<a class="pull-left tab city" href="#/tab/dash-choose">{{place.city}}</a>-->
+            <span class="callphone" ng-click="showPhone(true);"><img src="images/phoneicon.png"></span>
+
+            <h1 class="search-h1"><input type="search" placeholder="搜索目的地" ng-blur="search(keyword ,searchType);"
+                                         ng-model="keyword"><span class="icon icon-search" ng-click="search(keyword , searchType);"></span></h1></header>
             <section class="pad10 border_bottom white">
                 <div class="dest clearfix">
                     <a href="#" ng-repeat="v in hotCity.lists" ng-click="selCity(v.cityname)" ng-class="v.cityname == plane.dCity ? 'orange' : ''">{{v.cityname}}</a>

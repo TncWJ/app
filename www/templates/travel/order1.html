@@ -138,19 +138,29 @@
                                         <span style="color: #ff6102;line-height: 35px;">请输入游客英文名</span>
                                     </div>
                                 </div>
+                                <div class="input-row plane-fenq">
+                                    <label>分期(月)</label>
+
+                                    <div class="enter_year" style="width:65%;float:left;">
+                                        <select name="" id="" ng-model="pay_months">
+                                            <option ng-repeat="v in fenList" value="{{v}}" ng-selected="v == 12">{{v}}月
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
                             </dd>
                         </dl>
                     </div>
+                    <!--<div class="plane_total clearfix">-->
+                        <!--<div class="pull-left">&ndash;&gt;-->
+                            <!--<p><span ng-if="date">{{date}}出发，</span><em>总额：<span>{{(totalPrice*customers.length)|currency:'￥'}}</span></em><em><span>{{customers.length}}</span>成人</em></p>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </section>
                 <div class="pla_pay_btn">
                 <button type="submit" class="btn btn-block btn-orange">确认下单</button>
             </div>
             </div>
-            <!--<div class="plane_total clearfix">
-                <div class="pull-left">-->
-                    <!--<p><span ng-if="date">{{date}}出发，</span><em>总额：<span>{{(totalPrice*customers.length)|currency:'￥'}}</span></em><em><span>{{customers.length}}</span>成人</em></p>-->
-                <!--</div>
-            </div>-->
             
         </form>
 

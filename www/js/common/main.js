@@ -280,3 +280,24 @@ lyf.inObject = function (e, arr) {
     }
     return false;
 }
+
+/**
+ * 获取首拼
+ * @param py
+ */
+lyf.getHeaderPy = function(py){
+    return py != '' && py != null && py!= undefined ? py.substr(0 , 1) : false;
+}
+
+/**
+ * 获取在数组对象中匹配的列表(限 拼音匹配城市)
+ */
+lyf.getKeyInObjList = function(k , d ){
+    var arr = [];
+    for ( var i = 0; i < d.length; i ++ ){
+        if ( d[i].py == k){
+            arr.push({py:k , city:d[i].city});
+        }
+    }
+    return arr;
+}

@@ -1,16 +1,16 @@
 <ion-view title="订单支付">
     <ion-content>
         <div class="content pad50 grey" id="main_box">
-            <section class="order_infor">
-                <h3>单程  深圳-重庆</h3>
-                <p>2015-07-21  11:26 去</p>
-                <p>为了确保出票，请在12:30前完成支付。</p>
-                <h5>应付总额:<span>￥340.00</span></h5>
-            </section>
+            <!--<section class="order_infor">-->
+                <!--<h3>单程  深圳-重庆</h3>-->
+                <!--<p>2015-07-21  11:26 去</p>-->
+                <!--<p>为了确保出票，请在12:30前完成支付。</p>-->
+                <!--<h5>应付总额:<span>￥340.00</span></h5>-->
+            <!--</section>-->
             <section>
                 <ul class="table-view paylist">
                     <li class="table-view-cell media">
-                        <a class="navigate-right" ng-click="payable();">
+                        <a class="navigate-right" ng-click="payable(pay.order.pay_pass);">
                             <span class="media-object pull-left icon"><img src="images/icon/pay.jpg"></span>
                             <div class="media-body">
                                 分期付款
@@ -18,7 +18,7 @@
                         </a>
                     </li>
                     <li class="table-view-cell media">
-                        <a class="navigate-right" ng-click="fullPay();">
+                        <a class="navigate-right" ng-click="fullPay(pay.order.pay_pass);">
                             <span class="media-object pull-left icon"><img src="images/icon/pay2.jpg"></span>
                             <div class="media-body">
                                 直接付款
@@ -29,8 +29,8 @@
             </section>
             	<form class="input-group chpass">                   
                 <div class="input-row border_radius">
-                    <label>支付密码</label>
-                    <input type="password" placeholder="请输入支付密码">
+                    <label>交易密码</label>
+                    <input type="password" placeholder="请输入支付密码" ng-model="pay.order.pay_pass">
                 </div>
             </form>
         </div>
