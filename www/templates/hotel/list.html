@@ -1,4 +1,41 @@
 <ion-view title="酒店列表">
+    <ion-content scroll="false">
+      <nav class="botphone popover2 bar bar-tab plane_foo">
+            <a class="tab-item" href="#/tab/hotel-select">
+                <span class="icon"></span>
+                <span class="tab-label" >筛选</span>
+            </a>
+            <a class="tab-item haschone" ng-click="xinshow=true">
+                <span class="icon"></span>
+                <span class="tab-label">价格/星级</span>
+            </a>
+            <a class="tab-item pai haschtwo" ng-click="shaishow=true">
+                <span class="icon"></span>
+                <span class="tab-label">默认排序</span>
+            </a>
+        </nav>
+        <div class="botphone popover2 selectone" ng-show="xinshow">
+            <h3 class="choo_title"><em ng-click="xinshow=false">取消</em>选择排序方式</h3>
+            <ul class="link_list" ng-click="xinshow=false">
+                <li>100以下</li>
+                <li>100-200</li>
+                <li>200-300</li>
+                <li>300-500</li>
+                <li>500-700</li>
+                <li>700-1000</li>
+                <li>1000以上</li>
+            </ul>
+        </div>
+        <div class="botphone popover2 selecttwo" ng-show="shaishow">
+            <h3 class="choo_title"><em ng-click="shaishow=false">取消</em>选择排序方式</h3>
+            <ul class="link_list" ng-click="shaishow=false">
+                <li>价格从高到低</li>
+                <li>价格从低到高</li>
+                <li>销量从高到低</li>
+                <li>距离从近到远</li>
+            </ul>
+        </div>
+    </ion-content>
     <ion-content>
         <ion-refresher
                 pulling-text="加载中..."
@@ -35,42 +72,7 @@
                 </div>
             </div>
         </div>
-        <nav class="bar bar-tab plane_foo">
-            <a class="tab-item" href="#/tab/hotel-select">
-                <span class="icon"></span>
-                <span class="tab-label" >筛选</span>
-            </a>
-            <a class="tab-item haschone">
-                <span class="icon"></span>
-                <span class="tab-label">价格/星级</span>
-            </a>
-            <a class="tab-item pai haschtwo">
-                <span class="icon"></span>
-                <span class="tab-label">默认排序</span>
-            </a>
-        </nav>
-        <div class="mask"></div>
-        <div class="botphone popover2 selectone">
-            <h3 class="choo_title"><em>取消</em>选择排序方式</h3>
-            <ul class="link_list">
-                <li>100以下</li>
-                <li>100-200</li>
-                <li>200-300</li>
-                <li>300-500</li>
-                <li>500-700</li>
-                <li>700-1000</li>
-                <li>1000以上</li>
-            </ul>
-        </div>
-        <div class="botphone popover2 selecttwo">
-            <h3 class="choo_title"><em>取消</em>选择排序方式</h3>
-            <ul class="link_list">
-                <li>价格从高到低</li>
-                <li>价格从低到高</li>
-                <li>销量从高到低</li>
-                <li>距离从近到远</li>
-            </ul>
-        </div>
+        
         <ion-infinite-scroll
                 on-infinite="loadMore(curPage+1)"
                 distance="1%"

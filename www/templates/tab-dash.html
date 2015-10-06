@@ -1,9 +1,10 @@
-<header class="bar bar-nav orange head"">
-            <a class="pull-left tab city" href="#/tab/dash-choose">{{place.city}}</a>
-            <span class="callphone" ng-click="showPhone(true);"><img src="images/phoneicon.png"></span>
+<header class="orange head index-head">
+            <a class="tab city" href="#/tab/dash-choose">{{place.city}}</a>
 
             <h1 class="search-h1"><input type="search" placeholder="搜索目的地" ng-blur="search(keyword ,1);"
-                                         ng-model="keyword"><span class="icon icon-search" ng-click="search(keyword , 1);"></span></h1></header>
+                                         ng-model="keyword"><span class="icon icon-search" ng-click="search(keyword , 1);"></span></h1>
+            <span class="callphone" ng-click="showPhone(true);"><img src="images/phoneicon.png"></span>
+                                     </header>
 <ion-view view-title="">
     <ion-content scroll="false">
         

@@ -1,6 +1,22 @@
 <ion-view title="{{plane.dCity}}——{{plane.aCity}}">
+<ion-content scroll="false">
+        <nav class="bar bar-tab plane_foo botphone popover2">
+            <a class="tab-item" href="#">
+                <span class="icon"></span>
+                <span class="tab-label">筛选</span>
+            </a>
+            <a class="tab-item" href="#">
+                <span class="icon" ng-click="sortFlightList('sTime' , 'TakeOffTime');"></span>
+                <span class="tab-label" >时间</span>
+            </a>
+            <a class="tab-item active" href="#">
+                <span class="icon" ng-click="sortFlightList('sPrice' , 'OurPrice');"></span>
+                <span class="tab-label">票价由高到低</span>
+            </a>
+        </nav>
+    </ion-content>
     <ion-content>
-        <div class="content" id="main_box">
+        <div class="content padb50" id="main_box">
             <section>
                 <div class="chooze_time">
                     <div class="calender">
@@ -61,19 +77,5 @@
                 </ul>
             </section>
         </div>
-        <nav class="bar bar-tab plane_foo">
-            <a class="tab-item" href="#">
-                <span class="icon"></span>
-                <span class="tab-label">筛选</span>
-            </a>
-            <a class="tab-item" href="#">
-                <span class="icon" ng-click="sortFlightList('sTime' , 'TakeOffTime');"></span>
-                <span class="tab-label" >时间</span>
-            </a>
-            <a class="tab-item active" href="#">
-                <span class="icon" ng-click="sortFlightList('sPrice' , 'OurPrice');"></span>
-                <span class="tab-label">票价由高到低</span>
-            </a>
-        </nav>
     </ion-content>
 </ion-view>

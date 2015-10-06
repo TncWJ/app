@@ -52,17 +52,17 @@ h1,h2,h3,h4,h5,h6{font-size:14px;}
 }
 /*conindex*/
 .head{position: relative;}
-.head h1{margin:0px 30px 0px 85px;font-size:13px;width:100%;}
+.head h1 {margin-bottom: 0;margin-top: 4px;}
 .head h1 input{font-size:12px;padding-left:10px;background:#fff;background-size: 19px;}
-.head h1 input[type=search]{border:none;font-weight: normal;margin: 2px 0;}
-.head a.tab{color:#fff;font-weight:bold;line-height:44px;margin-left:-10px;padding-right:13px;background:url(../../images/tab.png) right center no-repeat;display:block;width:80px;padding-right:12px;text-align:center;}
-.head span img{width:16px;height:22px;margin-right:5px;}
+.head h1 input[type=search]{border:none;font-weight: normal;}
+.head a.tab{color:#fff;font-weight:bold;display:block;line-height:44px;margin-left:-10px;padding-right:13px;background:url(../../images/tab.png) right center no-repeat;display:block;width:75px;text-align:center;margin-right: 10px;}
+.head span img{width:16px;height:22px;margin-right:10px;margin-left: 10px;}
 .orange{background:#ff6102;}
 .orange .title,.orange .icon,.orange .btn-link{color:#fff;background:none;}
 .bar.orange{border:none;}
 .logo{width:35%;margin:20px auto 0;display:block;max-width:232px;}
-.head .city{position: absolute;top:0px;left:10px;}
-.head .callphone{position: absolute;top:10px;right:10px;display: block;width: 16px;height: 22px;}
+.head .city{display: block;}
+.head .callphone{display: block;width: 36px;height: 22px;margin-top: 10px;}
 .addWrap{ position:relative; width:100%;background:#fff;margin:0; padding:0;}
 .addWrap.wrap2 img{height: 150px;width:100%;}
 .addWrap img{min-height:130px;}
@@ -222,7 +222,7 @@ a.more_cw span{font-size: 12px;margin-left: 5px;}
 .plane_list li a .listtwo h3{color: #ff6102;font-size: 16px;margin-bottom: 5px;}
 .hk_list img{width: 20px;height: 18px;float: left;margin-right: 5px;}
 .hk_list em{margin: 0px 5px;}
-.plane_foo{background: rgba(0,0,0,0.7);position: absolute !important;bottom: 0;left: 0;height: 44px;}
+.plane_foo{background: rgba(0,0,0,0.7) !important;position: absolute !important;bottom: 0;left: 0;height: 50px;padding:0 !important;}
 .plane_foo .tab-item{color: #fff !important;}
 .plane_foo .tab-item.active{color:#ff6102;}
 .plane_foo .tab-item span.icon{display:block;width: 25px;height: 25px;margin: 0 auto;}
@@ -412,7 +412,7 @@ padding:10px;
 .hotel_list dd{width:90px;text-align:right;padding-top:20px;}
 .popover2 .link_list{padding:0px 20px;}
 .popover2 .link_list li{height:40px;line-height:40px;border-bottom:1px solid #ddd;text-align:center;}
-.popover2 .link_list li.on{background:#f2f2f2;}
+.popover2 .link_list li:hover,.popover2 .link_list li.on{background:#f2f2f2;}
 .popover2 .link_list li:last-child{border:none;}
 .popover2 .choo_title em{color:#F60;float:left;}
 .popover2 .choo_title{text-align:center;height:30px;line-height:30px;}
@@ -479,10 +479,16 @@ padding:10px;
 .chooze-head input[type=search]{height: 29px;}
 .search-h1{position: relative;}
 .search-h1 input,.search-h1 span{display:block;}
-.search-h1 span.icon{width: 30px;position: absolute;top:5px;right: 35px;color: #ccc;}
+.search-h1 span.icon{width: 30px;position: absolute;top:7px;right: 5px;color: #ccc;}
 .search-h1.search-more span.icon{right: 5px;}
 .destin_di{text-align: center;margin: 10px 0;}
 .destin_ding{text-align: center;margin:-30px 0 10px;}
+.index-head{display:-webkit-box;display:-moz-box;display:box;position: fixed;top:0;left: 0;width:100%;height:44px;z-index:99;}
+.index-head a,.index-head span{display:block !important;}
+.index-head .search-h1{-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;}
+.box-chooze{width:100%;background: #fff;position: absolute;top:40px;left: 0;z-index:100;}
+.box-chooze li{height: 35px;line-height: 35px;text-align: center;border-bottom: 1px solid #ddd;}
+.box-chooze li:hover{background: #f2f2f2;}
 @media screen and (max-width: 640px){
 
 .ho_se_left{left:0;margin-left: 0;}

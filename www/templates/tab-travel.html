@@ -16,17 +16,24 @@
                 on-refresh="getLastPage(curPage - 1)"
                 ></ion-refresher>
         <div class="content grey" id="main_box">
-            <header class="bar bar-nav orange head">
-                <select name="" id="" ng-model="searchType">
+            <header class="orange head index-head">
+                <!--<select name="" id="" ng-model="searchType">
                     <option value="{{v.type}}" ng-repeat="v in typeList">{{v.name}}</option>
-                </select>
-            <a class="pull-left tab city" href="#">团游</a>
+                </select>-->
+            <a class="tab city" href="#" ng-click="show=!show">团游</a>
             <!--<a class="pull-left tab city" href="#/tab/dash-choose">{{place.city}}</a>-->
-            <span class="callphone" ng-click="showPhone(true);"><img src="images/phoneicon.png"></span>
 
             <h1 class="search-h1"><input type="search" placeholder="搜索目的地" ng-blur="search(keyword ,searchType);"
-                                         ng-model="keyword"><span class="icon icon-search" ng-click="search(keyword , searchType);"></span></h1></header>
-            <section class="pad10 border_bottom white">
+                                         ng-model="keyword"><span class="icon icon-search" ng-click="search(keyword , searchType);"></span></h1>
+            <span class="callphone" ng-click="showPhone(true);"><img src="images/phoneicon.png"></span>
+
+                                     </header>
+             <ul class="box-chooze" ng-show="show" ng-click="show=false;">
+                 <li>机票</li>
+                 <li>旅游</li>
+                 <li>酒店</li>
+             </ul>                            
+            <section class="pad10 border_bottom white padt50">
                 <div class="dest clearfix">
                     <a href="#" ng-repeat="v in hotCity.lists" ng-click="selCity(v.cityname)" ng-class="v.cityname == plane.dCity ? 'orange' : ''">{{v.cityname}}</a>
                 </div>
